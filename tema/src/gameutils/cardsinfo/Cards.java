@@ -1,4 +1,4 @@
-package gameutils;
+package gameutils.cardsinfo;
 
 import fileio.CardInput;
 
