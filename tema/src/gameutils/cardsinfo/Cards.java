@@ -33,6 +33,16 @@ public class Cards {
         this.colors = cards.getColors();
     }
 
+    public Cards(final String name, final int mana, final int attackDamage, final int health,final String description, final ArrayList<String> colors) {
+        // constructor for card attributes
+        this.name = name;
+        this.mana = mana;
+        this.attackDamage = attackDamage;
+        this.health = health;
+        this.description = description;
+        this.colors = colors;
+    }
+
     public Cards() {
         // default constructor
         this.name = "";

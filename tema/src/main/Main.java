@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import checker.CheckerConstants;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.Input;
+import gameutils.StartGame;
 
 import java.io.File;
 import java.io.IOException;
@@ -68,13 +69,21 @@ public final class Main {
         Input inputData = objectMapper.readValue(new File(CheckerConstants.TESTS_PATH + filePath1),
                 Input.class);
 
-        ObjectNode objectNode = objectMapper.createObjectNode();
-        objectNode.put("nrDecks",inputData.getPlayerOneDecks().getNrDecks());
+//        ObjectNode objectNode = objectMapper.createObjectNode();
+//        objectNode.put("nrDecks",inputData.getPlayerOneDecks().getNrDecks());
         ArrayNode output = objectMapper.createArrayNode();
 
-        output.add(objectNode);
+        //output.add(objectNode);
 
         //System.out.println(inputData.getGames().get(0).getActions());
+        StartGame startgame = new StartGame();
+        startgame.runGame(inputData, output);
+
+
+        //game.StartGame();
+        //ArrayNode result = game.getOutput();
+
+
         /*
          * TODO Implement your function here
          *
