@@ -77,7 +77,7 @@ public final class Main {
 
         //System.out.println(inputData.getGames().get(0).getActions());
         StartGame startgame = new StartGame();
-        startgame.runGame(inputData, output);
+        startgame.runGame(inputData);
 
 
         //game.StartGame();

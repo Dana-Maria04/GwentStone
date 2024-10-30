@@ -1,6 +1,7 @@
 package gameutils;
 
 import fileio.CardInput;
+import gameutils.cardsinfo.heroes.Hero;
 
 import java.util.ArrayList;
 
@@ -98,4 +99,5 @@ public class GameStats {
     public void setTurnsCnt(int turnsCnt) {
         this.turnsCnt = turnsCnt;
     }
+
 }

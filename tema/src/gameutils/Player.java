@@ -23,4 +23,9 @@ public class Player {
     public void setWinCnt(int winCnt) {
         this.winCnt = winCnt;
     }
+
+    public void incWinCnt() {
+        this.winCnt++;
+    }
+
 }

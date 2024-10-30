@@ -1,59 +1,60 @@
 package gameutils;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import fileio.ActionsInput;
 import fileio.CardInput;
 import fileio.Input;
+import gameutils.cardsinfo.Cards;
+import gameutils.cardsinfo.heroes.Hero;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 
 public class StartGame {
-    private Player player1 = new Player();
-    private Player player2 = new Player();
-    private GameStats gameStats = new GameStats();
 
-    private static StartGame game;
+    protected Player[] player;
+    protected ArrayList<ActionsInput> actionsinputs = new ArrayList<>();
+    protected ObjectMapper mapper = new ObjectMapper();
 
-    public StartGame() {
-    }
 
-    public void runGame(final Input input, final ArrayNode output) {
-        Input in = input;
-        ArrayNode out = output;
+    public ArrayNode runGame(Input input) {
 
-        int gameIterator = 0;
+        ArrayNode output = mapper.createArrayNode();
+        // todo initialise the players , decks , cards , and heroes
 
-        while(gameIterator < in.getGames().size()) {
-            gameStats.setEndedCnt(0);
-            gameStats.setTurnsCnt(0);
-            int roundNr = 0;
-            player1.setMana(1);
-            player2.setMana(1);
 
-            if (gameIterator == 0) {
-                player1.setWinCnt(0);
-                player2.setWinCnt(0);
-                gameStats.setPlayedCnt(0);
+        // todo handle commands
+        actionsinputs = input.getGames().get(0).getActions();
+
+        for(ActionsInput action : actionsinputs){
+            ObjectNode actionNode = mapper.createObjectNode();
+
+            switch(action.getCommand()){
+                case "getPlayerDeck":
+                    // todo getPlayerDeck
+                    break;
+                case "getPlayeHero":
+                    // todo getplayerhero
+                    break;
+                case "getPlayerTurn":
+                    // todo gateplayerturn
+                    break;
+                default:
+                    break;
             }
-
-            // Get the players
-            int player1Idx = in.getGames().get(gameIterator).getStartGame().getPlayerOneDeckIdx();
-            gameStats.setIdxP1(player1Idx);
-
-            int player2Idx = in.getGames().get(gameIterator).getStartGame().getPlayerTwoDeckIdx();
-            gameStats.setIdxP2(player2Idx);
-
-            ArrayList<CardInput> currentDeck1 = in.getPlayerOneDecks().getDecks().get(player1Idx);
-            gameStats.setDeckCrrtP1(currentDeck1);
-
-            ArrayList<CardInput> currentDeck2 = in.getPlayerOneDecks().getDecks().get(player1Idx);
-            gameStats.setDeckCrrtP2(currentDeck2);
-
-            gameStats.setCardsInDeckP1(currentDeck1.size());
-            gameStats.setCardsInDeckP2(currentDeck2.size());
-
-            gameIterator++; // Increment counter
-
         }
+
     }
+
+
+
+
+
 }
+
+
+

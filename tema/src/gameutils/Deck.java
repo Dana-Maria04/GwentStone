@@ -9,6 +9,10 @@ import java.util.Random;
 public class Deck { //final?
     private ArrayList<Cards> cards;
 
+    private ArrayList<Cards> deckP1 = new ArrayList<>();
+
+    private ArrayList<Cards> deckP2 = new ArrayList<>();
+
     public Deck() {
         //default constructor
         cards = new ArrayList<>();
@@ -17,6 +21,22 @@ public class Deck { //final?
     //getter
     public ArrayList<Cards> getCards() {
         return cards;
+    }
+
+    public ArrayList<Cards> getDeckP1() {
+        return deckP1;
+    }
+
+    public void setDeckP1(ArrayList<Cards> deckP1) {
+        this.deckP1 = deckP1;
+    }
+
+    public ArrayList<Cards> getDeckP2() {
+        return deckP2;
+    }
+
+    public void setDeckP2(ArrayList<Cards> deckP2) {
+        this.deckP2 = deckP2;
     }
 
     //setter
