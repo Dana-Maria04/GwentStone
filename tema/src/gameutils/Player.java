@@ -3,6 +3,24 @@ package gameutils;
 public class Player {
     private int mana=1;
     private int winCnt=0;
+    protected int DeckIdx;
+    private Deck deck;
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public void setDeck(Deck deck) {
+        this.deck = deck;
+    }
+
+    public int getDeckIdx() {
+        return DeckIdx;
+    }
+
+    public void setDeckIdx(int deckIdx) {
+        DeckIdx = deckIdx;
+    }
 
     public void addWin(){
         this.winCnt++;

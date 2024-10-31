@@ -1,66 +1,29 @@
 package gameutils;
 
+import fileio.DecksInput;
 import gameutils.cardsinfo.Cards;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Random;
+import gameutils.cardsinfo.Cards;
 
-public class Deck { //final?
-    private ArrayList<Cards> cards;
+import java.util.List;
+import gameutils.cardsinfo.Minions;
 
-    private ArrayList<Cards> deckP1 = new ArrayList<>();
+import fileio.CardInput;
 
-    private ArrayList<Cards> deckP2 = new ArrayList<>();
+public class Deck {
 
-    public Deck() {
-        //default constructor
-        cards = new ArrayList<>();
+    private DecksInput deck;
+
+    public DecksInput getDeck() {
+        return deck;
     }
 
-    //getter
-    public ArrayList<Cards> getCards() {
-        return cards;
+    public void setDeck(DecksInput deck) {
+        this.deck = deck;
     }
 
-    public ArrayList<Cards> getDeckP1() {
-        return deckP1;
-    }
 
-    public void setDeckP1(ArrayList<Cards> deckP1) {
-        this.deckP1 = deckP1;
-    }
-
-    public ArrayList<Cards> getDeckP2() {
-        return deckP2;
-    }
-
-    public void setDeckP2(ArrayList<Cards> deckP2) {
-        this.deckP2 = deckP2;
-    }
-
-    //setter
-    public void setCards(ArrayList<Cards> cards) {
-        this.cards = cards;
-    }
-
-    public void shuffleDeck(int seed){
-        Random shuffle = new Random(seed);
-        Collections.shuffle(cards, shuffle);
-    }
-
-    public Cards drawCard(){
-        if(!cards.isEmpty()){
-            return cards.remove(0); // return first card
-        }
-        return null; // empty deck
-    }
-
-    public void addCard(Cards card){
-        cards.add(card);
-    }
-
-    public void resetDeck(ArrayList<Cards> initialCards){
-        cards = new ArrayList<>(initialCards);
-    }
 }

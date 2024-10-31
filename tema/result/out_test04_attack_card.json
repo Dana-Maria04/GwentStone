@@ -1,4 +1,103 @@
 [ {
-  "player1IDX" : 2,
-  "player2IDX" : 2
+  "output" : [ {
+    "mana" : 3,
+    "attackDamage" : 0,
+    "health" : 1,
+    "description" : "Standard card: Thrown from the highest cliff, revenge will be his glory.",
+    "colors" : [ "Black", "White", "Red" ],
+    "name" : "The Cursed One"
+  }, {
+    "mana" : 5,
+    "attackDamage" : 5,
+    "health" : 3,
+    "description" : "Premium card: Insanity is always an option, now it is an absolute.",
+    "colors" : [ "Red", "Black" ],
+    "name" : "Miraj"
+  }, {
+    "mana" : 4,
+    "attackDamage" : 2,
+    "health" : 8,
+    "description" : "Standard card: A warrior who is never afraid of battle, no matter the costs",
+    "colors" : [ "Red", "Purple" ],
+    "name" : "Goliath"
+  }, {
+    "mana" : 5,
+    "attackDamage" : 5,
+    "health" : 3,
+    "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
+    "colors" : [ "Yellow", "Orange", "Red" ],
+    "name" : "Miraj"
+  }, {
+    "mana" : 3,
+    "attackDamage" : 2,
+    "health" : 7,
+    "description" : "Standard card: A warrior who is never afraid of battle, no matter the costs",
+    "colors" : [ "Brown", "Black", "Grey" ],
+    "name" : "Goliath"
+  }, {
+    "mana" : 2,
+    "attackDamage" : 3,
+    "health" : 6,
+    "description" : "Premium card: You shall not pass, you shall not prevail, you shall perish.",
+    "colors" : [ "Black", "White", "Green" ],
+    "name" : "Warden"
+  }, {
+    "mana" : 2,
+    "attackDamage" : 0,
+    "health" : 1,
+    "description" : "Premium card: Nobody suspects an outcast, not even the Gods.",
+    "colors" : [ "Pink", "Purple" ],
+    "name" : "The Cursed One"
+  } ]
+}, {
+  "output" : [ {
+    "mana" : 3,
+    "attackDamage" : 0,
+    "health" : 1,
+    "description" : "Standard card: Thrown from the highest cliff, revenge will be his glory.",
+    "colors" : [ "Black", "White", "Red" ],
+    "name" : "The Cursed One"
+  }, {
+    "mana" : 5,
+    "attackDamage" : 5,
+    "health" : 3,
+    "description" : "Premium card: Insanity is always an option, now it is an absolute.",
+    "colors" : [ "Red", "Black" ],
+    "name" : "Miraj"
+  }, {
+    "mana" : 4,
+    "attackDamage" : 2,
+    "health" : 8,
+    "description" : "Standard card: A warrior who is never afraid of battle, no matter the costs",
+    "colors" : [ "Red", "Purple" ],
+    "name" : "Goliath"
+  }, {
+    "mana" : 5,
+    "attackDamage" : 5,
+    "health" : 3,
+    "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
+    "colors" : [ "Yellow", "Orange", "Red" ],
+    "name" : "Miraj"
+  }, {
+    "mana" : 3,
+    "attackDamage" : 2,
+    "health" : 7,
+    "description" : "Standard card: A warrior who is never afraid of battle, no matter the costs",
+    "colors" : [ "Brown", "Black", "Grey" ],
+    "name" : "Goliath"
+  }, {
+    "mana" : 2,
+    "attackDamage" : 3,
+    "health" : 6,
+    "description" : "Premium card: You shall not pass, you shall not prevail, you shall perish.",
+    "colors" : [ "Black", "White", "Green" ],
+    "name" : "Warden"
+  }, {
+    "mana" : 2,
+    "attackDamage" : 0,
+    "health" : 1,
+    "description" : "Premium card: Nobody suspects an outcast, not even the Gods.",
+    "colors" : [ "Pink", "Purple" ],
+    "name" : "The Cursed One"
+  } ]
 } ]

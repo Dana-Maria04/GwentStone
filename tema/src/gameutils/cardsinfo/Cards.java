@@ -9,6 +9,25 @@ public class Cards {
 
     private CardInput card;
 
+//    public Cards(final int mana, final int attackDamage, final int health,
+//                     final String description, final ArrayList<String> colors,
+//                     final String name, final boolean isFrozen, final boolean hasAttacked) {
+//        this.card.setMana(mana);
+//        this.card.setAttackDamage(attackDamage);
+//        this.card.setHealth(health);
+//        this.card.setDescription(description);
+//        this.colors = colors;
+//        this.setName(name);
+//        this.isFrozen = isFrozen;
+//        this.hasAttacked = hasAttacked;
+//    }
+
+
+    public CardInput getCardInput() {
+        return this.card;
+    }
+
+
     private Hero HeroP1;
     private Hero HeroP2;
 

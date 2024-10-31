@@ -13,95 +13,49 @@ import gameutils.Table;
 import gameutils.cardsinfo.Cards;
 import gameutils.cardsinfo.Minions;
 import gameutils.cardsinfo.heroes.Hero;
+import gameutils.Deck;
 
+import javax.smartcardio.Card;
 import java.util.ArrayList;
 
 public class CommandHandler {
-    private final StartGame game;
-    private final GameStats gameStats;
-    private final ArrayNode output;
-    private final Table table;
-    private final Deck gameDeck;
-    private final Cards gameCards;
+
+    public void getPlayerDeck(ArrayList<CardInput> deckP1, ArrayList<CardInput> deckP2,ObjectNode actionNode, ActionsInput action, ArrayNode output) {
+//        actionNode.put("command", action.getCommand());
+//        actionNode.put("playerIdx", action.getPlayerIdx());
+//        Deck deck = player[action.getPlayerIdx() - 1].getDeck();
+//        ArrayList<CardInput> playerDeck = deck.getDeck().getDecks().get(action.getPlayerIdx() - 1);
+        ArrayNode deckArray = actionNode.putArray("output");
+
+        ArrayList<CardInput> playerDeck;
+        playerDeck = new ArrayList<>();
+
+        if(action.getPlayerIdx() - 1 == 0)
+            playerDeck = deckP1;
+        else
+            playerDeck = deckP2;
 
 
-    public CommandHandler(final StartGame game, final GameStats gameStats, final ArrayNode output, final Table table, final Deck gameDeck, final Cards gameCards) {
-        this.game = game;
-        this.gameStats = gameStats;
-        this.output = output;
-        this.table = table;
-        this.gameDeck = gameDeck;
-        this.gameCards = gameCards;
-    }
+        for (CardInput card : playerDeck) {
+            ObjectNode cardNode = actionNode.objectNode();
 
-    private int playerTurn;
+            cardNode.put("mana", card.getMana());
+            cardNode.put("attackDamage", card.getAttackDamage());
+            cardNode.put("health", card.getHealth());
+            cardNode.put("description", card.getDescription());
 
-    public void actionsHandler(final ActionsInput actionsInput, final Input input) {
-        for (int i = 0; i < input.getGames().size(); i++) {
-            playerTurn = input.getGames().get(i).getStartGame().getStartingPlayer();
+            ArrayNode colorsArray = cardNode.putArray("colors");
+            for (String color : card.getColors()) {
+                colorsArray.add(color);
+            }
+
+            cardNode.put("name", card.getName());
+
+            deckArray.add(cardNode);
         }
-        switch (actionsInput.getCommand()) {
-            case "getPlayerDeck" -> {
-                ObjectNode newNode = output.addObject();
-                int whichPlayer = actionsInput.getPlayerIdx();
-                newNode.put("command", actionsInput.getCommand());
-                newNode.put("playerIdx", actionsInput.getPlayerIdx());
-                ArrayNode outputArray = newNode.putArray("output");
-                ArrayList<Cards> deck;
-                if (whichPlayer == 1) {
-                    deck = gameDeck.getDeckP1();
-                } else {
-                    deck = gameDeck.getDeckP2();
-                }
-                for (int i = 0; i < deck.size(); i++) {
-                    CardInput tempCard = deck.get(i).getCard();
-                    ObjectNode cardNode = outputArray.addObject();
-                    cardNode.put("mana", tempCard.getMana());
-                    cardNode.put("attackDamage", tempCard.getAttackDamage());
-                    cardNode.put("health", tempCard.getHealth());
-                    cardNode.put("description", tempCard.getDescription());
-                    ArrayNode colorsArray = cardNode.putArray("colors");
-                    for (int j = 0; j < tempCard.getColors().size(); j++) {
-                        colorsArray.add(tempCard.getColors().get(j));
-                    }
-                    cardNode.put("name", tempCard.getName());
-                }
-                break;
-            }
-            case "getPlayerHero" -> {
-                ObjectNode newNode = output.addObject();
-                int whichPlayer = actionsInput.getPlayerIdx();
-                newNode.put("command", actionsInput.getCommand());
-                newNode.put("playerIdx", actionsInput.getPlayerIdx());
-                ObjectNode heroNode = newNode.putObject("output");
-                CardInput hero;
-                if (whichPlayer == 1) {
-                    hero = table.getHeroP1().getCard();
-                } else {
-                    hero = table.getHeroP2().getCard();
-                }
-                heroNode.put("mana", hero.getMana());
-                heroNode.put("description", hero.getDescription());
-                ArrayNode colorsArray = heroNode.putArray("colors");
-                for (int j = 0; j < hero.getColors().size(); j++) {
-                    colorsArray.add(hero.getColors().get(j));
-                }
-                heroNode.put("name", hero.getName());
-                Hero tempHero;
-                if (whichPlayer == 1) {
-                    tempHero = gameCards.getHeroP1();
-                } else {
-                    tempHero = gameCards.getHeroP2();
-                }
-                heroNode.put("health", tempHero.getHealth());
-                break;
-            }
-            case "getPlayerTurn" -> {
-                ObjectNode newNode = output.addObject();
-                newNode.put("command", actionsInput.getCommand());
-                newNode.put("output", playerTurn);
-                break;
-            }
-        }
+
+        output.add(actionNode);
+
+
     }
 }
