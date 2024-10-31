@@ -22,10 +22,8 @@ import java.util.ArrayList;
 public class CommandHandler {
 
     public void getPlayerDeck(ArrayList<CardInput> deckP1, ArrayList<CardInput> deckP2,ObjectNode actionNode, ActionsInput action, ArrayNode output) {
-//        actionNode.put("command", action.getCommand());
-//        actionNode.put("playerIdx", action.getPlayerIdx());
-//        Deck deck = player[action.getPlayerIdx() - 1].getDeck();
-//        ArrayList<CardInput> playerDeck = deck.getDeck().getDecks().get(action.getPlayerIdx() - 1);
+        actionNode.put("command", action.getCommand());
+        actionNode.put("playerIdx", action.getPlayerIdx());
         ArrayNode deckArray = actionNode.putArray("output");
 
         ArrayList<CardInput> playerDeck;
