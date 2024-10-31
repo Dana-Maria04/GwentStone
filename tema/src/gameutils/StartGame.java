@@ -77,18 +77,13 @@ public class StartGame {
             CommandHandler commandHandler = new CommandHandler();
             switch(action.getCommand()){
                 case "getPlayerDeck":
-                    // todo getPlayerDeck
-                    //int playerIdx = action.getPlayerIdx();
-//                    commandHandler.getPlayerDeck(actionNode, player, action, output);
-
                     commandHandler.getPlayerDeck(deckP1, deckP2, actionNode, action, output);
-
                     break;
-                case "getPlayeHero":
+                case "getPlayerHero":
                     // todo getplayerhero
+                    commandHandler.getPlayerHero(actionNode, output, action, input);
                     break;
                 case "getPlayerTurn":
-                    // todo gateplayerturn
                     commandHandler.getPlayerTurn(actionNode, output, action, playerTurn);
                     break;
                 default:
