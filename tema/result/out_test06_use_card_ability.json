@@ -1,4 +1,13 @@
 [ {
+  "command" : "getPlayerTurn",
+  "output" : 2
+}, {
+  "command" : "getPlayerTurn",
+  "output" : 2
+}, {
+  "command" : "getPlayerTurn",
+  "output" : 2
+}, {
   "output" : [ {
     "mana" : 3,
     "attackDamage" : 5,

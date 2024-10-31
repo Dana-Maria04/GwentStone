@@ -58,4 +58,7 @@
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper"
   } ]
+}, {
+  "command" : "getPlayerTurn",
+  "output" : 2
 } ]

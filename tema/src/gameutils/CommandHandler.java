@@ -59,4 +59,15 @@ public class CommandHandler {
 
 
     }
+
+    public void getPlayerTurn(ObjectNode actionNode, ArrayNode output, ActionsInput action, int startingPlayer) {
+        ObjectNode turnNode = actionNode.objectNode();
+
+        turnNode.put("command", action.getCommand());
+        turnNode.put("output", startingPlayer + 1);
+
+        output.add(turnNode);
+
+
+    }
 }

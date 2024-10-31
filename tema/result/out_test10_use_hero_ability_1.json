@@ -1,1 +1,4 @@
-[ ]
+[ {
+  "command" : "getPlayerTurn",
+  "output" : 2
+} ]

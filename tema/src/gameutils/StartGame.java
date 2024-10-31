@@ -37,7 +37,7 @@ public class StartGame {
         WinP1 = 0;
         WinP2 = 0; // initialize wins
 
-
+        int playerTurn = 0;
         for(int i = 0 ; i < input.getGames().size(); i++ ){
             ObjectMapper mapper = new ObjectMapper();
             CommandHandler commandsHandler = new CommandHandler();
@@ -66,9 +66,8 @@ public class StartGame {
             // shuffle the decks
             Collections.shuffle(deckP1, new Random(randSeed));
             Collections.shuffle(deckP2, new Random(randSeed));
-
+            playerTurn = startGame.getStartingPlayer() - 1;
         }
-
         // todo handle commands
         actionsinputs = input.getGames().get(0).getActions();
 
@@ -90,6 +89,7 @@ public class StartGame {
                     break;
                 case "getPlayerTurn":
                     // todo gateplayerturn
+                    commandHandler.getPlayerTurn(actionNode, output, action, playerTurn);
                     break;
                 default:
                     break;

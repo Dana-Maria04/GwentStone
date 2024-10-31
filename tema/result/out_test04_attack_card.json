@@ -1,4 +1,10 @@
 [ {
+  "command" : "getPlayerTurn",
+  "output" : 1
+}, {
+  "command" : "getPlayerTurn",
+  "output" : 1
+}, {
   "output" : [ {
     "mana" : 3,
     "attackDamage" : 0,
