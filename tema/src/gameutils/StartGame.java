@@ -37,26 +37,29 @@ public class StartGame {
         WinP1 = 0;
         WinP2 = 0; // initialize wins
 
+
         for(int i = 0 ; i < input.getGames().size(); i++ ){
             ObjectMapper mapper = new ObjectMapper();
             CommandHandler commandsHandler = new CommandHandler();
             // get the seed for the shuffle
             int randSeed = input.getGames().get(i).getStartGame().getShuffleSeed();
-
             // get the decks for the players
             int deckIdx1 = input.getGames().get(i).getStartGame().getPlayerOneDeckIdx();
             int deckIdx2 = input.getGames().get(i).getStartGame().getPlayerTwoDeckIdx();
 
+
             StartGameInput startGame = new StartGameInput();
             startGame = input.getGames().get(i).getStartGame();
+
 
             for(int p1 = 0 ; p1 < input.getPlayerOneDecks().getNrCardsInDeck(); p1++){
                 CardInput cardInput = input.getPlayerOneDecks().getDecks().get(deckIdx1).get(p1);
                 deckP1.add(new Cards(cardInput).getCardInput());
+
             }
 
-            for(int p2 = 0 ; p2 < input.getPlayerOneDecks().getNrCardsInDeck(); p2++){
-                CardInput cardInput = input.getPlayerOneDecks().getDecks().get(deckIdx2).get(p2);
+            for(int p2 = 0 ; p2 < input.getPlayerTwoDecks().getNrCardsInDeck(); p2++){
+                CardInput cardInput = input.getPlayerTwoDecks().getDecks().get(deckIdx2).get(p2);
                 deckP2.add(new Cards(cardInput).getCardInput());
             }
 

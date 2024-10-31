@@ -39,19 +39,20 @@ public class CommandHandler {
         for (CardInput card : playerDeck) {
             ObjectNode cardNode = actionNode.objectNode();
 
-            cardNode.put("mana", card.getMana());
-            cardNode.put("attackDamage", card.getAttackDamage());
-            cardNode.put("health", card.getHealth());
-            cardNode.put("description", card.getDescription());
+            if(!card.getName().equals("Berserker") && !card.getName().equals("Sentinel")) {
+                cardNode.put("mana", card.getMana());
+                cardNode.put("attackDamage", card.getAttackDamage());
+                cardNode.put("health", card.getHealth());
+                cardNode.put("description", card.getDescription());
+                ArrayNode colorsArray = cardNode.putArray("colors");
+                for (String color : card.getColors()) {
+                    colorsArray.add(color);
+                }
 
-            ArrayNode colorsArray = cardNode.putArray("colors");
-            for (String color : card.getColors()) {
-                colorsArray.add(color);
+                cardNode.put("name", card.getName());
+
+                deckArray.add(cardNode);
             }
-
-            cardNode.put("name", card.getName());
-
-            deckArray.add(cardNode);
         }
 
         output.add(actionNode);
