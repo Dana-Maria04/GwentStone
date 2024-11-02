@@ -1,14 +1,47 @@
 package gameutils;
 
+import fileio.CardInput;
 import gameutils.cardsinfo.Cards;
 import gameutils.cardsinfo.heroes.Hero;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedList;
+
+import static gameutils.GameConstants.*;
 
 public class Table {
 
     private ArrayList<Cards> deckP1 = new ArrayList<>();
 
     private ArrayList<Cards> deckP2 = new ArrayList<>();
+
+
+    private ArrayList<LinkedList<CardInput>> table;
+
+    public void Table(){
+        //intiliaze table
+        table = new ArrayList<>();
+        for (int i = 0; i < NUM_ROWS; i++) {
+            table.add(new LinkedList<>());
+        }
+    }
+
+    public ArrayList<Cards> getDeckP2() {
+        return deckP2;
+    }
+
+    public void setDeckP2(ArrayList<Cards> deckP2) {
+        this.deckP2 = deckP2;
+    }
+
+    public ArrayList<LinkedList<CardInput>> getTable() {
+        return table;
+    }
+
+    public void setTable(ArrayList<LinkedList<CardInput>> table) {
+        this.table = table;
+    }
 
     public ArrayList<Cards> getDeckP1() {
         return deckP1;

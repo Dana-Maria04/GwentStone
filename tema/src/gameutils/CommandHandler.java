@@ -19,6 +19,9 @@ import gameutils.Deck;
 import javax.smartcardio.Card;
 import java.util.ArrayList;
 
+import static gameutils.GameConstants.*;
+
+
 public class CommandHandler {
 
     public void getPlayerDeck(ArrayList<CardInput> deckP1, ArrayList<CardInput> deckP2,ObjectNode actionNode, ActionsInput action, ArrayNode output) {
@@ -133,9 +136,39 @@ public class CommandHandler {
                 output.add(actionNode);
                 return;
             }
-//            p1.setMana(p1.getMana() - p1.getDeck().getDeck().get(action.getCardIdx()).getMana());
-//            table.getTable().get(action.getTableIdx()).add(p1.getDeck().getDeck().get(action.getCardIdx()));
-//            p1.getDeck().getDeck().remove(action.getCardIdx());
+
+            String cardName1 = p[0].getDeck().get(action.getHandIdx()).getName();
+            String cardName2 = p[1].getDeck().get(action.getHandIdx()).getName();
+
+            if(cardName1.equals("Berserker") || cardName1.equals("Sentinel")) {
+                if( table.getTable().get(3).size() < NUM_CARDS) {
+                    table.getTable().get(3).add(p[0].getDeck().get(action.getHandIdx()));
+                    p[0].getDeck().remove(action.getHandIdx());
+                    return;
+                } else {
+                    actionNode.put("command", action.getCommand());
+                    actionNode.put("handIdx", action.getHandIdx());
+                    actionNode.put("error", "Table is full.");
+                    output.add(actionNode);
+                    return;
+                }
+            }
+
+            if(cardName1.equals("Goliath") || cardName1.equals("Warden")) {
+                if( table.getTable().get(2).size() < NUM_CARDS) {
+                    table.getTable().get(2).add(p[0].getDeck().get(action.getHandIdx()));
+                    p[0].getDeck().remove(action.getHandIdx());
+                    return;
+                } else {
+                    actionNode.put("command", action.getCommand());
+                    actionNode.put("handIdx", action.getHandIdx());
+                    actionNode.put("error", "Table is full.");
+                    output.add(actionNode);
+                    return;
+                }
+
+
+            }
         } else {
             if(p[1].getMana() < p[1].getDeck().get(action.getHandIdx()).getMana()) {
                 actionNode.put("command", action.getCommand());

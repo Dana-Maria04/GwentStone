@@ -31,6 +31,9 @@ public class StartGame {
 //    private Hand handP1 = new Hand();
 //    private Hand handP2 = new Hand();
 
+
+    private Table table = new Table();
+
     public ArrayNode runGame(Input input) {
 
         ArrayNode output = mapper.createArrayNode();
