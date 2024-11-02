@@ -1,7 +1,63 @@
 [ {
-  "command" : "getPlayerTurn",
-  "output" : 2
+  "command" : "getPlayerMana",
+  "playerIdx" : 2,
+  "output" : 4
 }, {
   "command" : "getPlayerTurn",
   "output" : 2
+}, {
+  "command" : "getPlayerHero",
+  "playerIdx" : 1,
+  "output" : {
+    "mana" : 3,
+    "description" : "Standard card: Absolute order, a soldier must devote his life to his General.",
+    "colors" : [ "Green", "Yellow" ],
+    "name" : "General Kocioraw",
+    "health" : 30
+  }
+}, {
+  "command" : "getPlayerHero",
+  "playerIdx" : 2,
+  "output" : {
+    "mana" : 2,
+    "description" : "Premium card: Her majesty rule is absolute, every non-believer will suffer.",
+    "colors" : [ "Black", "Red" ],
+    "name" : "Empress Thorina",
+    "health" : 30
+  }
+}, {
+  "command" : "getPlayerMana",
+  "playerIdx" : 2,
+  "output" : 7
+}, {
+  "command" : "getPlayerTurn",
+  "output" : 2
+}, {
+  "command" : "getPlayerHero",
+  "playerIdx" : 1,
+  "output" : {
+    "mana" : 3,
+    "description" : "Standard card: Absolute order, a soldier must devote his life to his General.",
+    "colors" : [ "Green", "Yellow" ],
+    "name" : "General Kocioraw",
+    "health" : 30
+  }
+}, {
+  "command" : "getPlayerHero",
+  "playerIdx" : 2,
+  "output" : {
+    "mana" : 2,
+    "description" : "Premium card: Her majesty rule is absolute, every non-believer will suffer.",
+    "colors" : [ "Black", "Red" ],
+    "name" : "Empress Thorina",
+    "health" : 30
+  }
+}, {
+  "command" : "getPlayerMana",
+  "playerIdx" : 2,
+  "output" : 10
+}, {
+  "command" : "getPlayerMana",
+  "playerIdx" : 1,
+  "output" : 10
 } ]

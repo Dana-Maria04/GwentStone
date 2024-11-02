@@ -15,6 +15,7 @@ import java.util.Random;
 public class StartGame {
 
     protected Player[] player;
+    protected Hand[] hand;
     protected ArrayList<ActionsInput> actionsinputs;
     protected ObjectMapper mapper = new ObjectMapper();
     protected ArrayNode output = mapper.createArrayNode();
@@ -22,22 +23,33 @@ public class StartGame {
     private int WinP1;
     private int WinP2;
     private int checkIfGameEnded;
+    private int roundCnt;
 
     private ArrayList<CardInput> deckP1 = new ArrayList<>();
     private ArrayList<CardInput> deckP2 = new ArrayList<>();
 
-    private ArrayList<CardInput> handP1;
-    private ArrayList<CardInput> handP2;
-
+//    private Hand handP1 = new Hand();
+//    private Hand handP2 = new Hand();
 
     public ArrayNode runGame(Input input) {
 
         ArrayNode output = mapper.createArrayNode();
         // todo initialise the players , decks , cards , and heroes
         WinP1 = 0;
-        WinP2 = 0; // initialize wins
+        WinP2 = 0;// initialize wins
+
+        this.roundCnt = 1;
+
+        this.player = new Player[2];
+        this.player[0] = new Player();
+        this.player[1] = new Player();
+        this.hand = new Hand[2];
+        this.hand[0] = new Hand();
+        this.hand[1] = new Hand();
+
 
         int playerTurn = 0;
+        int turnCycle = 0;
         for(int i = 0 ; i < input.getGames().size(); i++ ){
             ObjectMapper mapper = new ObjectMapper();
             CommandHandler commandsHandler = new CommandHandler();
@@ -69,6 +81,16 @@ public class StartGame {
             playerTurn = startGame.getStartingPlayer() - 1;
         }
         // todo handle commands
+
+        //adding first card from deck to hand
+        hand[0].addCard(deckP1.get(0));
+        hand[1].addCard(deckP2.get(0));
+        //remove the card I just added to hand from deck
+        deckP1.remove(0);
+        deckP2.remove(0);
+
+
+
         actionsinputs = input.getGames().get(0).getActions();
 
         for(ActionsInput action : actionsinputs){
@@ -86,6 +108,45 @@ public class StartGame {
                 case "getPlayerTurn":
                     commandHandler.getPlayerTurn(actionNode, output, action, playerTurn);
                     break;
+                case "getCardsInHand":
+                    // todo getcardsinhand
+                    break;
+                case "getPlayerMana":
+                    // todo getplayermana
+                        commandHandler.getPlayerMana(actionNode, output, action, player[0], player[1]);
+                    break;
+                case "getCardsOnTable":
+                    // todo getcardsonTable
+                    break;
+                case "endPlayerTurn":
+                    // todo endplayerturn
+//                    System.out.printf("Player %d ended his turn in round %d\n", playerTurn + 1, roundCnt);
+                    turnCycle++;
+                    // if it was the second player's turn, now it's the first player's turn
+                    if(playerTurn == 0) {
+                        hand[0].addCard(deckP1.get(0));
+                        deckP1.remove(0);
+                    } else {
+                        hand[1].addCard(deckP2.get(0));
+                        deckP2.remove(0);
+                    }
+
+
+                    if(playerTurn == 0)
+                        playerTurn = 1;
+                    else
+                        playerTurn = 0;
+                    if(turnCycle == 2) {
+                        player[0].updateMana(roundCnt);
+                        player[1].updateMana(roundCnt);
+                        turnCycle = 0;
+                        roundCnt++;
+                    }
+                    break;
+                case "placeCard":
+                    // todo placecard
+
+                    break;
                 default:
                     break;
             }
@@ -93,10 +154,6 @@ public class StartGame {
         return output;
 
     }
-
-
-
-
 
 }
 

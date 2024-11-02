@@ -1,13 +1,31 @@
 [ {
-  "command" : "getPlayerTurn",
-  "output" : 2
+  "command" : "getPlayerMana",
+  "playerIdx" : 2,
+  "output" : 4
 }, {
   "command" : "getPlayerTurn",
   "output" : 2
 }, {
+  "command" : "getPlayerMana",
+  "playerIdx" : 2,
+  "output" : 7
+}, {
   "command" : "getPlayerTurn",
   "output" : 2
 }, {
+  "command" : "getPlayerMana",
+  "playerIdx" : 1,
+  "output" : 10
+}, {
+  "command" : "getPlayerMana",
+  "playerIdx" : 2,
+  "output" : 10
+}, {
+  "command" : "getPlayerTurn",
+  "output" : 1
+}, {
+  "command" : "getPlayerDeck",
+  "playerIdx" : 1,
   "output" : [ {
     "mana" : 3,
     "attackDamage" : 5,
@@ -45,6 +63,8 @@
     "name" : "The Ripper"
   } ]
 }, {
+  "command" : "getPlayerDeck",
+  "playerIdx" : 2,
   "output" : [ {
     "mana" : 3,
     "attackDamage" : 1,

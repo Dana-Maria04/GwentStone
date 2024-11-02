@@ -1,4 +1,12 @@
 [ {
   "command" : "getPlayerTurn",
   "output" : 1
+}, {
+  "command" : "getPlayerMana",
+  "playerIdx" : 1,
+  "output" : 7
+}, {
+  "command" : "getPlayerMana",
+  "playerIdx" : 2,
+  "output" : 7
 } ]

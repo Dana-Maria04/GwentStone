@@ -109,4 +109,46 @@ public class CommandHandler {
         output.add(actionNode);
     }
 
+    public void getPlayerMana(ObjectNode actionNode, ArrayNode output, ActionsInput action, Player p1, Player p2) {
+        actionNode.put("command", action.getCommand());
+        actionNode.put("playerIdx", action.getPlayerIdx());
+
+        ObjectNode manaNode = actionNode.objectNode();
+        if(action.getPlayerIdx() - 1 == 0) {
+            actionNode.put("output", p1.getMana());
+        } else {
+            actionNode.put("output", p2.getMana());
+        }
+
+        output.add(actionNode);
+    }
+
+    public void placeCard(ActionsInput action, ObjectNode actionNode, ArrayNode output, Player[] p, Hand[] hand, int playerTurn, Table table) {
+
+        if(playerTurn - 1 == 0) {
+            if(p[0].getMana() < p[0].getDeck().get(action.getHandIdx()).getMana()) {
+                actionNode.put("command", action.getCommand());
+                actionNode.put("handIdx", action.getHandIdx());
+                actionNode.put("error", "Not enough mana to place card on table.");
+                output.add(actionNode);
+                return;
+            }
+//            p1.setMana(p1.getMana() - p1.getDeck().getDeck().get(action.getCardIdx()).getMana());
+//            table.getTable().get(action.getTableIdx()).add(p1.getDeck().getDeck().get(action.getCardIdx()));
+//            p1.getDeck().getDeck().remove(action.getCardIdx());
+        } else {
+            if(p[1].getMana() < p[1].getDeck().get(action.getHandIdx()).getMana()) {
+                actionNode.put("command", action.getCommand());
+                actionNode.put("handIdx", action.getHandIdx());
+                actionNode.put("error", "Not enough mana to place card on table.");
+                output.add(actionNode);
+                return;
+            }
+//            p2.setMana(p2.getMana() - p2.getDeck().getDeck().get(action.getCardIdx()).getMana());
+//            table.getTable().get(action.getTableIdx()).add(p2.getDeck().getDeck().get(action.getCardIdx()));
+//            p2.getDeck().getDeck().remove(action.getCardIdx());
+        }
+
+    }
+
 }

@@ -1,4 +1,56 @@
 [ {
+  "command" : "getPlayerHero",
+  "playerIdx" : 1,
+  "output" : {
+    "mana" : 2,
+    "description" : "Premium card: Time to show who we are, the low-class was never scared of you.",
+    "colors" : [ "Brown", "Pink", "Purple" ],
+    "name" : "King Mudface",
+    "health" : 30
+  }
+}, {
+  "command" : "getPlayerHero",
+  "playerIdx" : 2,
+  "output" : {
+    "mana" : 2,
+    "description" : "Standard card: Absolute order, a soldier must devote his life to his General.",
+    "colors" : [ "Red", "Black", "Purple" ],
+    "name" : "General Kocioraw",
+    "health" : 30
+  }
+}, {
+  "command" : "getPlayerMana",
+  "playerIdx" : 2,
+  "output" : 7
+}, {
   "command" : "getPlayerTurn",
   "output" : 2
+}, {
+  "command" : "getPlayerHero",
+  "playerIdx" : 1,
+  "output" : {
+    "mana" : 2,
+    "description" : "Premium card: Time to show who we are, the low-class was never scared of you.",
+    "colors" : [ "Brown", "Pink", "Purple" ],
+    "name" : "King Mudface",
+    "health" : 30
+  }
+}, {
+  "command" : "getPlayerHero",
+  "playerIdx" : 2,
+  "output" : {
+    "mana" : 2,
+    "description" : "Standard card: Absolute order, a soldier must devote his life to his General.",
+    "colors" : [ "Red", "Black", "Purple" ],
+    "name" : "General Kocioraw",
+    "health" : 30
+  }
+}, {
+  "command" : "getPlayerMana",
+  "playerIdx" : 2,
+  "output" : 10
+}, {
+  "command" : "getPlayerMana",
+  "playerIdx" : 1,
+  "output" : 10
 } ]

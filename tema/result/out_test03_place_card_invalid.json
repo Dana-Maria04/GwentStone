@@ -5,9 +5,19 @@
   "command" : "getPlayerTurn",
   "output" : 2
 }, {
+  "command" : "getPlayerMana",
+  "playerIdx" : 2,
+  "output" : 10
+}, {
+  "command" : "getPlayerMana",
+  "playerIdx" : 1,
+  "output" : 10
+}, {
   "command" : "getPlayerTurn",
   "output" : 2
 }, {
+  "command" : "getPlayerDeck",
+  "playerIdx" : 2,
   "output" : [ {
     "mana" : 2,
     "attackDamage" : 2,
@@ -59,6 +69,8 @@
     "name" : "Goliath"
   } ]
 }, {
+  "command" : "getPlayerDeck",
+  "playerIdx" : 1,
   "output" : [ {
     "mana" : 4,
     "attackDamage" : 4,

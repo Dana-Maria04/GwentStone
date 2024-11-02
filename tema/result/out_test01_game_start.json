@@ -1,4 +1,6 @@
 [ {
+  "command" : "getPlayerDeck",
+  "playerIdx" : 2,
   "output" : [ {
     "mana" : 2,
     "attackDamage" : 0,
@@ -29,6 +31,8 @@
     "name" : "Miraj"
   } ]
 }, {
+  "command" : "getPlayerDeck",
+  "playerIdx" : 1,
   "output" : [ {
     "mana" : 4,
     "attackDamage" : 5,
@@ -58,6 +62,26 @@
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper"
   } ]
+}, {
+  "command" : "getPlayerHero",
+  "playerIdx" : 1,
+  "output" : {
+    "mana" : 2,
+    "description" : "Standard card: Exact precision is her mantra, emotion is for the weak.",
+    "colors" : [ "White", "Black", "Grey" ],
+    "name" : "Empress Thorina",
+    "health" : 30
+  }
+}, {
+  "command" : "getPlayerHero",
+  "playerIdx" : 2,
+  "output" : {
+    "mana" : 2,
+    "description" : "Standard card: Every ancestor reached glory, now it is his time to rule.",
+    "colors" : [ "Black", "Red", "Grey" ],
+    "name" : "Lord Royce",
+    "health" : 30
+  }
 }, {
   "command" : "getPlayerTurn",
   "output" : 2
