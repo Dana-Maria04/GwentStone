@@ -35,6 +35,10 @@ public class Player {
         }
     }
 
+    public void decMana(int mana){
+        this.mana -= mana;
+    }
+
     public void incWinCnt() {
         this.winCnt++;
     }

@@ -148,7 +148,7 @@ public class StartGame {
                     break;
                 case "placeCard":
                     // todo placecard
-
+                    commandHandler.placeCard(action, actionNode, output, player, hand, playerTurn, table);
                     break;
                 default:
                     break;
