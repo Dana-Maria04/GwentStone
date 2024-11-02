@@ -126,13 +126,16 @@ public class CommandHandler {
         output.add(actionNode);
     }
 
-    public void placeCard(ActionsInput action, ObjectNode actionNode, ArrayNode output, Player[] p, Hand[] hand, int playerTurn, Table table) {
+    public void placeCard(ActionsInput action, ObjectNode actionNode, ArrayNode output, Player p1, Player p2, Hand[] hand, int playerTurn, Table table) {
 
-        String cardName1 = p[0].getDeck().get(action.getHandIdx()).getName();
-        String cardName2 = p[1].getDeck().get(action.getHandIdx()).getName();
+        String cardName1 = p1.getDeck().get(action.getHandIdx()).getName();
+        String cardName2 = p2.getDeck().get(action.getHandIdx()).getName();
+
+
+        String[] specialMinions ={ "The Ripper ", "Miraj" , "The Cursed One", "Disciple"};
 
         if(playerTurn - 1 == 0) {
-            if(p[0].getMana() < p[0].getDeck().get(action.getHandIdx()).getMana()) {
+            if(p1.getMana() < p1.getDeck().get(action.getHandIdx()).getMana()) {
                 actionNode.put("command", action.getCommand());
                 actionNode.put("handIdx", action.getHandIdx());
                 actionNode.put("error", "Not enough mana to place card on table.");
@@ -140,12 +143,36 @@ public class CommandHandler {
                 return;
             }
 
+            for ( int i = 0 ; i < specialMinions.length; i++) {
+                if (cardName1.equals(specialMinions[i])) {
+                    if (table.getTable().get(3).size() < NUM_CARDS) {
+                        // add back row for player 1
+                        table.getTable().get(3).add(p1.getDeck().get(action.getHandIdx()));
+                        hand[playerTurn].removeCard(p1.getDeck().get(action.getHandIdx()));
+                        p1.decMana(p1.getDeck().get(action.getHandIdx()).getMana());
+                        return;
+                    } else if (table.getTable().get(2).size() < NUM_CARDS) {
+                        // add front row for player 1
+                        table.getTable().get(2).add(p1.getDeck().get(action.getHandIdx()));
+                        hand[playerTurn].removeCard(p1.getDeck().get(action.getHandIdx()));
+                        p1.decMana(p1.getDeck().get(action.getHandIdx()).getMana());
+                        return;
+                    } else {
+                        actionNode.put("command", action.getCommand());
+                        actionNode.put("handIdx", action.getHandIdx());
+                        actionNode.put("error", "Table is full.");
+                        output.add(actionNode);
+                        return;
+                    }
+                }
+            }
+
             if(cardName1.equals("Berserker") || cardName1.equals("Sentinel")) {
                 if( table.getTable().get(3).size() < NUM_CARDS) {
                     // add back row for player 1
-                    table.getTable().get(3).add(p[0].getDeck().get(action.getHandIdx()));
-                    hand[playerTurn].removeCard(p[0].getDeck().get(action.getHandIdx()));
-                    p[0].decMana(p[0].getDeck().get(action.getHandIdx()).getMana());
+                    table.getTable().get(3).add(p1.getDeck().get(action.getHandIdx()));
+                    hand[playerTurn].removeCard(p1.getDeck().get(action.getHandIdx()));
+                    p1.decMana(p1.getDeck().get(action.getHandIdx()).getMana());
                     return;
                 } else {
                     actionNode.put("command", action.getCommand());
@@ -154,14 +181,16 @@ public class CommandHandler {
                     output.add(actionNode);
                     return;
                 }
+
+
             }
 
             if(cardName1.equals("Goliath") || cardName1.equals("Warden")) {
                 if( table.getTable().get(2).size() < NUM_CARDS) {
                    //add front row for player 1
-                    table.getTable().get(2).add(p[0].getDeck().get(action.getHandIdx()));
-                    hand[playerTurn].removeCard(p[0].getDeck().get(action.getHandIdx()));
-                    p[0].decMana(p[0].getDeck().get(action.getHandIdx()).getMana());
+                    table.getTable().get(2).add(p1.getDeck().get(action.getHandIdx()));
+                    hand[playerTurn].removeCard(p1.getDeck().get(action.getHandIdx()));
+                    p1.decMana(p1.getDeck().get(action.getHandIdx()).getMana());
                     return;
                 } else {
                     actionNode.put("command", action.getCommand());
@@ -172,7 +201,7 @@ public class CommandHandler {
                 }
             }
         } else {
-            if(p[1].getMana() < p[1].getDeck().get(action.getHandIdx()).getMana()) {
+            if(p2.getMana() < p2.getDeck().get(action.getHandIdx()).getMana()) {
                 actionNode.put("command", action.getCommand());
                 actionNode.put("handIdx", action.getHandIdx());
                 actionNode.put("error", "Not enough mana to place card on table.");
@@ -180,12 +209,37 @@ public class CommandHandler {
                 return;
             }
 
+            for ( int i = 0 ; i < specialMinions.length; i++) {
+                if (cardName1.equals(specialMinions[i])) {
+                    //check if there is space on either rows
+                    if (table.getTable().get(0).size() < NUM_CARDS) {
+                        // add back row for player 1
+                        table.getTable().get(0).add(p2.getDeck().get(action.getHandIdx()));
+                        hand[playerTurn].removeCard(p2.getDeck().get(action.getHandIdx()));
+                        p2.decMana(p2.getDeck().get(action.getHandIdx()).getMana());
+                        return;
+                    } else if (table.getTable().get(1).size() < NUM_CARDS) {
+                        // add front row for player 1
+                        table.getTable().get(1).add(p2.getDeck().get(action.getHandIdx()));
+                        hand[playerTurn].removeCard(p2.getDeck().get(action.getHandIdx()));
+                        p2.decMana(p2.getDeck().get(action.getHandIdx()).getMana());
+                        return;
+                    } else {
+                        actionNode.put("command", action.getCommand());
+                        actionNode.put("handIdx", action.getHandIdx());
+                        actionNode.put("error", "Table is full.");
+                        output.add(actionNode);
+                        return;
+                    }
+                }
+            }
+
             if(cardName2.equals("Berserker") || cardName2.equals("Sentinel")) {
                 //add back row for player 2
                 if( table.getTable().get(0).size() < NUM_CARDS) {
-                    table.getTable().get(0).add(p[1].getDeck().get(action.getHandIdx()));
-                    hand[playerTurn].removeCard(p[1].getDeck().get(action.getHandIdx()));
-                    p[0].decMana(p[1].getDeck().get(action.getHandIdx()).getMana());
+                    table.getTable().get(0).add(p2.getDeck().get(action.getHandIdx()));
+                    hand[playerTurn].removeCard(p2.getDeck().get(action.getHandIdx()));
+                    p2.decMana(p2.getDeck().get(action.getHandIdx()).getMana());
                     return;
                 } else {
                     actionNode.put("command", action.getCommand());
@@ -199,9 +253,9 @@ public class CommandHandler {
             if(cardName2.equals("Goliath") || cardName2.equals("Warden")) {
                 //add front row for player 2
                 if( table.getTable().get(1).size() < NUM_CARDS) {
-                    table.getTable().get(1).add(p[1].getDeck().get(action.getHandIdx()));
-                    hand[playerTurn].removeCard(p[1].getDeck().get(action.getHandIdx()));
-                    p[0].decMana(p[1].getDeck().get(action.getHandIdx()).getMana());
+                    table.getTable().get(1).add(p2.getDeck().get(action.getHandIdx()));
+                    hand[playerTurn].removeCard(p2.getDeck().get(action.getHandIdx()));
+                    p2.decMana(p2.getDeck().get(action.getHandIdx()).getMana());
                     return;
                 } else {
                     actionNode.put("command", action.getCommand());

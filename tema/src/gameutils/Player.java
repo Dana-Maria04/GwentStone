@@ -13,6 +13,7 @@ public class Player {
     private ArrayList<CardInput> deck;
 
     public Player(){
+        this.deck = new ArrayList<>();
         this.mana = START_MANA;
     }
 //    public void addMana(int newMana){

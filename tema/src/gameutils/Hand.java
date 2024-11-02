@@ -8,13 +8,17 @@ import java.util.LinkedList;
 
 public class Hand {
     // Hand class for ony one player
-    private LinkedList<CardInput> hand;
+    private ArrayList<CardInput> hand;
 
-    public LinkedList<CardInput> getHand() {
+    public ArrayList<CardInput> getHand() {
         return hand;
     }
 
-    public void setHand(LinkedList<CardInput> hand) {
+    public Hand() {
+        this.hand = new ArrayList<>();
+    }
+
+    public void setHand(ArrayList<CardInput> hand) {
         this.hand = hand;
     }
 

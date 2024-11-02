@@ -19,7 +19,7 @@ public class Table {
 
     private ArrayList<LinkedList<CardInput>> table;
 
-    public void Table(){
+    public Table(){
         //intiliaze table
         table = new ArrayList<>();
         for (int i = 0; i < NUM_ROWS; i++) {
@@ -51,9 +51,9 @@ public class Table {
         this.deckP1 = deckP1;
     }
 
-    public Table() {
-        // default constructor
-    }
+//    public Table() {
+//        // default constructor
+//    }
 
     public Hero getHeroP1(){
         return deckP1.get(0).getHeroP1();
