@@ -55,11 +55,11 @@ public class Table {
 //        // default constructor
 //    }
 
-    public Hero getHeroP1(){
-        return deckP1.get(0).getHeroP1();
-    }
-
-    public Hero getHeroP2(){
-        return deckP2.get(0).getHeroP2();
-    }
+//    public Hero getHeroP1(){
+//        return deckP1.get(0).getHeroP1();
+//    }
+//
+//    public Hero getHeroP2(){
+//        return deckP2.get(0).getHeroP2();
+//    }
 }

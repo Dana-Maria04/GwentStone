@@ -68,17 +68,14 @@ public class StartGame {
             StartGameInput startGame = new StartGameInput();
             startGame = input.getGames().get(i).getStartGame();
 
-
             for(int p1 = 0 ; p1 < input.getPlayerOneDecks().getNrCardsInDeck(); p1++){
                 CardInput cardInput = input.getPlayerOneDecks().getDecks().get(deckIdx1).get(p1);
                 deckP1.add(new Cards(cardInput).getCardInput());
             }
-
             for(int p2 = 0 ; p2 < input.getPlayerTwoDecks().getNrCardsInDeck(); p2++){
                 CardInput cardInput = input.getPlayerTwoDecks().getDecks().get(deckIdx2).get(p2);
                 deckP2.add(new Cards(cardInput).getCardInput());
             }
-
             player[0].setDeck(deckP1);
             player[1].setDeck(deckP2);
 
@@ -89,9 +86,21 @@ public class StartGame {
         }
         // todo handle commands
 
+//        System.out.printf("----------------------\n");
+//        for(CardInput card : deckP1){
+//            System.out.printf("Card in d1: %s\n", card);
+//        }
+//
+//        for(CardInput card : deckP2){
+//            System.out.printf("Card in d2: %s\n", card);
+//        }
+//        System.out.printf("----------------------\n");
+
+
         //adding first card from deck to hand
         hand[0].addCard(deckP1.get(0));
         hand[1].addCard(deckP2.get(0));
+
         //remove the card I just added to hand from deck
         deckP1.remove(0);
         deckP2.remove(0);
@@ -117,6 +126,7 @@ public class StartGame {
                     break;
                 case "getCardsInHand":
                     // todo getcardsinhand
+                    //commandHandler.getCardsInHand(actionNode, output, action,hand, playerTurn);
                     break;
                 case "getPlayerMana":
                     // todo getplayermana
@@ -128,31 +138,33 @@ public class StartGame {
                 case "endPlayerTurn":
                     // todo endplayerturn
 //                    System.out.printf("Player %d ended his turn in round %d\n", playerTurn + 1, roundCnt);
-//                    turnCycle++;
-//                    // if it was the second player's turn, now it's the first player's turn
-//                    if(playerTurn == 0) {
-//                        hand[0].addCard(deckP1.get(0));
-//                        deckP1.remove(0);
-//                    } else {
-//                        hand[1].addCard(deckP2.get(0));
-//                        deckP2.remove(0);
-//                    }
-//
-//
-//                    if(playerTurn == 0)
-//                        playerTurn = 1;
-//                    else
-//                        playerTurn = 0;
-//                    if(turnCycle == 2) {
-//                        player[0].updateMana(roundCnt);
-//                        player[1].updateMana(roundCnt);
-//                        turnCycle = 0;
-//                        roundCnt++;
-//                    }
+                    turnCycle++;
+                    // if it was the second player's turn, now it's the first player's turn
+                    if(playerTurn == 0) {
+                        if(deckP1.size() > 0) {
+                            hand[0].addCard(deckP1.get(0));
+                            deckP1.remove(0);
+                        }
+                    } else {
+                        if(deckP2.size() > 0) {
+                            hand[1].addCard(deckP2.get(0));
+                            deckP2.remove(0);
+                        }
+                    }
+                    if(playerTurn == 0)
+                        playerTurn = 1;
+                    else
+                        playerTurn = 0;
+                    if(turnCycle == 2) {
+                        player[0].updateMana(roundCnt);
+                        player[1].updateMana(roundCnt);
+                        turnCycle = 0;
+                        roundCnt++;
+                    }
                     break;
                 case "placeCard":
                     // todo placecard
-                    //commandHandler.placeCard(action, actionNode, output, player[0], player[1], hand, playerTurn, table);
+//                    commandHandler.placeCard(action, actionNode, output, player[0], player[1], hand, playerTurn, table);
                     break;
                 default:
                     break;
