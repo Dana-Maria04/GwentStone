@@ -71,17 +71,24 @@ public class StartGame {
             for(int p1 = 0 ; p1 < input.getPlayerOneDecks().getNrCardsInDeck(); p1++){
                 CardInput cardInput = input.getPlayerOneDecks().getDecks().get(deckIdx1).get(p1);
                 deckP1.add(new Cards(cardInput).getCardInput());
+                player[0].getDeck().add(new Cards(cardInput).getCardInput());
             }
             for(int p2 = 0 ; p2 < input.getPlayerTwoDecks().getNrCardsInDeck(); p2++){
                 CardInput cardInput = input.getPlayerTwoDecks().getDecks().get(deckIdx2).get(p2);
                 deckP2.add(new Cards(cardInput).getCardInput());
+                player[1].getDeck().add(new Cards(cardInput).getCardInput());
             }
-            player[0].setDeck(deckP1);
-            player[1].setDeck(deckP2);
 
             // shuffle the decks
-            Collections.shuffle(deckP1, new Random(randSeed));
-            Collections.shuffle(deckP2, new Random(randSeed));
+//            Collections.shuffle(deckP1, new Random(randSeed));
+//            Collections.shuffle(deckP2, new Random(randSeed));
+
+//            player[0].setDeck(deckP1);
+//            player[1].setDeck(deckP2);
+
+            Collections.shuffle(player[0].getDeck(), new Random(randSeed));
+            Collections.shuffle(player[1].getDeck(), new Random(randSeed));
+
             playerTurn = startGame.getStartingPlayer() - 1;
         }
         // todo handle commands
@@ -98,12 +105,44 @@ public class StartGame {
 
 
         //adding first card from deck to hand
-        hand[0].addCard(deckP1.get(0));
-        hand[1].addCard(deckP2.get(0));
+
+        System.out.printf("first cards in deck: %s and %s \n",player[0].getDeck().get(0).getName(), player[1].getDeck().get(0).getName());
+
+        hand[0].addCard(player[0].getDeck().get(0));
+        hand[1].addCard(player[1].getDeck().get(0));
+
+
+        player[0].getDeck().remove(0);
+        player[1].getDeck().remove(0);
+//
+//        System.out.printf("Card in deck 1:");
+//        for(CardInput deckCard: player[0].getDeck()){
+//            System.out.printf("%s, ", deckCard.getName());
+//        }
+//        System.out.printf("\n Card in deck 2:");
+//
+//        for(CardInput deckCard: player[1].getDeck()){
+//            System.out.printf("%s, ", deckCard.getName());
+//        }
+//        System.out.printf("\n");
+//
+//        System.out.printf("first cards in hand: %s and %s \n",hand[0].getHand().get(0).getName(), hand[1].getHand().get(0).getName());
+//
+//        System.out.printf("Card in hand 1:");
+//        for(CardInput card : hand[0].getHand()){
+//            System.out.printf("%s, ", card.getName());
+//        }
+//        System.out.printf("\n Card in hand 2:");
+//        for(CardInput cardd : hand[1].getHand()){
+//            System.out.printf("%s, ", cardd.getName());
+//        }
+//        System.out.printf("\n");
 
         //remove the card I just added to hand from deck
-        deckP1.remove(0);
-        deckP2.remove(0);
+//        deckP1.remove(0);
+//        deckP2.remove(0);
+
+
 
 
 
@@ -115,7 +154,7 @@ public class StartGame {
             CommandHandler commandHandler = new CommandHandler();
             switch(action.getCommand()){
                 case "getPlayerDeck":
-                    commandHandler.getPlayerDeck(deckP1, deckP2, actionNode, action, output);
+                    commandHandler.getPlayerDeck(player[0].getDeck(), player[1].getDeck(), actionNode, action, output);
                     break;
                 case "getPlayerHero":
                     // todo getplayerhero
@@ -126,7 +165,20 @@ public class StartGame {
                     break;
                 case "getCardsInHand":
                     // todo getcardsinhand
-                    //commandHandler.getCardsInHand(actionNode, output, action,hand, playerTurn);
+
+//                    System.out.printf("prima mana: ");
+//                    for (int i = 0; i < hand[0].getHand().size(); i++) {
+//                        System.out.printf("%s, ", hand[0].getHand().get(i).getName());
+//                    }
+//
+//                    System.out.printf("\n");
+//                    System.out.printf("a doua mana: ");
+//                    for (int i = 0; i < hand[0].getHand().size(); i++) {
+//                        System.out.printf("%s, ", hand[1].getHand().get(i).getName());
+//                    }
+//                    System.out.printf("\n");
+
+                    commandHandler.getCardsInHand(action,actionNode,output, hand[0], hand[1]);
                     break;
                 case "getPlayerMana":
                     // todo getplayermana
@@ -141,14 +193,17 @@ public class StartGame {
                     turnCycle++;
                     // if it was the second player's turn, now it's the first player's turn
                     if(playerTurn == 0) {
-                        if(deckP1.size() > 0) {
-                            hand[0].addCard(deckP1.get(0));
-                            deckP1.remove(0);
+                        if(player[0].getDeck().size() > 0) {
+                            hand[0].addCard(player[0].getDeck().get(0));
+                            player[0].getDeck().remove(0);
+//                            player[1].getDeck().remove(0);
                         }
                     } else {
-                        if(deckP2.size() > 0) {
-                            hand[1].addCard(deckP2.get(0));
-                            deckP2.remove(0);
+                        if(player[1].getDeck().size() > 0) {
+                            hand[1].addCard(player[1].getDeck().get(0));
+//                            deckP2.remove(0);
+//                            player[0].getDeck().remove(0);
+                            player[1].getDeck().remove(0);
                         }
                     }
                     if(playerTurn == 0)
@@ -161,10 +216,40 @@ public class StartGame {
                         turnCycle = 0;
                         roundCnt++;
                     }
+//                    System.out.printf("--AT END PLAYER TURN---\n");
+//                    System.out.printf("Card in deck 1:");
+//                    for(CardInput deckCard: player[0].getDeck()){
+//                        System.out.printf("%s, ", deckCard.getName());
+//                    }
+//                    System.out.printf("\n Card in deck 2:");
+//
+//                    for(CardInput deckCard: player[1].getDeck()){
+//                        System.out.printf("%s, ", deckCard.getName());
+//                    }
+//                    System.out.printf("\n");
+//
+//                    System.out.printf("first cards in hand: %s and %s \n",hand[0].getHand().get(0).getName(), hand[1].getHand().get(0).getName());
+//
+//                    System.out.printf("Card in hand 1:");
+//                    for(CardInput card : hand[0].getHand()){
+//                        System.out.printf("%s, ", card.getName());
+//                    }
+//                    System.out.printf("\n Card in hand 2:");
+//                    for(CardInput cardd : hand[1].getHand()){
+//                        System.out.printf("%s, ", cardd.getName());
+//                    }
+//                    System.out.printf("\n");
+//
+//                    System.out.printf("--------END PLAYER TURN--------\n");
+
                     break;
                 case "placeCard":
-                    // todo placecard
-//                    commandHandler.placeCard(action, actionNode, output, player[0], player[1], hand, playerTurn, table);
+
+                    if(hand.length !=0) {
+                        commandHandler.placeCard(action, actionNode, output, player[0], player[1], hand, playerTurn, table, action.getHandIdx());
+                        if(action.getHandIdx() < hand[playerTurn].getHand().size())
+                            hand[playerTurn].removeCard(hand[playerTurn].getHand().get(action.getHandIdx()));
+                    }
                     break;
                 default:
                     break;
