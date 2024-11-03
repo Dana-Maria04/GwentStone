@@ -186,9 +186,9 @@ public class StartGame {
                     break;
                 case "getCardsOnTable":
                     // todo getcardsonTable
+                    commandHandler.getCardsOnTable(action, actionNode, output, table);
                     break;
                 case "endPlayerTurn":
-                    // todo endplayerturn
 //                    System.out.printf("Player %d ended his turn in round %d\n", playerTurn + 1, roundCnt);
                     turnCycle++;
                     // if it was the second player's turn, now it's the first player's turn
@@ -244,7 +244,6 @@ public class StartGame {
 
                     break;
                 case "placeCard":
-
                     if(hand.length !=0) {
                         commandHandler.placeCard(action, actionNode, output, player[0], player[1], hand, playerTurn, table, action.getHandIdx());
                         if(action.getHandIdx() < hand[playerTurn].getHand().size())

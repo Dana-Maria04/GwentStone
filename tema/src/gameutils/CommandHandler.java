@@ -133,49 +133,40 @@ public class CommandHandler {
 
         String[] specialMinions ={ "The Ripper ", "Miraj" , "The Cursed One", "Disciple"};
 
+
+
         if(playerTurn - 1 == 0  && p1.getDeck().size() != 0) {
             System.out.printf("intru in if ul de playerTurn(1)\n");
-//            if(p1.getDeck().size() == 0) {
-//            if(p1.getDeck()==null) {
-//                actionNode.put("command", action.getCommand());
-//                actionNode.put("handIdx", handIdx);
-//                actionNode.put("error", "No cards in deck.");
-//                output.add(actionNode);
-//                System.out.printf("No cards in deck.\n");
-//                return;
-//            }
 
-//            if(p1.getDeck().size() == 0) {
-//                System.out.printf("No cards in deck(size == 0).\n");
-//            }
 
-//            if(p1.getMana() < p1.getDeck().get(handIdx).getMana()) {
-//                actionNode.put("command", action.getCommand());
-//                actionNode.put("handIdx", handIdx);
-//                actionNode.put("error", "Not enough mana to place card on table.");
-//                 output.add(actionNode);
-//                return;
-//            }
-
-            if(handIdx >= p1.getDeck().size()) {
+            if(handIdx >= hand[0].getHand().size()) {
                 return ;
             }
 
             System.out.printf("trec de conditia de oprire in if ul de playerTurn(1)\n");
 
             for (int i = 0 ; i < specialMinions.length; i++) {
-                if(p1.getDeck().get(handIdx).equals(specialMinions[i])) {
+                if(hand[0].getHand().get(handIdx).getName().equals(specialMinions[i])) {
                     System.out.printf("am un special minion in playerTurn(1)\n");
-                    if (table.getTable().get(3).size() < NUM_CARDS) {
+
+//                    System.out.printf("AICI AICI AICI %d\n", table.getTable().get(3).size());
+
+
+//                    System.out.printf("mana la jucator %d si mana la carte %d\n", p1.getMana(), p1.getDeck().get(handIdx).getMana());
+
+                    if (table.getTable().get(3).size() < NUM_CARDS && p1.getMana() >= hand[0].getHand().get(handIdx).getMana()) {
                         // add back row for player 1
-                        table.getTable().get(3).add(p1.getDeck().get(handIdx));
+                        table.getTable().get(3).add(hand[0].getHand().get(handIdx));
+
+//                        System.out.printf("numele %s\n", table.getTable().get(3).get(0).getName());
+
 //                        hand[playerTurn].removeCard(p1.getDeck().get(handIdx));
                         p1.decMana(p1.getDeck().get(action.getHandIdx()).getMana());
                         System.out.printf("am pus special minion in playerTurn(1)\n");
                         return;
-                    } else if (table.getTable().get(2).size() < NUM_CARDS) {
+                    } else if (table.getTable().get(2).size() < NUM_CARDS  && p1.getMana() >= hand[0].getHand().get(handIdx).getMana()) {
                         // add front row for player 1
-                        table.getTable().get(2).add(p1.getDeck().get(handIdx));
+                        table.getTable().get(2).add(hand[0].getHand().get(handIdx));
 //                        hand[playerTurn].removeCard(p1.getDeck().get(handIdx));
                         p1.decMana(p1.getDeck().get(action.getHandIdx()).getMana());
                         System.out.printf("am pus special minion in playerTurn(1)\n");
@@ -190,10 +181,10 @@ public class CommandHandler {
                 }
             }
 
-            if(p1.getDeck().get(handIdx).equals("Berserker") || p1.getDeck().get(handIdx).equals("Sentinel")) {
-                if(table.getTable().get(3).size() < NUM_CARDS) {
+            if(hand[0].getHand().get(handIdx).getName().equals("Berserker") || hand[0].getHand().get(handIdx).getName().equals("Sentinel")) {
+                if(table.getTable().get(3).size() < NUM_CARDS && p1.getMana() >= hand[0].getHand().get(handIdx).getMana()) {
                     // add back row for player 1
-                    table.getTable().get(3).add(p1.getDeck().get(handIdx));
+                    table.getTable().get(3).add(hand[0].getHand().get(handIdx));
 //                    hand[playerTurn].removeCard(p1.getDeck().get(handIdx));
                     p1.decMana(p1.getDeck().get(handIdx).getMana());
                     System.out.printf("am pus un berserker sau sentinel in playerTurn(1)\n");
@@ -209,12 +200,12 @@ public class CommandHandler {
 
             }
 
-            if(p1.getDeck().get(handIdx).equals("Goliath") || p1.getDeck().get(handIdx).equals("Warden")) {
-                if(table.getTable().get(2).size() < NUM_CARDS) {
+            if(hand[0].getHand().get(handIdx).getName().equals("Goliath") || hand[0].getHand().get(handIdx).getName().equals("Warden")) {
+                if(table.getTable().get(2).size() < NUM_CARDS  && p1.getMana() >= hand[0].getHand().get(handIdx).getMana()) {
                    //add front row for player 1
-                    table.getTable().get(2).add(p1.getDeck().get(handIdx));
+                    table.getTable().get(2).add(hand[0].getHand().get(handIdx));
 //                    hand[playerTurn].removeCard(p1.getDeck().get(handIdx));
-                    p1.decMana(p1.getDeck().get(action.getHandIdx()).getMana());
+                    p1.decMana(hand[0].getHand().get(action.getHandIdx()).getMana());
                     System.out.printf("am pus un Goliath sau Warden in playerTurn(1)\n");
                     return;
                 } else {
@@ -228,34 +219,26 @@ public class CommandHandler {
         } else {
 
             System.out.printf("intru in if ul de playerTurn(2)\n");
-            if(p2.getDeck().size() == 0 || handIdx >= p2.getDeck().size()) {
+            if(p2.getDeck().size() == 0 || handIdx >= hand[1].getHand().size()) {
                 return ;
             }
             System.out.printf("trec de conditia de oprire in if ul de playerTurn(2)\n");
 
 
-//            if(p2.getMana() < p2.getDeck().get(action.getHandIdx()).getMana()) {
-//                actionNode.put("command", action.getCommand());
-//                actionNode.put("handIdx", handIdx);
-//                actionNode.put("error", "Not enough mana to place card on table.");
-//                output.add(actionNode);
-//                return;
-//            }
-
             for ( int i = 0 ; i < specialMinions.length; i++) {
-                if(p2.getDeck().get(handIdx).equals(specialMinions[i])) {
+                if(hand[1].getHand().get(handIdx).getName().equals(specialMinions[i])  && p2.getMana() >= p2.getDeck().get(handIdx).getMana()) {
                     System.out.printf("am un special minion in playerTurn(2)\n");
                     //check if there is space on either rows
                     if (table.getTable().get(0).size() < NUM_CARDS) {
                         // add back row for player 2
-                        table.getTable().get(0).add(p2.getDeck().get(handIdx));
+                        table.getTable().get(0).add(hand[1].getHand().get(handIdx));
 //                        hand[playerTurn].removeCard(p2.getDeck().get(handIdx));
                         p2.decMana(p2.getDeck().get(handIdx).getMana());
                         System.out.printf("am pus special minion in playerTurn(2)\n");
                         return;
-                    } else if (table.getTable().get(1).size() < NUM_CARDS) {
+                    } else if (table.getTable().get(1).size() < NUM_CARDS && p2.getMana() >= p2.getDeck().get(handIdx).getMana()) {
                         // add front row for player 2
-                        table.getTable().get(1).add(p2.getDeck().get(handIdx));
+                        table.getTable().get(1).add(hand[1].getHand().get(handIdx));
 //                        hand[playerTurn].removeCard(p2.getDeck().get(handIdx));
                         p2.decMana(p2.getDeck().get(handIdx).getMana());
                         System.out.printf("am pus special minion in playerTurn(2)\n");
@@ -272,10 +255,10 @@ public class CommandHandler {
 
 
 
-            if(p2.getDeck().get(handIdx).equals("Berserker") || p2.getDeck().get(handIdx).equals("Sentinel")) {
+            if(hand[1].getHand().get(handIdx).getName().equals("Berserker") || hand[1].getHand().get(handIdx).getName().equals("Sentinel")) {
                 //add back row for player 2
-                if( table.getTable().get(0).size() < NUM_CARDS) {
-                    table.getTable().get(0).add(p2.getDeck().get(handIdx));
+                if(table.getTable().get(0).size() < NUM_CARDS && p2.getMana() >= p2.getDeck().get(handIdx).getMana()) {
+                    table.getTable().get(0).add(hand[1].getHand().get(handIdx));
 //                    hand[playerTurn].removeCard(p2.getDeck().get(handIdx));
                     p2.decMana(p2.getDeck().get(action.getHandIdx()).getMana());
                     System.out.printf("am pus un berserker sau sentinel in playerTurn(2)\n");
@@ -289,12 +272,12 @@ public class CommandHandler {
                 }
             }
 
-            if(p2.getDeck().get(handIdx).equals("Goliath") || p2.getDeck().get(handIdx).equals("Warden")) {
+            if(hand[1].getHand().get(handIdx).getName().equals("Goliath") || hand[1].getHand().get(handIdx).getName().equals("Warden")) {
                 //add front row for player 2
-                if(table.getTable().get(1).size() < NUM_CARDS) {
-                    table.getTable().get(1).add(p2.getDeck().get(handIdx));
+                if(table.getTable().get(1).size() < NUM_CARDS && p2.getMana() >= hand[1].getHand().get(handIdx).getMana()) {
+                    table.getTable().get(1).add(hand[1].getHand().get(handIdx));
 //                    hand[playerTurn].removeCard(p2.getDeck().get(handIdx));
-                    p2.decMana(p2.getDeck().get(handIdx).getMana());
+                    p2.decMana(hand[1].getHand().get(handIdx).getMana());
                     System.out.printf("am pus un Goliath sau Warden in playerTurn(2)\n");
                     return;
                 } else {
@@ -306,17 +289,8 @@ public class CommandHandler {
                     }
                 }
             }
+    }
 
-
-        for (int i = 0; i < NUM_ROWS; i++) {
-            System.out.printf("Row %d: ", i);
-            for (CardInput card : table.getTable().get(i)) {
-                System.out.printf("%s, ", card.getName());
-            }
-            System.out.printf("\n");
-        }
-
-        }
 
     public void getCardsInHand(ActionsInput action, ObjectNode actionNode, ArrayNode output, Hand h1, Hand h2) {
         // Set the command and player index in the action node
@@ -369,10 +343,30 @@ public class CommandHandler {
             }
         }
 
-        // Add the cards array to the action node under the key "output"
         actionNode.set("output", cardsArray);
+        output.add(actionNode);
+    }
 
-        // Add the action node to the output array
+    public void getCardsOnTable(ActionsInput action, ObjectNode actionNode, ArrayNode output, Table table) {
+        actionNode.put("command", action.getCommand());
+        ArrayNode tableArray = actionNode.putArray("output");
+        for (LinkedList<CardInput> row : table.getTable()) {
+            ArrayNode rowArray = actionNode.arrayNode();
+            for (CardInput card : row) {
+                ObjectNode cardNode = actionNode.objectNode();
+                cardNode.put("mana", card.getMana());
+                cardNode.put("attackDamage", card.getAttackDamage());
+                cardNode.put("health", card.getHealth());
+                cardNode.put("description", card.getDescription());
+                ArrayNode colorsArray = cardNode.putArray("colors");
+                for (String color : card.getColors()) {
+                    colorsArray.add(color);
+                }
+                cardNode.put("name", card.getName());
+                rowArray.add(cardNode);
+            }
+            tableArray.add(rowArray);
+        }
         output.add(actionNode);
     }
 
