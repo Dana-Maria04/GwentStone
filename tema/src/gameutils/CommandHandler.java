@@ -126,7 +126,7 @@ public class CommandHandler {
         output.add(actionNode);
     }
 
-    public void placeCard(ActionsInput action, ObjectNode actionNode, ArrayNode output, Player p1, Player p2, Hand[] hand, int playerTurn, Table table, int handIdx) {
+    public void placeCard(ActionsInput action, ObjectNode actionNode, ArrayNode output, Player p1, Player p2, Hand[] hand, int playerTurn, Table table, int handIdx, boolean[] ok) {
 
         String[] backMinions = {"Berserker", "Sentinel", "The Cursed One", "Disciple"};
         String[] frontMinions = {"Goliath", "Warden", "The Ripper", "Miraj"};
@@ -135,37 +135,34 @@ public class CommandHandler {
             if(handIdx >= hand[0].getHand().size()) {
                 return;
             }
+
+
+            if(p1.getMana() < hand[0].getHand().get(handIdx).getMana()) {
+                System.out.printf("messi\n");
+                actionNode.put("command", action.getCommand());
+                actionNode.put("error","Not enough mana to place card on table.");
+                actionNode.put("handIdx", handIdx);
+                output.add(actionNode);
+                return;
+            }
+
             for(int i = 0 ; i < backMinions.length; i++) {
                 if (hand[0].getHand().get(handIdx).getName().equals(backMinions[i])) {
                     if (table.getTable().get(3).size() < NUM_CARDS) {
-                        if(p1.getMana() >= hand[0].getHand().get(handIdx).getMana()) {
-                            table.getTable().get(3).add(hand[0].getHand().get(handIdx));
-                            p1.decMana(hand[0].getHand().get(handIdx).getMana());
-                            return;
-                        }else{
-                            actionNode.put("command", action.getCommand());
-                            actionNode.put("error","Not enough mana to place card on table.");
-                            actionNode.put("handIdx", handIdx);
-                            output.add(actionNode);
-                            return;
-                        }
+                        table.getTable().get(3).add(hand[0].getHand().get(handIdx));
+                        p1.decMana(hand[0].getHand().get(handIdx).getMana());
+                        ok[0] = true;
+                        return;
                     }
                 }
             }
             for(int i = 0 ; i < frontMinions.length; i++) {
                 if (hand[0].getHand().get(handIdx).getName().equals(frontMinions[i])) {
                     if (table.getTable().get(2).size() < NUM_CARDS ) {
-                        if(p1.getMana() >= hand[0].getHand().get(handIdx).getMana()) {
-                            table.getTable().get(2).add(hand[0].getHand().get(handIdx));
-                            p1.decMana(hand[0].getHand().get(handIdx).getMana());
-                            return;
-                        }else{
-                            actionNode.put("command", action.getCommand());
-                            actionNode.put("error","Not enough mana to place card on table.");
-                            actionNode.put("handIdx", handIdx);
-                            output.add(actionNode);
-                            return;
-                        }
+                        table.getTable().get(2).add(hand[0].getHand().get(handIdx));
+                        p1.decMana(hand[0].getHand().get(handIdx).getMana());
+                        ok[0] = true;
+                        return;
                     }
                 }
             }
@@ -174,37 +171,33 @@ public class CommandHandler {
             if(hand[1].getHand().size() <= 0 || handIdx >= hand[1].getHand().size()) {
                 return ;
             }
+
+            if(p2.getMana() < hand[1].getHand().get(handIdx).getMana()) {
+                System.out.printf("neymar\n");
+                actionNode.put("command", action.getCommand());
+                actionNode.put("error","Not enough mana to place card on table.");
+                actionNode.put("handIdx", handIdx);
+                output.add(actionNode);
+                return;
+            }
+            
             for(int i = 0 ; i < backMinions.length; i++) {
                 if (hand[1].getHand().get(handIdx).getName().equals(backMinions[i])) {
                     if (table.getTable().get(0).size() < NUM_CARDS) {
-                        if(p2.getMana() >= hand[1].getHand().get(handIdx).getMana()) {
-                            table.getTable().get(0).add(hand[1].getHand().get(handIdx));
-                            p2.decMana(hand[1].getHand().get(handIdx).getMana());
-                            return;
-                        }else{
-                            actionNode.put("command", action.getCommand());
-                            actionNode.put("error","Not enough mana to place card on table.");
-                            actionNode.put("handIdx", handIdx);
-                            output.add(actionNode);
-                            return;
-                        }
+                        table.getTable().get(0).add(hand[1].getHand().get(handIdx));
+                        p2.decMana(hand[1].getHand().get(handIdx).getMana());
+                        ok[0] = true;
+                        return;
                     }
                 }
             }
             for(int i = 0 ; i < frontMinions.length; i++) {
                 if (hand[1].getHand().get(handIdx).getName().equals(frontMinions[i])) {
                     if (table.getTable().get(1).size() < NUM_CARDS) {
-                        if(p2.getMana() >= hand[1].getHand().get(handIdx).getMana()) {
-                            table.getTable().get(1).add(hand[1].getHand().get(handIdx));
-                            p2.decMana(hand[1].getHand().get(handIdx).getMana());
-                            return;
-                        }else {
-                            actionNode.put("command", action.getCommand());
-                            actionNode.put("error","Not enough mana to place card on table.");
-                            actionNode.put("handIdx", handIdx);
-                            output.add(actionNode);
-                            return;
-                        }
+                        table.getTable().get(1).add(hand[1].getHand().get(handIdx));
+                        p2.decMana(hand[1].getHand().get(handIdx).getMana());
+                        ok[0] = true;
+                        return;
                     }
                 }
             }

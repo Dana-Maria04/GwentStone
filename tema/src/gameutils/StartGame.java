@@ -28,10 +28,6 @@ public class StartGame {
     private ArrayList<CardInput> deckP1 = new ArrayList<>();
     private ArrayList<CardInput> deckP2 = new ArrayList<>();
 
-//    private Hand handP1 = new Hand();
-//    private Hand handP2 = new Hand();
-
-
     private Table table;
 
     public ArrayNode runGame(Input input) {
@@ -170,10 +166,11 @@ public class StartGame {
 
 
 //                    System.out.printf("card: %s: player: %d\n", hand[playerTurn].getHand().get(action.getHandIdx()).getName(), playerTurn);
-
-                    commandHandler.placeCard(action, actionNode, output, player[0], player[1], hand, playerTurn, table, action.getHandIdx());
-                    if(action.getHandIdx() < hand[playerTurn].getHand().size())
+                    boolean[] ok = {false};
+                    commandHandler.placeCard(action, actionNode, output, player[0], player[1], hand, playerTurn, table, action.getHandIdx(), ok);
+                    if(action.getHandIdx() < hand[playerTurn].getHand().size() && ok[0]) {
                         hand[playerTurn].removeCard(hand[playerTurn].getHand().get(action.getHandIdx()));
+                    }
                     break;
                 default:
                     break;
