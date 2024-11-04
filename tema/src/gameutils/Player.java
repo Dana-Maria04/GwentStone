@@ -28,17 +28,18 @@ public class Player {
         } else {
             manaToAdd = roundCnt;
         }
+        this.mana += manaToAdd;
 
-        if (this.mana + manaToAdd > MAX_MANA) {
-            this.mana = MAX_MANA;
-        } else {
-            this.mana += manaToAdd;
-        }
+//        if (this.mana + manaToAdd > MAX_MANA) {
+//            this.mana = MAX_MANA;
+//        } else {
+//        }
     }
 
     public void decMana(int mana){
         this.mana -= mana;
     }
+
 
     public void incWinCnt() {
         this.winCnt++;

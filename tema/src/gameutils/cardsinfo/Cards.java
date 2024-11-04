@@ -1,6 +1,7 @@
 package gameutils.cardsinfo;
 
 import fileio.CardInput;
+import fileio.Coordinates;
 import gameutils.cardsinfo.heroes.Hero;
 
 import javax.smartcardio.Card;
@@ -20,6 +21,7 @@ public class Cards {
     public CardInput getCardInput() {
         return this.card;
     }
+
 
     public Cards(String name , int mana , String description , ArrayList<String> colors) {
         this.name = name;

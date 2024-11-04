@@ -1,5 +1,7 @@
 package fileio;
 
+import gameutils.cardsinfo.Cards;
+
 import java.util.ArrayList;
 
 public final class CardInput {
@@ -11,6 +13,16 @@ public final class CardInput {
     private String name;
 
     public CardInput() {
+    }
+
+    public CardInput(final int mana, final int attackDamage, final int health, final String description,
+                     final ArrayList<String> colors, final String name) {
+        this.mana = mana;
+        this.attackDamage = attackDamage;
+        this.health = health;
+        this.description = description;
+        this.colors = colors;
+        this.name = name;
     }
 
     public int getMana() {
