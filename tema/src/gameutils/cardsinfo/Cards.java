@@ -12,22 +12,18 @@ public class Cards {
 
     private CardInput card;
 
-    private String name;
-    private int mana;
-    private ArrayList<String> colors;
-    private String description;
-
 
     public CardInput getCardInput() {
         return this.card;
     }
 
+    public Cards(String name, int mana, String description, ArrayList<String> colors) {
+        this.card = new CardInput(mana, 0, 0, description, colors, name);
+    }
 
-    public Cards(String name , int mana , String description , ArrayList<String> colors) {
-        this.name = name;
-        this.mana = mana;
-        this.description = description;
-        this.colors = colors;
+
+    public void decHealth(int health) {
+        this.card.setHealth(this.card.getHealth() - health);
     }
 
 //    public LinkedList<CardInput> copyCards(LinkedList<Cards> cards) {

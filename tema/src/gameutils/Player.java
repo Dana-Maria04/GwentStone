@@ -1,7 +1,7 @@
 package gameutils;
 
 import fileio.CardInput;
-
+import gameutils.cardsinfo.Cards;
 import java.util.ArrayList;
 
 import static gameutils.GameConstants.*;
@@ -10,7 +10,7 @@ public class Player {
     private int mana;
     private int winCnt=0;
     protected int DeckIdx;
-    private ArrayList<CardInput> deck;
+    private ArrayList<Cards> deck;
 
     public Player(){
         this.deck = new ArrayList<>();
@@ -69,11 +69,11 @@ public class Player {
         DeckIdx = deckIdx;
     }
 
-    public ArrayList<CardInput> getDeck() {
+    public ArrayList<Cards> getDeck() {
         return deck;
     }
 
-    public void setDeck(ArrayList<CardInput> deck) {
+    public void setDeck(ArrayList<Cards> deck) {
         this.deck = deck;
     }
 }

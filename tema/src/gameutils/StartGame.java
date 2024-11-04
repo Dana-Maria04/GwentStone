@@ -25,8 +25,8 @@ public class StartGame {
     private int checkIfGameEnded;
     private int roundCnt;
 
-    private ArrayList<CardInput> deckP1 = new ArrayList<>();
-    private ArrayList<CardInput> deckP2 = new ArrayList<>();
+    private ArrayList<Cards> deckP1 = new ArrayList<>();
+    private ArrayList<Cards> deckP2 = new ArrayList<>();
 
     private Table table;
 
@@ -64,23 +64,18 @@ public class StartGame {
             StartGameInput startGame = new StartGameInput();
             startGame = input.getGames().get(i).getStartGame();
 
-            for(int p1 = 0 ; p1 < input.getPlayerOneDecks().getNrCardsInDeck(); p1++){
+            for (int p1 = 0; p1 < input.getPlayerOneDecks().getNrCardsInDeck(); p1++) {
                 CardInput cardInput = input.getPlayerOneDecks().getDecks().get(deckIdx1).get(p1);
-                deckP1.add(new Cards(cardInput).getCardInput());
-                player[0].getDeck().add(new Cards(cardInput).getCardInput());
+                Cards card = new Cards(cardInput);
+                deckP1.add(card);
+                player[0].getDeck().add(card);
             }
             for(int p2 = 0 ; p2 < input.getPlayerTwoDecks().getNrCardsInDeck(); p2++){
                 CardInput cardInput = input.getPlayerTwoDecks().getDecks().get(deckIdx2).get(p2);
-                deckP2.add(new Cards(cardInput).getCardInput());
-                player[1].getDeck().add(new Cards(cardInput).getCardInput());
+                Cards card = new Cards(cardInput);
+                deckP2.add(card);
+                player[1].getDeck().add(card);
             }
-
-            // shuffle the decks
-//            Collections.shuffle(deckP1, new Random(randSeed));
-//            Collections.shuffle(deckP2, new Random(randSeed));
-
-//            player[0].setDeck(deckP1);
-//            player[1].setDeck(deckP2);
 
             Collections.shuffle(player[0].getDeck(), new Random(randSeed));
             Collections.shuffle(player[1].getDeck(), new Random(randSeed));
@@ -143,19 +138,11 @@ public class StartGame {
                         playerTurn = 1;
                     else
                         playerTurn = 0;
-
                     if(turnCycle == 2) {
                         roundCnt++;
-                        System.out.printf("-----END OF ROUND %d-----\n", roundCnt - 1);
-                        System.out.printf("P1 before updateMana %d ", player[0].getMana());
                         player[0].updateMana(roundCnt);
-                        System.out.printf("and after %d\n", player[0].getMana());
-                        System.out.printf("P2 before updateMana %d ", player[1].getMana());
                         player[1].updateMana(roundCnt);
-                        System.out.printf("and after %d\n", player[1].getMana());
                         turnCycle = 0;
-
-                        System.out.printf("-----------START OF ROUND %d------------\n", roundCnt);
                     }
 
 
@@ -172,6 +159,10 @@ public class StartGame {
                         hand[playerTurn].removeCard(hand[playerTurn].getHand().get(action.getHandIdx()));
                     }
                     break;
+
+//                case "cardUsesAttack":
+//                    commandHandler.cardUsesAttack(action, actionNode, output, playerTurn, table);
+//                    break;
                 default:
                     break;
             }

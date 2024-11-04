@@ -6,16 +6,30 @@ public class Minions extends Cards {
         private int frozenCnt;
         private int attackedCnt;
         private int health;
+        private int isTank = 0;
+        private int hasAttacked = 0;
 
+        public Minions(Cards card) {
+                super(card.getCardInput());
+                this.health = card.getCardInput().getHealth();
+                this.frozenCnt = 0;
+                this.attackedCnt = 0;
+        }
 
-//        public Minions(final CardInput cardInput) {
-//                super(cardInput);
-//                frozenCnt = 0;
-//                attackedCnt = 0;
-//        }
+        public int getHasAttacked() {
+                return hasAttacked;
+        }
 
-        public Minions(CardInput minions) {
-                super(minions.getName(), minions.getMana(),minions.getDescription(), minions.getColors());
+        public void setHasAttacked(int hasAttacked) {
+                this.hasAttacked = hasAttacked;
+        }
+
+        public int getIsTank() {
+                return isTank;
+        }
+
+        public void setIsTank(int isTank) {
+                this.isTank = isTank;
         }
 
         public int getFrozenCnt() {
@@ -33,6 +47,4 @@ public class Minions extends Cards {
         public void setAttackedCnt(final int attackedCnt) {
                 this.attackedCnt = attackedCnt;
         }
-
-
 }
