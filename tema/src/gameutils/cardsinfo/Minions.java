@@ -6,7 +6,7 @@ public class Minions extends Cards {
         private int frozenCnt;
         private int attackedCnt;
         private int health;
-        private int isTank = 0;
+//        private int isTank = 0;
         private int hasAttacked = 0;
 
         public Minions(Cards card) {
@@ -16,20 +16,23 @@ public class Minions extends Cards {
                 this.attackedCnt = 0;
         }
 
+
+        public int verifyTank(Minions minion) {
+                if (minion.getCard().getName().equals("Warden") || minion.getCard().getName().equals("Goliath")) {
+                  return 1;
+                }
+                return 0;
+        }
+
+        public void decHealth(int health) {
+                this.health -= health;
+        }
         public int getHasAttacked() {
                 return hasAttacked;
         }
 
         public void setHasAttacked(int hasAttacked) {
                 this.hasAttacked = hasAttacked;
-        }
-
-        public int getIsTank() {
-                return isTank;
-        }
-
-        public void setIsTank(int isTank) {
-                this.isTank = isTank;
         }
 
         public int getFrozenCnt() {

@@ -24,6 +24,9 @@
   "command" : "getPlayerTurn",
   "output" : 2
 }, {
+  "command" : "cardUsesAttack",
+  "error" : "Attacked card does not belong to the enemy."
+}, {
   "command" : "getPlayerTurn",
   "output" : 1
 }, {
@@ -38,6 +41,8 @@
   "playerIdx" : 1,
   "output" : 5
 }, {
+  "error" : "Attacked card does not belong to the enemy."
+}, {
   "command" : "getPlayerTurn",
   "output" : 1
 }, {
@@ -48,9 +53,18 @@
   "playerIdx" : 2,
   "output" : 16
 }, {
+  "error" : "Attacked card does not belong to the enemy."
+}, {
+  "error" : "Attacked card does not belong to the enemy."
+}, {
   "command" : "getPlayerMana",
   "playerIdx" : 2,
   "output" : 28
+}, {
+  "error" : "Attacked card does not belong to the enemy."
+}, {
+  "command" : "cardUsesAttack",
+  "error" : "Attacked card does not belong to the enemy."
 }, {
   "command" : "getPlayerTurn",
   "output" : 2
@@ -59,12 +73,17 @@
   "playerIdx" : 1,
   "output" : 24
 }, {
+  "error" : "Attacked card does not belong to the enemy."
+}, {
   "command" : "getPlayerMana",
   "playerIdx" : 1,
   "output" : 33
 }, {
   "command" : "getPlayerTurn",
   "output" : 1
+}, {
+  "command" : "cardUsesAttack",
+  "error" : "Attacked card does not belong to the enemy."
 }, {
   "command" : "getPlayerMana",
   "playerIdx" : 1,
@@ -74,8 +93,13 @@
   "playerIdx" : 2,
   "output" : 56
 }, {
+  "command" : "cardUsesAttack",
+  "error" : "Attacked card does not belong to the enemy."
+}, {
   "command" : "getPlayerTurn",
   "output" : 2
+}, {
+  "error" : "Attacked card does not belong to the enemy."
 }, {
   "command" : "getPlayerTurn",
   "output" : 1
@@ -87,6 +111,11 @@
   "command" : "getPlayerMana",
   "playerIdx" : 2,
   "output" : 86
+}, {
+  "error" : "Attacked card does not belong to the enemy."
+}, {
+  "command" : "cardUsesAttack",
+  "error" : "Attacked card does not belong to the enemy."
 }, {
   "command" : "getPlayerMana",
   "playerIdx" : 1,
@@ -255,13 +284,6 @@
     "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
     "colors" : [ "Yellow", "Orange", "Red" ],
     "name" : "Miraj"
-  }, {
-    "mana" : 1,
-    "attackDamage" : 7,
-    "health" : 6,
-    "description" : "Standard card: He has seen everything, his mind has never been asleep since the making of the realm.",
-    "colors" : [ "Brown", "Blue" ],
-    "name" : "Warden"
   } ]
 }, {
   "command" : "getCardsInHand",

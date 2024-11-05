@@ -1,4 +1,6 @@
 [ {
+  "error" : "Attacked card does not belong to the enemy."
+}, {
   "command" : "getCardsInHand",
   "playerIdx" : 2,
   "output" : [ {

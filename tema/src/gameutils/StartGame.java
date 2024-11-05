@@ -120,20 +120,11 @@ public class StartGame {
 //                    System.out.printf("Player %d ended his turn in round %d\n", playerTurn + 1, roundCnt);
                     turnCycle++;
                     // if it was the second player's turn, now it's the first player's turn
-                    if(playerTurn == 0) {
-                        if(player[0].getDeck().size() > 0) {
-                            hand[0].addCard(player[0].getDeck().get(0));
-                            player[0].getDeck().remove(0);
-//                            player[1].getDeck().remove(0);
-                        }
-                    } else {
-                        if(player[1].getDeck().size() > 0) {
-                            hand[1].addCard(player[1].getDeck().get(0));
-//                            deckP2.remove(0);
-//                            player[0].getDeck().remove(0);
-                            player[1].getDeck().remove(0);
-                        }
-                    }
+//                    if(playerTurn == 0) {
+//
+//                    } else {
+//
+//                    }
                     if(playerTurn == 0)
                         playerTurn = 1;
                     else
@@ -142,6 +133,21 @@ public class StartGame {
                         roundCnt++;
                         player[0].updateMana(roundCnt);
                         player[1].updateMana(roundCnt);
+
+                        if(player[0].getDeck().size() > 0) {
+                            hand[0].addCard(player[0].getDeck().get(0));
+                            player[0].getDeck().remove(0);
+//                            player[1].getDeck().remove(0);
+                        }
+
+                        if(player[1].getDeck().size() > 0) {
+                            hand[1].addCard(player[1].getDeck().get(0));
+//                            deckP2.remove(0);
+//                            player[0].getDeck().remove(0);
+                            player[1].getDeck().remove(0);
+                        }
+
+
                         turnCycle = 0;
                     }
 
@@ -160,9 +166,9 @@ public class StartGame {
                     }
                     break;
 
-//                case "cardUsesAttack":
-//                    commandHandler.cardUsesAttack(action, actionNode, output, playerTurn, table);
-//                    break;
+                case "cardUsesAttack":
+                    commandHandler.cardUsesAttack(action, actionNode, output, playerTurn, table);
+                    break;
                 default:
                     break;
             }

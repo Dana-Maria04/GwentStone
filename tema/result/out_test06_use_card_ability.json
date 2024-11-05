@@ -153,14 +153,7 @@
 }, {
   "command" : "getCardsInHand",
   "playerIdx" : 2,
-  "output" : [ {
-    "mana" : 4,
-    "attackDamage" : 2,
-    "health" : 8,
-    "description" : "Premium card: No matter how many, his body will fight. Save your breath for the Mountain is strong.",
-    "colors" : [ "Red", "Purple" ],
-    "name" : "Goliath"
-  } ]
+  "output" : [ ]
 }, {
   "command" : "getPlayerDeck",
   "playerIdx" : 1,
@@ -175,5 +168,12 @@
 }, {
   "command" : "getPlayerDeck",
   "playerIdx" : 2,
-  "output" : [ ]
+  "output" : [ {
+    "mana" : 4,
+    "attackDamage" : 2,
+    "health" : 8,
+    "description" : "Premium card: No matter how many, his body will fight. Save your breath for the Mountain is strong.",
+    "colors" : [ "Red", "Purple" ],
+    "name" : "Goliath"
+  } ]
 } ]

@@ -7,7 +7,7 @@ public class GameConstants {
     public static final Integer NUM_ROWS = 4;
     public static final Integer NUM_CARDS = 5;
     public static final Integer FRONT_ROW1 = 2;
-    public static final Integer FRONT_ROW2 = 3;
-    public static final Integer BACK_ROW1 = 0;
-    public static final Integer BACK_ROW2 = 1;
+    public static final Integer FRONT_ROW2 = 1;
+    public static final Integer BACK_ROW1 = 3;
+    public static final Integer BACK_ROW2 = 0;
 }

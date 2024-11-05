@@ -42,20 +42,6 @@
     "description" : "Standard card: A drink can always be served, with the blood of his enemies.",
     "colors" : [ "Red", "Blue", "Pink" ],
     "name" : "Berserker"
-  }, {
-    "mana" : 1,
-    "attackDamage" : 2,
-    "health" : 2,
-    "description" : "Standard card: Trained by the best, nothing will catch him off-guard.",
-    "colors" : [ "Black", "Grey", "Blue" ],
-    "name" : "Sentinel"
-  }, {
-    "mana" : 2,
-    "attackDamage" : 0,
-    "health" : 4,
-    "description" : "Premium card: The will of Gods has been spoken, obey and you shall be saved...or not.",
-    "colors" : [ "Green", "Yellow", "Blue" ],
-    "name" : "Disciple"
   } ], [ {
     "mana" : 3,
     "attackDamage" : 5,
