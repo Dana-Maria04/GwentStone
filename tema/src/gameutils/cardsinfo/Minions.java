@@ -14,14 +14,17 @@ public class Minions extends Cards {
                 this.health = card.getCardInput().getHealth();
                 this.frozenCnt = 0;
                 this.attackedCnt = 0;
+                this.hasAttacked = 0;
         }
-
 
         public int verifyTank(Minions minion) {
                 if (minion.getCard().getName().equals("Warden") || minion.getCard().getName().equals("Goliath")) {
                   return 1;
                 }
                 return 0;
+        }
+        public int hasAttacked() {
+                return hasAttacked;
         }
 
         public void decHealth(int health) {

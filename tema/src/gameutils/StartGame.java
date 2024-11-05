@@ -117,14 +117,7 @@ public class StartGame {
                     commandHandler.getCardsOnTable(action, actionNode, output, table);
                     break;
                 case "endPlayerTurn":
-//                    System.out.printf("Player %d ended his turn in round %d\n", playerTurn + 1, roundCnt);
                     turnCycle++;
-                    // if it was the second player's turn, now it's the first player's turn
-//                    if(playerTurn == 0) {
-//
-//                    } else {
-//
-//                    }
                     if(playerTurn == 0)
                         playerTurn = 1;
                     else
@@ -137,28 +130,16 @@ public class StartGame {
                         if(player[0].getDeck().size() > 0) {
                             hand[0].addCard(player[0].getDeck().get(0));
                             player[0].getDeck().remove(0);
-//                            player[1].getDeck().remove(0);
                         }
 
                         if(player[1].getDeck().size() > 0) {
                             hand[1].addCard(player[1].getDeck().get(0));
-//                            deckP2.remove(0);
-//                            player[0].getDeck().remove(0);
                             player[1].getDeck().remove(0);
                         }
-
-
                         turnCycle = 0;
                     }
-
-
                     break;
                 case "placeCard":
-
-//                    System.out.printf("for player %d, placed card %s with %d mana\n", playerTurn + 1, hand[playerTurn].getHand().get(action.getHandIdx()).getName(), hand[playerTurn].getHand().get(action.getHandIdx()).getMana());
-
-
-//                    System.out.printf("card: %s: player: %d\n", hand[playerTurn].getHand().get(action.getHandIdx()).getName(), playerTurn);
                     boolean[] ok = {false};
                     commandHandler.placeCard(action, actionNode, output, player[0], player[1], hand, playerTurn, table, action.getHandIdx(), ok);
                     if(action.getHandIdx() < hand[playerTurn].getHand().size() && ok[0]) {
@@ -168,6 +149,9 @@ public class StartGame {
 
                 case "cardUsesAttack":
                     commandHandler.cardUsesAttack(action, actionNode, output, playerTurn, table);
+                    break;
+                case "getCardAtPosition":
+                    commandHandler.getCardAtPosition(action, actionNode, output, table);
                     break;
                 default:
                     break;
