@@ -141,6 +141,7 @@ public class CommandHandler {
                     Minions minion = new Minions(hand.getHand().get(handIdx));
                     table.getTable().get(backRow).add(minion);
                     player.decMana(hand.getHand().get(handIdx).getCard().getMana());
+                    minion.setHasAttacked(0);
                     ok[0] = true;
                     return;
                 }
@@ -153,6 +154,7 @@ public class CommandHandler {
                     Minions minion = new Minions(hand.getHand().get(handIdx));
                     table.getTable().get(frontRow).add(minion);
                     player.decMana(hand.getHand().get(handIdx).getCard().getMana());
+                    minion.setHasAttacked(0);
                     ok[0] = true;
                     return;
                 }
@@ -225,37 +227,40 @@ public class CommandHandler {
         actionNode.put("command", action.getCommand());
 
         ObjectNode cardAttackerNode = actionNode.objectNode();
-        cardAttackerNode.put("x", action.getCardAttacker().getX());
-        cardAttackerNode.put("y", action.getCardAttacker().getY());
-        actionNode.set("cardAttacker", cardAttackerNode);
-
         ObjectNode cardAttackedNode = actionNode.objectNode();
-        cardAttackedNode.put("x", action.getCardAttacked().getX());
-        cardAttackedNode.put("y", action.getCardAttacked().getX());
-        actionNode.set("cardAttacked", cardAttackedNode);
 
-
-        System.out.printf("playerTurn: %d cu X%d si Y%d\n", playerTurn,action.getCardAttacked().getX(), action.getCardAttacked().getY() );
+        // bun
         if(playerTurn == 0 && (action.getCardAttacked().getX() == FRONT_ROW1 || action.getCardAttacked().getX() == BACK_ROW1)) {
+            cardAttackerNode.put("x", action.getCardAttacker().getX());
+            cardAttackerNode.put("y", action.getCardAttacker().getY());
+            actionNode.set("cardAttacker", cardAttackerNode);
+
+            cardAttackedNode.put("x", action.getCardAttacked().getX());
+            cardAttackedNode.put("y", action.getCardAttacked().getY());
+            actionNode.set("cardAttacked", cardAttackedNode);
 
             actionNode.put("error", "Attacked card does not belong to the enemy.");
-            // TODO put cardattacker and cardattacked coordinates
             output.add(actionNode);
             return;
         }
 
+        // bun
         if(playerTurn == 1 && (action.getCardAttacked().getX() == FRONT_ROW2 || action.getCardAttacked().getX() == BACK_ROW2)) {
+
+            cardAttackerNode.put("x", action.getCardAttacker().getX());
+            cardAttackerNode.put("y", action.getCardAttacker().getY());
+            actionNode.set("cardAttacker", cardAttackerNode);
+
+            cardAttackedNode.put("x", action.getCardAttacked().getX());
+            cardAttackedNode.put("y", action.getCardAttacked().getY());
+            actionNode.set("cardAttacked", cardAttackedNode);
+
+
             actionNode.put("command", "cardUsesAttack");
-
-
-            // TODO put cardattacker and cardattacked coordinates
-
             actionNode.put("error", "Attacked card does not belong to the enemy.");
             output.add(actionNode);
             return;
         }
-
-        String[] tankMinions = {"Goliath", "Warden"};
 
         int attackerX = action.getCardAttacker().getX();
         int attackerY = action.getCardAttacker().getY();
@@ -263,53 +268,59 @@ public class CommandHandler {
         int attackedY = action.getCardAttacked().getY();
 
 
-        if (attackerY >= table.getTable().get(attackerX).size() || table.getTable().get(attackerX).isEmpty()) {
-            System.out.printf("invalid\n");
+
+        if(table.getTable().get(attackerX).size() <= attackerY) {
+            actionNode.put("command", action.getCommand());
+            cardAttackerNode.put("x", action.getCardAttacker().getX());
+            cardAttackerNode.put("y", action.getCardAttacker().getY());
+            actionNode.set("cardAttacker", cardAttackerNode);
+
+            cardAttackedNode.put("x", action.getCardAttacked().getX());
+            cardAttackedNode.put("y", action.getCardAttacked().getY());
+            actionNode.set("cardAttacked", cardAttackedNode);
+            actionNode.put("error", "Attacker card is not on the table.");
+            output.add(actionNode);
             return;
         }
 
-        if (attackedY >= table.getTable().get(attackedX).size() || table.getTable().get(attackedX).isEmpty()) {
-            System.out.printf("invalid\n");
+        Minions attackedMinion = table.getTable().get(attackedX).get(attackedY);
+        Minions attackerMinion = table.getTable().get(attackerX).get(attackerY);
+        if(table.verifyTankOnRow(playerTurn) == 1 && attackedMinion.verifyTank(attackedMinion) == 0) {
+
+            actionNode.put("command", action.getCommand());
+            cardAttackerNode.put("x", action.getCardAttacker().getX());
+            cardAttackerNode.put("y", action.getCardAttacker().getY());
+            actionNode.set("cardAttacker", cardAttackerNode);
+
+            cardAttackedNode.put("x", action.getCardAttacked().getX());
+            cardAttackedNode.put("y", action.getCardAttacked().getY());
+            actionNode.set("cardAttacked", cardAttackedNode);
+            actionNode.put("error", "Attacked card is not of type 'Tank'.");
+            output.add(actionNode);
             return;
         }
+
+        if(attackerMinion.getHasAttacked() == 1) {
+            actionNode.put("command", action.getCommand());
+            cardAttackerNode.put("x", action.getCardAttacker().getX());
+            cardAttackerNode.put("y", action.getCardAttacker().getY());
+            actionNode.set("cardAttacker", cardAttackerNode);
+
+            cardAttackedNode.put("x", action.getCardAttacked().getX());
+            cardAttackedNode.put("y", action.getCardAttacked().getY());
+            actionNode.set("cardAttacked", cardAttackedNode);
+            actionNode.put("error", "Attacker card has already attacked this turn.");
+            output.add(actionNode);
+            return;
+        }
+
+        attackerMinion.setHasAttacked(1);
 
         int damage = table.getTable().get(attackerX).get(attackerY).getCard().getAttackDamage();
-        CardInput tableCard= table.getTable().get(attackedX).get(attackedY).getCard();
-
-        if (attackedX == 0 || attackedX == 1 && attackerX == 2 || attackerX == 3) {
-            for (Minions minion : table.getTable().get(1)) {
-                if (minion.verifyTank(minion) == 1) {
-                    // the minion is tank
-                    if (damage >= minion.getCard().getHealth()) {
-                        table.getTable().get(1).remove(minion);
-                        return ;
-                    } else {
-                        minion.decHealth(damage);
-                        return ;
-                    }
-                }
-            }
-
-            if (damage >= tableCard.getHealth()) {
+        if (damage >= attackedMinion.getCard().getHealth() && table.getTable().get(attackedX).size() > attackedY) {
                 table.getTable().get(attackedX).remove(attackedY);
-                return;
-            }
-        } else if (attackedX == 2 || attackedX == 3 && attackerX == 0 || attackerX == 1) {
-            for (Minions minion : table.getTable().get(2)) {
-                if (minion.verifyTank(minion) == 1) {
-                    // the minion is tank
-                    if (damage >= minion.getCard().getHealth()) {
-                        table.getTable().get(2).remove(minion);
-                    } else {
-                        minion.decHealth(damage);
-                    }
-                }
-            }
-
-            if (damage >= tableCard.getHealth() && table.getTable().get(attackedX).size() > attackedY) {
-                table.getTable().get(attackedX).remove(attackedY);
-                return;
-            }
+        } else {
+            attackedMinion.getCard().setHealth(attackedMinion.getCard().getHealth() - damage);
         }
     }
 

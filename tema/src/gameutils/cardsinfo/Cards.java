@@ -26,37 +26,9 @@ public class Cards {
         this.card.setHealth(this.card.getHealth() - health);
     }
 
-//    public LinkedList<CardInput> copyCards(LinkedList<Cards> cards) {
-//        LinkedList<CardInput> copy = new LinkedList<>();
-//        for (Cards card : cards) {
-//            Cards cardCopy = new Cards(card.getCardInput());
-//            copy.add(cardCopy);
-//        }
-//        return copy;
-//    }
-
-//    private Hero HeroP1;
-//    private Hero HeroP2;
-
     public void setCard(CardInput card) {
         this.card = card;
     }
-//
-//    public Hero getHeroP2() {
-//        return HeroP2;
-//    }
-//
-//    public void setHeroP2(Hero heroP2) {
-//        HeroP2 = heroP2;
-//    }
-//
-//    public Hero getHeroP1() {
-//        return HeroP1;
-//    }
-//
-//    public void setHeroP1(Hero heroP1) {
-//        HeroP1 = heroP1;
-//    }
 
     public Cards(CardInput card) {
         this.card = card;

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.*;
 import gameutils.cardsinfo.Cards;
+import gameutils.cardsinfo.Minions;
 import gameutils.cardsinfo.heroes.Hero;
 
 import java.util.ArrayList;
@@ -137,6 +138,12 @@ public class StartGame {
                             player[1].getDeck().remove(0);
                         }
                         turnCycle = 0;
+                        for(int i = 0; i < 4; i++) {
+                            for(Minions minion : table.getTable().get(i)) {
+                                minion.setHasAttacked(0);
+                            }
+                        }
+
                     }
                     break;
                 case "placeCard":

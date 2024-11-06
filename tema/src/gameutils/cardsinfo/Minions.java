@@ -1,10 +1,15 @@
 package gameutils.cardsinfo;
 
 import fileio.CardInput;
+import fileio.StartGameInput;
+import gameutils.CommandHandler;
+import gameutils.StartGame;
+import gameutils.Table;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Minions extends Cards {
-        private int frozenCnt;
-        private int attackedCnt;
         private int health;
 //        private int isTank = 0;
         private int hasAttacked = 0;
@@ -12,8 +17,6 @@ public class Minions extends Cards {
         public Minions(Cards card) {
                 super(card.getCardInput());
                 this.health = card.getCardInput().getHealth();
-                this.frozenCnt = 0;
-                this.attackedCnt = 0;
                 this.hasAttacked = 0;
         }
 
@@ -23,6 +26,9 @@ public class Minions extends Cards {
                 }
                 return 0;
         }
+
+
+
         public int hasAttacked() {
                 return hasAttacked;
         }
@@ -38,19 +44,4 @@ public class Minions extends Cards {
                 this.hasAttacked = hasAttacked;
         }
 
-        public int getFrozenCnt() {
-                return frozenCnt;
-        }
-
-        public void setFrozenCnt(final int frozenCnt) {
-                this.frozenCnt = frozenCnt;
-        }
-
-        public int getAttackedCnt() {
-                return attackedCnt;
-        }
-
-        public void setAttackedCnt(final int attackedCnt) {
-                this.attackedCnt = attackedCnt;
-        }
 }
