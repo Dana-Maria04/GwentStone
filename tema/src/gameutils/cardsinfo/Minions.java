@@ -11,7 +11,6 @@ import java.util.LinkedList;
 
 public class Minions extends Cards {
         private int health;
-//        private int isTank = 0;
         private int hasAttacked = 0;
 
         public Minions(Cards card) {
@@ -27,15 +26,13 @@ public class Minions extends Cards {
                 return 0;
         }
 
-
-
+        // to be overwriten
+        public void ability(Minions target){};
+        
         public int hasAttacked() {
                 return hasAttacked;
         }
 
-        public void decHealth(int health) {
-                this.health -= health;
-        }
         public int getHasAttacked() {
                 return hasAttacked;
         }

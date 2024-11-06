@@ -92,7 +92,7 @@ public class CommandHandler {
         }
 
         heroNode.put("name", hero.getCardInput().getName());
-        heroNode.put("health", hero.getHealth());
+        heroNode.put("health", hero.getCard().getHealth());
 
         actionNode.set("output", heroNode);
         output.add(actionNode);
@@ -229,7 +229,6 @@ public class CommandHandler {
         ObjectNode cardAttackerNode = actionNode.objectNode();
         ObjectNode cardAttackedNode = actionNode.objectNode();
 
-        // bun
         if(playerTurn == 0 && (action.getCardAttacked().getX() == FRONT_ROW1 || action.getCardAttacked().getX() == BACK_ROW1)) {
             cardAttackerNode.put("x", action.getCardAttacker().getX());
             cardAttackerNode.put("y", action.getCardAttacker().getY());
@@ -244,7 +243,6 @@ public class CommandHandler {
             return;
         }
 
-        // bun
         if(playerTurn == 1 && (action.getCardAttacked().getX() == FRONT_ROW2 || action.getCardAttacked().getX() == BACK_ROW2)) {
 
             cardAttackerNode.put("x", action.getCardAttacker().getX());
@@ -320,7 +318,7 @@ public class CommandHandler {
         if (damage >= attackedMinion.getCard().getHealth() && table.getTable().get(attackedX).size() > attackedY) {
                 table.getTable().get(attackedX).remove(attackedY);
         } else {
-            attackedMinion.getCard().setHealth(attackedMinion.getCard().getHealth() - damage);
+            attackedMinion.decHealth(damage);
         }
     }
 
@@ -349,6 +347,10 @@ public class CommandHandler {
         }
 
         output.add(actionNode);
+    }
+
+    public void cardUsesAbility(){
+
     }
 
 }

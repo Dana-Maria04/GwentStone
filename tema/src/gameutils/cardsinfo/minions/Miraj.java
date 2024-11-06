@@ -1,0 +1,19 @@
+package gameutils.cardsinfo.minions;
+
+import gameutils.cardsinfo.Cards;
+import gameutils.cardsinfo.Minions;
+
+public class Miraj extends Minions {
+    public Miraj(Cards cardInput) {
+        super(cardInput);
+    }
+
+    @Override
+    public void ability(Minions target) {
+        //Skyjack
+        int swapHealth = this.getCard().getHealth();
+        this.getCard().setHealth(target.getCard().getHealth());
+        target.getCard().setHealth(swapHealth);
+    }
+}
+
