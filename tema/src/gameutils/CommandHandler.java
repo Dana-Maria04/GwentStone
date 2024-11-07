@@ -6,6 +6,7 @@ import fileio.*;
 import gameutils.cardsinfo.Cards;
 import gameutils.cardsinfo.Minions;
 import gameutils.cardsinfo.heroes.Hero;
+import gameutils.cardsinfo.heroes.HeroFactory;
 import gameutils.cardsinfo.minions.Disciple;
 
 import java.util.ArrayList;
@@ -549,7 +550,86 @@ public class CommandHandler {
 
         attackerMinion.setHasAttacked(1);
 
-
     }
 
-}
+    public void useHeroAbility(ActionsInput action, ObjectNode actionNode, ArrayNode output, Player p1, Player p2,int playerTurn, Table table) {
+        actionNode.put("command", action.getCommand());
+        actionNode.put("affectedRow", action.getAffectedRow());
+
+        if (playerTurn == 0) {
+            Hero heroPlayer1 = p1.getHero();
+
+            if (p1.getMana() < heroPlayer1.getCard().getMana()) {
+                actionNode.put("error", "Not enough mana to use hero's ability.");
+                output.add(actionNode);
+                return;
+            }
+
+            if (heroPlayer1.getHasAttacked() == 1) {
+                actionNode.put("error", "Hero has already attacked this turn.");
+                output.add(actionNode);
+                return;
+            }
+
+            // if offensive , affected row must be opponent's row
+            if(heroPlayer1.verifyOffensive() == 1 && action.getAffectedRow() == FRONT_ROW1 || action.getAffectedRow() == BACK_ROW1) {
+                actionNode.put("error", "Selected row does not belong to the enemy.");
+                output.add(actionNode);
+                return;
+            }
+
+            // if defensive , affected row must be player's row
+            if(heroPlayer1.verifyDefensive() == 1 && action.getAffectedRow() == FRONT_ROW2 || action.getAffectedRow() == BACK_ROW2) {
+                actionNode.put("error", "Selected row does not belong to the current player.");
+                output.add(actionNode);
+                return;
+            }
+
+            Hero heroAbility = HeroFactory.createHero(heroPlayer1);
+            heroAbility.ability(table.getTable().get(action.getAffectedRow()));
+
+            heroPlayer1.setHasAttacked(1);
+
+            p1.decMana(heroPlayer1.getCard().getMana());
+
+
+            } else {
+                Hero heroPlayer2 = p2.getHero();
+
+                if (p2.getMana() < heroPlayer2.getCard().getMana()) {
+                    actionNode.put("error", "Not enough mana to use hero's ability.");
+                    output.add(actionNode);
+                    return;
+                }
+
+                if (heroPlayer2.getHasAttacked() == 1) {
+                    actionNode.put("error", "Hero has already attacked this turn.");
+                    output.add(actionNode);
+                    return;
+                }
+
+                // if offensive , affected row must be opponent's row
+                if(heroPlayer2.verifyOffensive() == 1 && action.getAffectedRow() == FRONT_ROW1 || action.getAffectedRow() == BACK_ROW1) {
+                    actionNode.put("error", "Selected row does not belong to the enemy.");
+                    output.add(actionNode);
+                    return;
+                }
+
+                // if defensive , affected row must be player's row
+                if(heroPlayer2.verifyDefensive() == 1 && action.getAffectedRow() == FRONT_ROW2 || action.getAffectedRow() == BACK_ROW2) {
+                    actionNode.put("error", "Selected row does not belong to the current player.");
+                    output.add(actionNode);
+                    return;
+                }
+
+                Hero heroAbility = HeroFactory.createHero(heroPlayer2);
+                heroAbility.ability(table.getTable().get(action.getAffectedRow()));
+
+                heroPlayer2.setHasAttacked(1);
+
+                p2.decMana(heroPlayer2.getCard().getMana());
+            }
+        }
+
+        
+    }

@@ -1,13 +1,14 @@
 package gameutils.cardsinfo.heroes;
 
 import fileio.CardInput;
+import gameutils.cardsinfo.Cards;
 import gameutils.cardsinfo.Minions;
 
 import java.util.LinkedList;
 import java.util.Map;
 
 public class GeneralKocioraw extends Hero {
-    public GeneralKocioraw(CardInput card) {
+    public GeneralKocioraw(Cards card) {
         super(card);
     }
 

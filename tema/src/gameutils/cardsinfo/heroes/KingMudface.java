@@ -1,12 +1,13 @@
 package gameutils.cardsinfo.heroes;
 
 import fileio.CardInput;
+import gameutils.cardsinfo.Cards;
 import gameutils.cardsinfo.Minions;
 
 import java.util.LinkedList;
 
 public class KingMudface extends Hero {
-    public KingMudface(CardInput card) {
+    public KingMudface(Cards card) {
         super(card);
     }
 

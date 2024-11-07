@@ -1,12 +1,13 @@
 package gameutils.cardsinfo.heroes;
 
 import fileio.CardInput;
+import gameutils.cardsinfo.Cards;
 import gameutils.cardsinfo.Minions;
 
 import java.util.LinkedList;
 
 public class EmpressThorina extends Hero {
-    public EmpressThorina(CardInput card) {
+    public EmpressThorina(Cards card) {
         super(card);
     }
 

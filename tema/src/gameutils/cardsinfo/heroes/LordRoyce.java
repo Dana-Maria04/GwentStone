@@ -1,13 +1,14 @@
 package gameutils.cardsinfo.heroes;
 
 import fileio.CardInput;
+import gameutils.cardsinfo.Cards;
 import gameutils.cardsinfo.Minions;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class LordRoyce extends Hero {
-    public LordRoyce(CardInput card) {
+    public LordRoyce(Cards card) {
         super(card);
     }
 

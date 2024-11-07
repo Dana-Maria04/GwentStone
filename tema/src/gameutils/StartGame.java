@@ -165,6 +165,9 @@ public class StartGame {
                 case "useAttackHero":
                     commandHandler.useAttackHero(action, actionNode, output,player[0], player[1], playerTurn, table);
                     break;
+                case "useHeroAbility":
+                    commandHandler.useHeroAbility(action, actionNode, output, player[0], player[1], playerTurn, table);
+                    break;
                 default:
                     break;
             }

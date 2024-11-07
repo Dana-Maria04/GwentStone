@@ -12,7 +12,6 @@ public class Cards {
 
     private CardInput card;
 
-
     public CardInput getCardInput() {
         return this.card;
     }
@@ -41,4 +40,5 @@ public class Cards {
     public CardInput getCard() {
         return card;
     }
+
 }
