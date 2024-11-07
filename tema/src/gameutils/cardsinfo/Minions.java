@@ -40,7 +40,6 @@ public class Minions extends Cards {
 
         // to be overwriten
         public void ability(Minions target){
-                System.out.printf("spaghete\n");
         }
 
         public int hasAttacked() {

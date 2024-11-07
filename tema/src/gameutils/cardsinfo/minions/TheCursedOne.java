@@ -12,7 +12,6 @@ public class TheCursedOne extends Minions {
     @Override
     public void ability(final Minions target) {
         //Shapeshift
-
         int swapHealth = target.getCard().getHealth();
         target.getCard().setHealth(target.getCard().getAttackDamage());
         target.getCard().setAttackDamage(swapHealth);

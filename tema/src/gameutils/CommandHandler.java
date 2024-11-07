@@ -459,21 +459,24 @@ public class CommandHandler {
 
         }
 
-        if(attackerMinion.getCard().getName().equals("The Cursed One")) {
-            TheCursedOne theCursedOne = new TheCursedOne(attackerMinion);
-            theCursedOne.getCard().setAttackDamage(0);
-            theCursedOne.ability(attackedMinion);
-        } else if(attackerMinion.getCard().getName().equals("Disciple")) {
-            Disciple disciple = new Disciple(attackerMinion);
-            disciple.getCard().setAttackDamage(0);
-            disciple.ability(attackedMinion);
-        } else if(attackerMinion.getCard().getName().equals("The Ripper")) {
-            TheRipper theRipper = new TheRipper(attackerMinion);
-            theRipper.ability(attackedMinion);
-        } else if(attackerMinion.getCard().getName().equals("Miraj")) {
-            Miraj miraj = new Miraj(attackerMinion);
-            miraj.ability(attackedMinion);
-        }
+//        if(attackerMinion.getCard().getName().equals("The Cursed One")) {
+//            TheCursedOne theCursedOne = new TheCursedOne(attackerMinion);
+//            theCursedOne.getCard().setAttackDamage(0);
+//            theCursedOne.ability(attackedMinion);
+//        } else if(attackerMinion.getCard().getName().equals("Disciple")) {
+//            Disciple disciple = new Disciple(attackerMinion);
+//            disciple.getCard().setAttackDamage(0);
+//            disciple.ability(attackedMinion);
+//        } else if(attackerMinion.getCard().getName().equals("The Ripper")) {
+//            TheRipper theRipper = new TheRipper(attackerMinion);
+//            theRipper.ability(attackedMinion);
+//        } else if(attackerMinion.getCard().getName().equals("Miraj")) {
+//            Miraj miraj = new Miraj(attackerMinion);
+//            miraj.ability(attackedMinion);
+//        }
+        Minions attackerWithAbility = MinionsFactory.createMinion(attackerMinion);
+        attackerWithAbility.ability(attackedMinion);
+
 
         attackerMinion.setHasAttacked(1);
 
