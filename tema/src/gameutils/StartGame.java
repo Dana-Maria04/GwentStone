@@ -21,8 +21,6 @@ public class StartGame {
     protected ObjectMapper mapper = new ObjectMapper();
     protected ArrayNode output = mapper.createArrayNode();
     protected ArrayNode deckNode = mapper.createArrayNode();
-    private int WinP1;
-    private int WinP2;
     private int checkIfGameEnded;
     private int roundCnt;
 
@@ -35,9 +33,6 @@ public class StartGame {
 
         ArrayNode output = mapper.createArrayNode();
         // todo initialise the players , decks , cards , and heroes
-        WinP1 = 0;
-        WinP2 = 0;// initialize wins
-
         this.roundCnt = 1;
 
         this.player = new Player[2];
@@ -92,6 +87,9 @@ public class StartGame {
         player[0].getDeck().remove(0);
         player[1].getDeck().remove(0);
 
+        player[0].setHero(new Hero(input.getGames().get(0).getStartGame().getPlayerOneHero()));
+        player[1].setHero(new Hero(input.getGames().get(0).getStartGame().getPlayerTwoHero()));
+
         actionsinputs = input.getGames().get(0).getActions();
         table = new Table();
         for(ActionsInput action : actionsinputs){
@@ -103,7 +101,7 @@ public class StartGame {
                     commandHandler.getPlayerDeck(player[0].getDeck(), player[1].getDeck(), actionNode, action, output);
                     break;
                 case "getPlayerHero":
-                    commandHandler.getPlayerHero(actionNode, output, action, input);
+                    commandHandler.getPlayerHero(actionNode, output, action, input, player[0], player[1]);
                     break;
                 case "getPlayerTurn":
                     commandHandler.getPlayerTurn(actionNode, output, action, playerTurn);
@@ -140,7 +138,8 @@ public class StartGame {
                         turnCycle = 0;
                         for(int i = 0; i < 4; i++) {
                             for(Minions minion : table.getTable().get(i)) {
-                                minion.setHasAttacked(0);
+                                minion.setHasAttacked(0); // give them the ability to attack again next round
+                                minion.setIsFrozen(0); // unfreeze the minions
                             }
                         }
 
@@ -162,6 +161,9 @@ public class StartGame {
                     break;
                 case "cardUsesAbility":
                     commandHandler.cardUsesAbility(action, actionNode, output, playerTurn, table);
+                    break;
+                case "useAttackHero":
+                    commandHandler.useAttackHero(action, actionNode, output,player[0], player[1], playerTurn, table);
                     break;
                 default:
                     break;

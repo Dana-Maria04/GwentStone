@@ -1,25 +1,15 @@
 package gameutils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.*;
-import gameutils.Player;
-import gameutils.GameStats;
-import gameutils.StartGame;
-import gameutils.Table;
 import gameutils.cardsinfo.Cards;
 import gameutils.cardsinfo.Minions;
 import gameutils.cardsinfo.heroes.Hero;
-import gameutils.Deck;
 import gameutils.cardsinfo.minions.Disciple;
-import gameutils.cardsinfo.minions.MinionsFactory;
 
-import javax.smartcardio.Card;
-import java.nio.file.NoSuchFileException;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.function.DoubleFunction;
 
 import gameutils.cardsinfo.minions.*;
 
@@ -65,21 +55,21 @@ public class CommandHandler {
         output.add(turnNode);
     }
 
-    public void getPlayerHero(ObjectNode actionNode, ArrayNode output, ActionsInput action, Input input) {
+    public void getPlayerHero(ObjectNode actionNode, ArrayNode output, ActionsInput action, Input input, Player p1, Player p2) {
         actionNode.put("command", action.getCommand());
         actionNode.put("playerIdx", action.getPlayerIdx());
 
         ObjectNode heroNode = actionNode.objectNode();
 
-        StartGameInput startGame = new StartGameInput();
-        startGame = input.getGames().get(0).getStartGame();
+//        StartGameInput startGame = new StartGameInput();
+//        startGame = input.getGames().get(0).getStartGame();
 
 
         Hero hero;
         if (action.getPlayerIdx() == 1) {
-            hero = new Hero(startGame.getPlayerOneHero());
+            hero = p1.getHero();
         } else if (action.getPlayerIdx() == 2) {
-            hero = new Hero(startGame.getPlayerTwoHero());
+            hero = p2.getHero();
         } else {
             heroNode.put("error", "Invalid player index");
             actionNode.set("output", heroNode);
@@ -369,48 +359,8 @@ public class CommandHandler {
         if(attackedY >= table.getTable().get(attackedX).size() )
             return;
 
-//        if(playerTurn == 0 && (action.getCardAttacker().getX() != FRONT_ROW1 || action.getCardAttacker().getX() != BACK_ROW1)) {
-//            System.out.println("intra aici 1");
-//            cardAttackerNode.put("x", action.getCardAttacker().getX());
-//            cardAttackerNode.put("y", action.getCardAttacker().getY());
-//            actionNode.set("cardAttacker", cardAttackerNode);
-//
-//            cardAttackedNode.put("x", action.getCardAttacked().getX());
-//            cardAttackedNode.put("y", action.getCardAttacked().getY());
-//            actionNode.set("cardAttacked", cardAttackedNode);
-//
-//            actionNode.put("error", "Attacked card does not belong to the current player.");
-//            output.add(actionNode);
-//            return;
-//        }
-
-//        if(playerTurn == 1 && (action.getCardAttacked().getX() != FRONT_ROW2 || action.getCardAttacked().getX() != BACK_ROW2)) {
-//
-//            System.out.println("intra aici 2");
-//
-//            cardAttackerNode.put("x", action.getCardAttacker().getX());
-//            cardAttackerNode.put("y", action.getCardAttacker().getY());
-//            actionNode.set("cardAttacker", cardAttackerNode);
-//
-//            cardAttackedNode.put("x", action.getCardAttacked().getX());
-//            cardAttackedNode.put("y", action.getCardAttacked().getY());
-//            actionNode.set("cardAttacked", cardAttackedNode);
-//
-//
-//            actionNode.put("command", "cardUsesAttack");
-//            actionNode.put("error", "Attacked card does not belong to the current player.");
-//            output.add(actionNode);
-//            return;
-//        }
-
-
-//
-
-
         Minions attackerMinion = table.getTable().get(attackerX).get(attackerY);
         Minions attackedMinion = table.getTable().get(attackedX).get(attackedY);
-
-
 
         if(attackerMinion.getHasAttacked() == 1) {
             actionNode.put("command", action.getCommand());
@@ -508,7 +458,6 @@ public class CommandHandler {
             }
 
         }
-        
 
         if(attackerMinion.getCard().getName().equals("The Cursed One")) {
             TheCursedOne theCursedOne = new TheCursedOne(attackerMinion);
@@ -531,6 +480,72 @@ public class CommandHandler {
         if(attackedMinion.getCard().getHealth() <= 0) {
             table.getTable().get(attackedX).remove(attackedY);
         }
+
+    }
+
+    public void useAttackHero(ActionsInput action, ObjectNode actionNode, ArrayNode output, Player p1, Player p2,int playerTurn, Table table) {
+        actionNode.put("command", action.getCommand());
+        ObjectNode cardAttackerNode = actionNode.objectNode();
+        ObjectNode gameEndNode = actionNode.objectNode();
+        int attackerX = action.getCardAttacker().getX();
+        int attackerY = action.getCardAttacker().getY();
+
+        cardAttackerNode.put("x", attackerX);
+        cardAttackerNode.put("y", attackerY);
+
+        actionNode.set("cardAttacker", cardAttackerNode);
+
+        if(attackerY >= table.getTable().get(attackerX).size())
+            return;
+        Minions attackerMinion = table.getTable().get(attackerX).get(attackerY);
+
+        if(attackerMinion.getIsFrozen() == 1){
+            actionNode.put("error", "Attacker card is frozen.");
+            output.add(actionNode);
+            return;
+        }
+
+        if(attackerMinion.getHasAttacked() == 1) {
+            actionNode.put("error", "Attacker card has already attacked this turn.");
+            output.add(actionNode);
+            return;
+        }
+
+        if(table.verifyTankOnRow(playerTurn) == 1) {
+            actionNode.put("error", "Attacked card is not of type 'Tank'.");
+            output.add(actionNode);
+            return;
+        }
+
+        if(playerTurn == 0) {
+            Hero heroPlayer2 = p2.getHero();
+            heroPlayer2.decHealth(attackerMinion.getCard().getAttackDamage());
+
+//            heroPlayer2.getCard().setHealth(heroPlayer2.getCard().getHealth() - attackerMinion.getCard().getAttackDamage());
+
+            if(heroPlayer2.getCard().getHealth() <= 0) {
+                gameEndNode.put("gameEnded", "Player one killed the enemy hero.");
+                output.add(gameEndNode);
+
+                p1.incWinCnt();
+            }
+        } else {
+            Hero heroPlayer1 = p1.getHero();
+            heroPlayer1.decHealth(attackerMinion.getCard().getAttackDamage());
+
+//            heroPlayer1.getCard().setHealth(heroPlayer1.getCard().getHealth() - attackerMinion.getCard().getAttackDamage());
+
+            if (heroPlayer1.getCard().getHealth() <= 0) {
+                gameEndNode.put("gameEnded", "Player two killed the enemy hero.");
+                output.add(gameEndNode);
+
+                p2.incWinCnt();
+
+            }
+        }
+
+        attackerMinion.setHasAttacked(1);
+
 
     }
 

@@ -26,6 +26,10 @@ public class Cards {
         this.card.setHealth(this.card.getHealth() - health);
     }
 
+    public void incHealth(int health) {
+        this.card.setHealth(this.card.getHealth() + health);
+    }
+
     public void setCard(CardInput card) {
         this.card = card;
     }

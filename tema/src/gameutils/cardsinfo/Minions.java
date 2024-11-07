@@ -34,10 +34,14 @@ public class Minions extends Cards {
                 return 0;
         }
 
+        public void incAttackDamage(Minions minion, int damage) {
+                minion.getCard().setAttackDamage(minion.getCard().getAttackDamage() + damage);
+        }
+
         // to be overwriten
         public void ability(Minions target){
                 System.out.printf("spaghete\n");
-        };
+        }
 
         public int hasAttacked() {
                 return hasAttacked;

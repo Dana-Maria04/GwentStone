@@ -2,6 +2,8 @@ package gameutils;
 
 import fileio.CardInput;
 import gameutils.cardsinfo.Cards;
+import gameutils.cardsinfo.heroes.Hero;
+
 import java.util.ArrayList;
 
 import static gameutils.GameConstants.*;
@@ -11,14 +13,12 @@ public class Player {
     private int winCnt=0;
     protected int DeckIdx;
     private ArrayList<Cards> deck;
+    private Hero hero;
 
     public Player(){
         this.deck = new ArrayList<>();
         this.mana = START_MANA;
     }
-//    public void addMana(int newMana){
-//        this.setMana(this.getMana() + newMana);
-//    }
 
     public void updateMana(int roundCnt){
         int manaToAdd;
@@ -29,20 +29,16 @@ public class Player {
             manaToAdd = roundCnt;
         }
         this.mana += manaToAdd;
-
-//        if (this.mana + manaToAdd > MAX_MANA) {
-//            this.mana = MAX_MANA;
-//        } else {
-//        }
     }
 
     public void decMana(int mana){
-        this.mana -= mana;
+       // this.mana -= mana;
+        this.setMana(this.getMana() - mana);
     }
 
 
     public void incWinCnt() {
-        this.winCnt++;
+        this.setWinCnt(this.getWinCnt() + 1);
     }
 
     public int getMana() {
@@ -75,5 +71,13 @@ public class Player {
 
     public void setDeck(ArrayList<Cards> deck) {
         this.deck = deck;
+    }
+
+    public Hero getHero() {
+        return hero;
+    }
+
+    public void setHero(Hero hero) {
+        this.hero = hero;
     }
 }
