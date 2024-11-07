@@ -12,12 +12,16 @@ import gameutils.cardsinfo.Cards;
 import gameutils.cardsinfo.Minions;
 import gameutils.cardsinfo.heroes.Hero;
 import gameutils.Deck;
+import gameutils.cardsinfo.minions.Disciple;
+import gameutils.cardsinfo.minions.MinionsFactory;
 
 import javax.smartcardio.Card;
 import java.nio.file.NoSuchFileException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.function.DoubleFunction;
+
+import gameutils.cardsinfo.minions.*;
 
 import static gameutils.GameConstants.*;
 
@@ -134,6 +138,26 @@ public class CommandHandler {
             output.add(actionNode);
             return;
         }
+
+//        Minions minion;
+//        Cards card = hand.getHand().get(handIdx);
+//        switch (card.getCard().getName()) {
+//            case "Disciple":
+//                minion = new Disciple(card);
+//                break;
+//            case "Miraj":
+//                minion = new Miraj(card);
+//                break;
+//            case "The Cursed One":
+//                minion = new TheCursedOne(card);
+//                break;
+//            case "The Ripper":
+//                minion = new TheRipper(card);
+//                break;
+//            default:
+//                minion = new Minions(card);
+//                break;
+//        }
 
         for (String backMinion : backMinions) {
             if (hand.getHand().get(handIdx).getCard().getName().equals(backMinion)) {
@@ -349,7 +373,65 @@ public class CommandHandler {
         output.add(actionNode);
     }
 
-    public void cardUsesAbility(){
+    public void cardUsesAbility(ActionsInput action, ObjectNode actionNode, ArrayNode output, int playerTurn, Table table){
+        actionNode.put("command", action.getCommand());
+
+        ObjectNode cardAttackerNode = actionNode.objectNode();
+        ObjectNode cardAttackedNode = actionNode.objectNode();
+
+        int attackerX = action.getCardAttacker().getX();
+        int attackerY = action.getCardAttacker().getY();
+        int attackedX = action.getCardAttacked().getX();
+        int attackedY = action.getCardAttacked().getY();
+
+        if(attackerY >= table.getTable().get(attackerX).size() )
+            return;
+        if(attackedY >= table.getTable().get(attackedX).size() )
+            return;
+
+
+        
+
+
+        Minions attackerMinion = table.getTable().get(attackerX).get(attackerY);
+        Minions attackedMinion = table.getTable().get(attackedX).get(attackedY);
+
+
+        if(attackerMinion.getHasAttacked() == 1) {
+            actionNode.put("command", action.getCommand());
+            cardAttackerNode.put("x", action.getCardAttacker().getX());
+            cardAttackerNode.put("y", action.getCardAttacker().getY());
+            actionNode.set("cardAttacker", cardAttackerNode);
+
+            cardAttackedNode.put("x", action.getCardAttacked().getX());
+            cardAttackedNode.put("y", action.getCardAttacked().getY());
+            actionNode.set("cardAttacked", cardAttackedNode);
+            actionNode.put("error", "Attacker card has already attacked this turn.");
+            output.add(actionNode);
+            return;
+        }
+
+        if(attackerMinion.getCard().getName().equals("The Cursed One")) {
+            TheCursedOne theCursedOne = new TheCursedOne(attackerMinion);
+            theCursedOne.getCard().setAttackDamage(0);
+            theCursedOne.ability(attackedMinion);
+        } else if(attackerMinion.getCard().getName().equals("Disciple")) {
+            Disciple disciple = new Disciple(attackerMinion);
+            disciple.getCard().setAttackDamage(0);
+            disciple.ability(attackedMinion);
+        } else if(attackerMinion.getCard().getName().equals("The Ripper")) {
+            TheRipper theRipper = new TheRipper(attackerMinion);
+            theRipper.ability(attackedMinion);
+        } else if(attackerMinion.getCard().getName().equals("Miraj")) {
+            Miraj miraj = new Miraj(attackerMinion);
+            miraj.ability(attackedMinion);
+        }
+
+        attackerMinion.setHasAttacked(1);
+
+        if(attackedMinion.getCard().getHealth() <= 0) {
+            table.getTable().get(attackedX).remove(attackedY);
+        }
 
     }
 

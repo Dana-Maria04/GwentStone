@@ -160,6 +160,9 @@ public class StartGame {
                 case "getCardAtPosition":
                     commandHandler.getCardAtPosition(action, actionNode, output, table);
                     break;
+                case "cardUsesAbility":
+                    commandHandler.cardUsesAbility(action, actionNode, output, playerTurn, table);
+                    break;
                 default:
                     break;
             }

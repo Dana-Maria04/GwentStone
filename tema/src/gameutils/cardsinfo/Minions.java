@@ -12,11 +12,19 @@ import java.util.LinkedList;
 public class Minions extends Cards {
         private int health;
         private int hasAttacked = 0;
+        private int isFrozen = 0;
 
         public Minions(Cards card) {
                 super(card.getCardInput());
                 this.health = card.getCardInput().getHealth();
                 this.hasAttacked = 0;
+        }
+
+
+        public Minions(Minions minion){
+                super(minion.getCard());
+                this.health = minion.getCard().getHealth();
+                this.hasAttacked = minion.getHasAttacked();
         }
 
         public int verifyTank(Minions minion) {
@@ -27,8 +35,10 @@ public class Minions extends Cards {
         }
 
         // to be overwriten
-        public void ability(Minions target){};
-        
+        public void ability(Minions target){
+                System.out.printf("spaghete\n");
+        };
+
         public int hasAttacked() {
                 return hasAttacked;
         }
@@ -41,4 +51,11 @@ public class Minions extends Cards {
                 this.hasAttacked = hasAttacked;
         }
 
+        public int getIsFrozen() {
+                return isFrozen;
+        }
+
+        public void setIsFrozen(int isFrozen) {
+                this.isFrozen = isFrozen;
+        }
 }
