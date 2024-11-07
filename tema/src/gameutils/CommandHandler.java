@@ -139,26 +139,6 @@ public class CommandHandler {
             return;
         }
 
-//        Minions minion;
-//        Cards card = hand.getHand().get(handIdx);
-//        switch (card.getCard().getName()) {
-//            case "Disciple":
-//                minion = new Disciple(card);
-//                break;
-//            case "Miraj":
-//                minion = new Miraj(card);
-//                break;
-//            case "The Cursed One":
-//                minion = new TheCursedOne(card);
-//                break;
-//            case "The Ripper":
-//                minion = new TheRipper(card);
-//                break;
-//            default:
-//                minion = new Minions(card);
-//                break;
-//        }
-
         for (String backMinion : backMinions) {
             if (hand.getHand().get(handIdx).getCard().getName().equals(backMinion)) {
                 if (table.getTable().get(backRow).size() < NUM_CARDS) {
@@ -389,12 +369,47 @@ public class CommandHandler {
         if(attackedY >= table.getTable().get(attackedX).size() )
             return;
 
+//        if(playerTurn == 0 && (action.getCardAttacker().getX() != FRONT_ROW1 || action.getCardAttacker().getX() != BACK_ROW1)) {
+//            System.out.println("intra aici 1");
+//            cardAttackerNode.put("x", action.getCardAttacker().getX());
+//            cardAttackerNode.put("y", action.getCardAttacker().getY());
+//            actionNode.set("cardAttacker", cardAttackerNode);
+//
+//            cardAttackedNode.put("x", action.getCardAttacked().getX());
+//            cardAttackedNode.put("y", action.getCardAttacked().getY());
+//            actionNode.set("cardAttacked", cardAttackedNode);
+//
+//            actionNode.put("error", "Attacked card does not belong to the current player.");
+//            output.add(actionNode);
+//            return;
+//        }
 
-        
+//        if(playerTurn == 1 && (action.getCardAttacked().getX() != FRONT_ROW2 || action.getCardAttacked().getX() != BACK_ROW2)) {
+//
+//            System.out.println("intra aici 2");
+//
+//            cardAttackerNode.put("x", action.getCardAttacker().getX());
+//            cardAttackerNode.put("y", action.getCardAttacker().getY());
+//            actionNode.set("cardAttacker", cardAttackerNode);
+//
+//            cardAttackedNode.put("x", action.getCardAttacked().getX());
+//            cardAttackedNode.put("y", action.getCardAttacked().getY());
+//            actionNode.set("cardAttacked", cardAttackedNode);
+//
+//
+//            actionNode.put("command", "cardUsesAttack");
+//            actionNode.put("error", "Attacked card does not belong to the current player.");
+//            output.add(actionNode);
+//            return;
+//        }
+
+
+//
 
 
         Minions attackerMinion = table.getTable().get(attackerX).get(attackerY);
         Minions attackedMinion = table.getTable().get(attackedX).get(attackedY);
+
 
 
         if(attackerMinion.getHasAttacked() == 1) {
@@ -410,6 +425,90 @@ public class CommandHandler {
             output.add(actionNode);
             return;
         }
+
+        if(attackerMinion.getCard().getName().equals("Disciple")) {
+            if(playerTurn == 0 && (action.getCardAttacked().getX() == FRONT_ROW2 || action.getCardAttacked().getX() == BACK_ROW2)) {
+                cardAttackerNode.put("x", action.getCardAttacker().getX());
+                cardAttackerNode.put("y", action.getCardAttacker().getY());
+                actionNode.set("cardAttacker", cardAttackerNode);
+
+                cardAttackedNode.put("x", action.getCardAttacked().getX());
+                cardAttackedNode.put("y", action.getCardAttacked().getY());
+                actionNode.set("cardAttacked", cardAttackedNode);
+
+                actionNode.put("error", "Attacked card does not belong to the current player.");
+                output.add(actionNode);
+                return ;
+            } else if(playerTurn == 1 && (action.getCardAttacked().getX() == FRONT_ROW1 || action.getCardAttacked().getX() == BACK_ROW1)) {
+                cardAttackerNode.put("x", action.getCardAttacker().getX());
+                cardAttackerNode.put("y", action.getCardAttacker().getY());
+                actionNode.set("cardAttacker", cardAttackerNode);
+
+                cardAttackedNode.put("x", action.getCardAttacked().getX());
+                cardAttackedNode.put("y", action.getCardAttacked().getY());
+                actionNode.set("cardAttacked", cardAttackedNode);
+
+                actionNode.put("error", "Attacked card does not belong to the current player.");
+                output.add(actionNode);
+                return ;
+            }
+        }
+
+
+
+        if(playerTurn == 0 && (action.getCardAttacked().getX() == FRONT_ROW1 || action.getCardAttacked().getX() == BACK_ROW1)
+            && !attackerMinion.getCard().getName().equals("Disciple")) {
+
+            cardAttackerNode.put("x", action.getCardAttacker().getX());
+            cardAttackerNode.put("y", action.getCardAttacker().getY());
+            actionNode.set("cardAttacker", cardAttackerNode);
+
+            cardAttackedNode.put("x", action.getCardAttacked().getX());
+            cardAttackedNode.put("y", action.getCardAttacked().getY());
+            actionNode.set("cardAttacked", cardAttackedNode);
+
+            actionNode.put("error", "Attacked card does not belong to the enemy.");
+            output.add(actionNode);
+            return;
+        }
+
+        if(playerTurn == 1 && (action.getCardAttacked().getX() == FRONT_ROW2 || action.getCardAttacked().getX() == BACK_ROW2)
+                && !attackerMinion.getCard().getName().equals("Disciple")) {
+
+            cardAttackerNode.put("x", action.getCardAttacker().getX());
+            cardAttackerNode.put("y", action.getCardAttacker().getY());
+            actionNode.set("cardAttacker", cardAttackerNode);
+
+            cardAttackedNode.put("x", action.getCardAttacked().getX());
+            cardAttackedNode.put("y", action.getCardAttacked().getY());
+            actionNode.set("cardAttacked", cardAttackedNode);
+
+
+            actionNode.put("command", "cardUsesAbility");
+            actionNode.put("error", "Attacked card does not belong to the enemy.");
+            output.add(actionNode);
+            return;
+        }
+
+
+        if(!attackerMinion.getCard().getName().equals("Disciple")) {
+            if(table.verifyTankOnRow(playerTurn) == 1 && attackedMinion.verifyTank(attackedMinion) == 0) {
+
+                actionNode.put("command", action.getCommand());
+                cardAttackerNode.put("x", action.getCardAttacker().getX());
+                cardAttackerNode.put("y", action.getCardAttacker().getY());
+                actionNode.set("cardAttacker", cardAttackerNode);
+
+                cardAttackedNode.put("x", action.getCardAttacked().getX());
+                cardAttackedNode.put("y", action.getCardAttacked().getY());
+                actionNode.set("cardAttacked", cardAttackedNode);
+                actionNode.put("error", "Attacked card is not of type 'Tank'.");
+                output.add(actionNode);
+                return;
+            }
+
+        }
+        
 
         if(attackerMinion.getCard().getName().equals("The Cursed One")) {
             TheCursedOne theCursedOne = new TheCursedOne(attackerMinion);

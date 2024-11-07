@@ -26,7 +26,11 @@ public class Table {
 
     public int verifyTankOnRow(int playerTurn) {
         LinkedList<Minions> frontRowMinions;
-        frontRowMinions = table.get(playerTurn + 1);
+        if(playerTurn == 0) {
+            frontRowMinions = table.get(1);
+        } else{
+            frontRowMinions = table.get(2);
+        }
         for(Minions minion : frontRowMinions) {
             if(minion.verifyTank(minion) == 1) {
                 return 1;
