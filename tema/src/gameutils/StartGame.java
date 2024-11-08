@@ -117,6 +117,19 @@ public class StartGame {
                     break;
                 case "endPlayerTurn":
                     turnCycle++;
+
+                    if(playerTurn == 0) {
+                        for(int i = 2; i < 4; i++) {
+                            for(Minions minion : table.getTable().get(i))
+                                minion.setIsFrozen(0);
+                        }
+                    } else {
+                        for (int i = 0; i < 2; i++) {
+                            for (Minions minion : table.getTable().get(i))
+                                minion.setIsFrozen(0);
+                        }
+                    }
+                    
                     if(playerTurn == 0)
                         playerTurn = 1;
                     else
@@ -139,11 +152,14 @@ public class StartGame {
                         for(int i = 0; i < 4; i++) {
                             for(Minions minion : table.getTable().get(i)) {
                                 minion.setHasAttacked(0); // give them the ability to attack again next round
-                                minion.setIsFrozen(0); // unfreeze the minions
                             }
                         }
-
+                        player[0].getHero().setHasAttacked(0);
+                        player[1].getHero().setHasAttacked(0);
                     }
+
+
+
                     break;
                 case "placeCard":
                     boolean[] ok = {false};
@@ -167,6 +183,9 @@ public class StartGame {
                     break;
                 case "useHeroAbility":
                     commandHandler.useHeroAbility(action, actionNode, output, player[0], player[1], playerTurn, table);
+                    break;
+                case "getFrozenCardsOnTable":
+                    commandHandler.getFrozenCardsOnTable(action, actionNode, output, table);
                     break;
                 default:
                     break;

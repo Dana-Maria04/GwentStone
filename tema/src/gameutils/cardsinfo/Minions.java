@@ -18,6 +18,7 @@ public class Minions extends Cards {
                 super(card.getCardInput());
                 this.health = card.getCardInput().getHealth();
                 this.hasAttacked = 0;
+                this.isFrozen = 0;
         }
 
 
