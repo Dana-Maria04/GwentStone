@@ -656,4 +656,17 @@ public class CommandHandler {
 
         output.add(actionNode);
     }
+
+    public static void getPlayerWins(ActionsInput action, ObjectNode actionNode, ArrayNode output, Player p){
+        actionNode.put("command", action.getCommand());
+        actionNode.put("output", p.getWinCnt());
+        output.add(actionNode);
+    }
+
+    public static void getTotalGamesPlayed(ActionsInput action, ObjectNode actionNode, ArrayNode output, Input input){
+        actionNode.put("command", action.getCommand());
+        actionNode.put("output", input.getGames().size());
+        output.add(actionNode);
+    }
+
 }

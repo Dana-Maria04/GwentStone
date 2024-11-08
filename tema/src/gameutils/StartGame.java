@@ -129,7 +129,7 @@ public class StartGame {
                                 minion.setIsFrozen(0);
                         }
                     }
-                    
+
                     if(playerTurn == 0)
                         playerTurn = 1;
                     else
@@ -187,6 +187,15 @@ public class StartGame {
                 case "getFrozenCardsOnTable":
                     commandHandler.getFrozenCardsOnTable(action, actionNode, output, table);
                     break;
+                case "getPlayerOneWins":
+                    CommandHandler.getPlayerWins(action, actionNode, output, player[0]);
+                    break;
+                case "getPlayerTwoWins":
+                    CommandHandler.getPlayerWins(action, actionNode, output, player[1]);
+                    break;
+                case "getTotalGamesPlayed":
+                    CommandHandler.getTotalGamesPlayed(action, actionNode, output, input);
+                    break;
                 default:
                     break;
             }
@@ -194,7 +203,6 @@ public class StartGame {
         return output;
 
     }
-
 }
 
 
