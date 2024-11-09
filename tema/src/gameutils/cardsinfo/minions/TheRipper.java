@@ -13,9 +13,8 @@ public class TheRipper extends Minions {
         //Weak Knees
         int targetDamage = target.getCard().getAttackDamage();
         target.getCard().setAttackDamage(targetDamage - 2);
-        if(target.getCard().getAttackDamage() < 0) {
+        if(target.getCard().getAttackDamage() < 2){
             target.getCard().setAttackDamage(0);
         }
-
     }
 }

@@ -1,4 +1,16 @@
 [ {
+  "command" : "getCardAtPosition",
+  "x" : 1,
+  "y" : 0,
+  "output" : {
+    "name" : "Miraj",
+    "mana" : 4,
+    "attackDamage" : 5,
+    "health" : 3,
+    "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
+    "colors" : [ "Yellow", "Orange", "Red" ]
+  }
+}, {
   "command" : "getCardsInHand",
   "playerIdx" : 1,
   "output" : [ {
@@ -23,6 +35,50 @@
 }, {
   "command" : "getPlayerTurn",
   "output" : 1
+}, {
+  "command" : "cardUsesAbility",
+  "cardAttacker" : {
+    "x" : 1,
+    "y" : 0
+  },
+  "cardAttacked" : {
+    "x" : 2,
+    "y" : 1
+  },
+  "error" : "Attacked card is not of type 'Tank'."
+}, {
+  "command" : "cardUsesAbility",
+  "cardAttacker" : {
+    "x" : 1,
+    "y" : 2
+  },
+  "cardAttacked" : {
+    "x" : 2,
+    "y" : 0
+  },
+  "error" : "Attacker card has already attacked this turn."
+}, {
+  "command" : "cardUsesAbility",
+  "cardAttacker" : {
+    "x" : 1,
+    "y" : 0
+  },
+  "cardAttacked" : {
+    "x" : 0,
+    "y" : 0
+  },
+  "error" : "Attacked card does not belong to the enemy."
+}, {
+  "command" : "cardUsesAbility",
+  "cardAttacker" : {
+    "x" : 0,
+    "y" : 0
+  },
+  "cardAttacked" : {
+    "x" : 2,
+    "y" : 0
+  },
+  "error" : "Attacked card does not belong to the current player."
 }, {
   "command" : "getPlayerMana",
   "playerIdx" : 2,
@@ -50,14 +106,14 @@
   } ], [ {
     "mana" : 4,
     "attackDamage" : 5,
-    "health" : 3,
+    "health" : 5,
     "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
     "colors" : [ "Yellow", "Orange", "Red" ],
     "name" : "Miraj"
   }, {
     "mana" : 4,
     "attackDamage" : 2,
-    "health" : 8,
+    "health" : 3,
     "description" : "Premium card: No matter how many, his body will fight. Save your breath for the Mountain is strong.",
     "colors" : [ "Red", "Purple" ],
     "name" : "Goliath"
@@ -70,15 +126,15 @@
     "name" : "The Ripper"
   } ], [ {
     "mana" : 2,
-    "attackDamage" : 2,
-    "health" : 6,
+    "attackDamage" : 0,
+    "health" : 10,
     "description" : "Standard card: He has seen everything, his mind has never been asleep since the making of the realm.",
     "colors" : [ "Black", "White", "Green" ],
     "name" : "Warden"
   }, {
     "mana" : 5,
     "attackDamage" : 5,
-    "health" : 3,
+    "health" : 8,
     "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
     "colors" : [ "Red", "Black" ],
     "name" : "Miraj"

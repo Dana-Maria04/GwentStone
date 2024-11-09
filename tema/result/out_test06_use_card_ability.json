@@ -24,6 +24,18 @@
   "command" : "getPlayerTurn",
   "output" : 2
 }, {
+  "command" : "getCardAtPosition",
+  "x" : 0,
+  "y" : 0,
+  "output" : {
+    "name" : "Disciple",
+    "mana" : 3,
+    "attackDamage" : 0,
+    "health" : 2,
+    "description" : "Standard card: Everything is sacred to him, all is but a gift from the saints.",
+    "colors" : [ "Green", "Yellow", "Blue" ]
+  }
+}, {
   "command" : "getCardsInHand",
   "playerIdx" : 2,
   "output" : [ {
@@ -49,6 +61,18 @@
   "command" : "getPlayerTurn",
   "output" : 2
 }, {
+  "command" : "getCardAtPosition",
+  "x" : 0,
+  "y" : 0,
+  "output" : {
+    "name" : "Disciple",
+    "mana" : 3,
+    "attackDamage" : 0,
+    "health" : 2,
+    "description" : "Standard card: Everything is sacred to him, all is but a gift from the saints.",
+    "colors" : [ "Green", "Yellow", "Blue" ]
+  }
+}, {
   "command" : "getPlayerMana",
   "playerIdx" : 1,
   "output" : 7
@@ -64,7 +88,7 @@
   "output" : [ [ {
     "mana" : 3,
     "attackDamage" : 0,
-    "health" : 2,
+    "health" : 8,
     "description" : "Standard card: Everything is sacred to him, all is but a gift from the saints.",
     "colors" : [ "Green", "Yellow", "Blue" ],
     "name" : "Disciple"
@@ -84,15 +108,15 @@
     "name" : "The Cursed One"
   } ], [ {
     "mana" : 3,
-    "attackDamage" : 1,
-    "health" : 7,
+    "attackDamage" : 0,
+    "health" : 5,
     "description" : "Standard card: A warrior who is never afraid of battle, no matter the costs",
     "colors" : [ "Red", "Purple" ],
     "name" : "Goliath"
   }, {
     "mana" : 5,
     "attackDamage" : 4,
-    "health" : 3,
+    "health" : 6,
     "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
     "colors" : [ "Red", "Black" ],
     "name" : "Miraj"
@@ -120,14 +144,14 @@
   }, {
     "mana" : 5,
     "attackDamage" : 5,
-    "health" : 4,
+    "health" : 11,
     "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
     "colors" : [ "Yellow", "Orange", "Red" ],
     "name" : "Miraj"
   } ], [ {
     "mana" : 1,
-    "attackDamage" : 2,
-    "health" : 3,
+    "attackDamage" : 3,
+    "health" : 2,
     "description" : "Premium card: His presence is not known even by ghosts, success at all costs.",
     "colors" : [ "Black", "White" ],
     "name" : "Sentinel"

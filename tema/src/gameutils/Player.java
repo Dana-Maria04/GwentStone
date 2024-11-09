@@ -1,6 +1,5 @@
 package gameutils;
 
-import fileio.CardInput;
 import gameutils.cardsinfo.Cards;
 import gameutils.cardsinfo.heroes.Hero;
 
@@ -18,6 +17,7 @@ public class Player {
     public Player(){
         this.deck = new ArrayList<>();
         this.mana = START_MANA;
+        this.winCnt = 0;
     }
 
     public void updateMana(int roundCnt){
@@ -32,7 +32,6 @@ public class Player {
     }
 
     public void decMana(int mana){
-       // this.mana -= mana;
         this.setMana(this.getMana() - mana);
     }
 

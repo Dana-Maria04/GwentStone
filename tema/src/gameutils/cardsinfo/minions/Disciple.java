@@ -6,7 +6,6 @@ import gameutils.cardsinfo.Minions;
 public class Disciple extends Minions {
     public Disciple(final Cards cardInput) {
         super(cardInput);
-        super.getCard().setAttackDamage(0);
     }
 
     @Override

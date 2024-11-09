@@ -24,6 +24,30 @@
   "command" : "getPlayerTurn",
   "output" : 2
 }, {
+  "command" : "getCardAtPosition",
+  "x" : 0,
+  "y" : 0,
+  "output" : {
+    "name" : "The Cursed One",
+    "mana" : 1,
+    "attackDamage" : 0,
+    "health" : 1,
+    "description" : "Premium card: Nobody suspects an outcast, not even the Gods.",
+    "colors" : [ "Black", "White", "Red" ]
+  }
+}, {
+  "command" : "getCardAtPosition",
+  "x" : 0,
+  "y" : 0,
+  "output" : {
+    "name" : "The Cursed One",
+    "mana" : 1,
+    "attackDamage" : 0,
+    "health" : 1,
+    "description" : "Premium card: Nobody suspects an outcast, not even the Gods.",
+    "colors" : [ "Black", "White", "Red" ]
+  }
+}, {
   "command" : "getPlayerHero",
   "playerIdx" : 1,
   "output" : {
@@ -69,6 +93,30 @@
   "command" : "getPlayerTurn",
   "output" : 2
 }, {
+  "command" : "getCardAtPosition",
+  "x" : 0,
+  "y" : 0,
+  "output" : {
+    "name" : "The Cursed One",
+    "mana" : 1,
+    "attackDamage" : 0,
+    "health" : 1,
+    "description" : "Premium card: Nobody suspects an outcast, not even the Gods.",
+    "colors" : [ "Black", "White", "Red" ]
+  }
+}, {
+  "command" : "getCardAtPosition",
+  "x" : 0,
+  "y" : 2,
+  "output" : {
+    "name" : "The Cursed One",
+    "mana" : 2,
+    "attackDamage" : 0,
+    "health" : 1,
+    "description" : "Premium card: Nobody suspects an outcast, not even the Gods.",
+    "colors" : [ "Pink", "Purple" ]
+  }
+}, {
   "command" : "getPlayerHero",
   "playerIdx" : 1,
   "output" : {
@@ -76,7 +124,7 @@
     "description" : "Standard card: Absolute order, a soldier must devote his life to his General.",
     "colors" : [ "Green", "Yellow" ],
     "name" : "General Kocioraw",
-    "health" : 30
+    "health" : 25
   }
 }, {
   "command" : "getPlayerHero",
@@ -86,8 +134,10 @@
     "description" : "Premium card: Her majesty rule is absolute, every non-believer will suffer.",
     "colors" : [ "Black", "Red" ],
     "name" : "Empress Thorina",
-    "health" : 30
+    "health" : 25
   }
+}, {
+  "gameEnded" : "Player two killed the enemy hero."
 }, {
   "command" : "getPlayerMana",
   "playerIdx" : 2,

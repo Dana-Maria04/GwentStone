@@ -6,7 +6,6 @@ import gameutils.cardsinfo.Minions;
 public class Miraj extends Minions{
     public Miraj(Cards cardInput) {
         super(cardInput);
-        super.getCard().setAttackDamage(cardInput.getCard().getAttackDamage());
     }
 
     @Override

@@ -6,7 +6,6 @@ import gameutils.cardsinfo.Minions;
 public class TheCursedOne extends Minions {
     public TheCursedOne (Cards cardInput) {
         super(cardInput);
-        super.getCard().setAttackDamage(0);
     }
 
     @Override

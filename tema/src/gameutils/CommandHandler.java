@@ -7,7 +7,6 @@ import gameutils.cardsinfo.Cards;
 import gameutils.cardsinfo.Minions;
 import gameutils.cardsinfo.heroes.Hero;
 import gameutils.cardsinfo.heroes.HeroFactory;
-import gameutils.cardsinfo.minions.Disciple;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -49,10 +48,10 @@ public class CommandHandler {
         output.add(actionNode);
     }
 
-    public void getPlayerTurn(ObjectNode actionNode, ArrayNode output, ActionsInput action, int startingPlayer) {
+    public void getPlayerTurn(ObjectNode actionNode, ArrayNode output, ActionsInput action, int playerTurn) {
         ObjectNode turnNode = actionNode.objectNode();
         turnNode.put("command", action.getCommand());
-        turnNode.put("output", startingPlayer + 1);
+        turnNode.put("output", playerTurn + 1);
         output.add(turnNode);
     }
 
@@ -61,10 +60,6 @@ public class CommandHandler {
         actionNode.put("playerIdx", action.getPlayerIdx());
 
         ObjectNode heroNode = actionNode.objectNode();
-
-//        StartGameInput startGame = new StartGameInput();
-//        startGame = input.getGames().get(0).getStartGame();
-
 
         Hero hero;
         if (action.getPlayerIdx() == 1) {
@@ -140,6 +135,11 @@ public class CommandHandler {
                     minion.setHasAttacked(0);
                     ok[0] = true;
                     return;
+                } else {
+                    actionNode.put("command", action.getCommand());
+                    actionNode.put("error", "Cannot place card since row is full.");
+                    output.add(actionNode);
+                    return;
                 }
             }
         }
@@ -152,6 +152,11 @@ public class CommandHandler {
                     player.decMana(hand.getHand().get(handIdx).getCard().getMana());
                     minion.setHasAttacked(0);
                     ok[0] = true;
+                    return;
+                } else {
+                    actionNode.put("command", action.getCommand());
+                    actionNode.put("error", "Cannot place card since row is full.");
+                    output.add(actionNode);
                     return;
                 }
             }
@@ -276,6 +281,21 @@ public class CommandHandler {
             return;
         }
 
+        if (table.getTable().get(attackedX).size() <= attackedY) {
+            actionNode.put("command", action.getCommand());
+            cardAttackerNode.put("x", action.getCardAttacker().getX());
+            cardAttackerNode.put("y", action.getCardAttacker().getY());
+            actionNode.set("cardAttacker", cardAttackerNode);
+
+            cardAttackedNode.put("x", action.getCardAttacked().getX());
+            cardAttackedNode.put("y", action.getCardAttacked().getY());
+            actionNode.set("cardAttacked", cardAttackedNode);
+            actionNode.put("error", "Attacked card is not on the table.");
+            output.add(actionNode);
+            return;
+        }
+
+
         Minions attackedMinion = table.getTable().get(attackedX).get(attackedY);
         Minions attackerMinion = table.getTable().get(attackerX).get(attackerY);
         if (table.verifyTankOnRow(playerTurn) == 1 && attackedMinion.verifyTank(attackedMinion) == 0) {
@@ -309,12 +329,18 @@ public class CommandHandler {
 
         attackerMinion.setHasAttacked(1);
 
+
         int damage = table.getTable().get(attackerX).get(attackerY).getCard().getAttackDamage();
-        if (damage >= attackedMinion.getCard().getHealth() && table.getTable().get(attackedX).size() > attackedY) {
+
+        attackedMinion.decHealth(damage);
+
+
+
+        if(attackedMinion.getCard().getHealth() <= 0) {
             table.getTable().get(attackedX).remove(attackedY);
-        } else {
-            attackedMinion.decHealth(damage);
         }
+
+
     }
 
     public void getCardAtPosition(ActionsInput action, ObjectNode actionNode, ArrayNode output, Table table) {
@@ -362,6 +388,13 @@ public class CommandHandler {
 
         Minions attackerMinion = table.getTable().get(attackerX).get(attackerY);
         Minions attackedMinion = table.getTable().get(attackedX).get(attackedY);
+
+
+        if(attackerMinion.getIsFrozen() == 1) {
+            actionNode.put("error", "Attacker card is frozen.");
+            output.add(actionNode);
+            return;
+        }
 
         if (attackerMinion.getHasAttacked() == 1) {
             actionNode.put("command", action.getCommand());
@@ -459,26 +492,14 @@ public class CommandHandler {
 
         }
 
-//        if(attackerMinion.getCard().getName().equals("The Cursed One")) {
-//            TheCursedOne theCursedOne = new TheCursedOne(attackerMinion);
-//            theCursedOne.getCard().setAttackDamage(0);
-//            theCursedOne.ability(attackedMinion);
-//        } else if(attackerMinion.getCard().getName().equals("Disciple")) {
-//            Disciple disciple = new Disciple(attackerMinion);
-//            disciple.getCard().setAttackDamage(0);
-//            disciple.ability(attackedMinion);
-//        } else if(attackerMinion.getCard().getName().equals("The Ripper")) {
-//            TheRipper theRipper = new TheRipper(attackerMinion);
-//            theRipper.ability(attackedMinion);
-//        } else if(attackerMinion.getCard().getName().equals("Miraj")) {
-//            Miraj miraj = new Miraj(attackerMinion);
-//            miraj.ability(attackedMinion);
-//        }
+
         Minions attackerWithAbility = MinionsFactory.createMinion(attackerMinion);
         attackerWithAbility.ability(attackedMinion);
 
 
         attackerMinion.setHasAttacked(1);
+
+
 
         if (attackedMinion.getCard().getHealth() <= 0) {
             table.getTable().get(attackedX).remove(attackedY);
@@ -514,6 +535,7 @@ public class CommandHandler {
             return;
         }
 
+        // && attackerMinion.verifyTank(attackerMinion) == 0 ??
         if (table.verifyTankOnRow(playerTurn) == 1) {
             actionNode.put("error", "Attacked card is not of type 'Tank'.");
             output.add(actionNode);
@@ -524,24 +546,18 @@ public class CommandHandler {
             Hero heroPlayer2 = p2.getHero();
             heroPlayer2.decHealth(attackerMinion.getCard().getAttackDamage());
 
-//            heroPlayer2.getCard().setHealth(heroPlayer2.getCard().getHealth() - attackerMinion.getCard().getAttackDamage());
-
             if (heroPlayer2.getCard().getHealth() <= 0) {
                 gameEndNode.put("gameEnded", "Player one killed the enemy hero.");
                 output.add(gameEndNode);
-
                 p1.incWinCnt();
             }
         } else {
             Hero heroPlayer1 = p1.getHero();
             heroPlayer1.decHealth(attackerMinion.getCard().getAttackDamage());
 
-//            heroPlayer1.getCard().setHealth(heroPlayer1.getCard().getHealth() - attackerMinion.getCard().getAttackDamage());
-
             if (heroPlayer1.getCard().getHealth() <= 0) {
                 gameEndNode.put("gameEnded", "Player two killed the enemy hero.");
                 output.add(gameEndNode);
-
                 p2.incWinCnt();
 
             }
@@ -549,11 +565,16 @@ public class CommandHandler {
 
         attackerMinion.setHasAttacked(1);
 
+
+
     }
 
     public void useHeroAbility(ActionsInput action, ObjectNode actionNode, ArrayNode output, Player p1, Player p2, int playerTurn, Table table) {
         actionNode.put("command", action.getCommand());
         actionNode.put("affectedRow", action.getAffectedRow());
+
+
+        int affectedRow  = action.getAffectedRow();
 
         if (playerTurn == 0) {
             Hero heroPlayer1 = p1.getHero();
@@ -571,26 +592,25 @@ public class CommandHandler {
             }
 
             // if offensive , affected row must be opponent's row
-            if (heroPlayer1.verifyOffensive() == 1 && (action.getAffectedRow() == FRONT_ROW1 || action.getAffectedRow() == BACK_ROW1)) {
+            if (heroPlayer1.verifyOffensive() == 1 && (affectedRow == FRONT_ROW1 || affectedRow == BACK_ROW1)) {
                 actionNode.put("error", "Selected row does not belong to the enemy.");
                 output.add(actionNode);
                 return;
             }
 
             // if defensive , affected row must be player's row
-            if (heroPlayer1.verifyDefensive() == 1 &&(action.getAffectedRow() == FRONT_ROW2 || action.getAffectedRow() == BACK_ROW2)) {
+            if (heroPlayer1.verifyDefensive() == 1 &&(affectedRow == FRONT_ROW2 || affectedRow == BACK_ROW2)) {
                 actionNode.put("error", "Selected row does not belong to the current player.");
                 output.add(actionNode);
                 return;
             }
 
             Hero heroAbility = HeroFactory.createHero(heroPlayer1);
-            heroAbility.ability(table.getTable().get(action.getAffectedRow()));
+            heroAbility.ability(table.getTable().get(affectedRow));
 
             heroPlayer1.setHasAttacked(1);
 
             p1.decMana(heroPlayer1.getCard().getMana());
-
 
         } else {
             Hero heroPlayer2 = p2.getHero();
@@ -608,25 +628,24 @@ public class CommandHandler {
             }
 
             // if offensive , affected row must be opponent's row
-            if (heroPlayer2.verifyOffensive() == 1 && (action.getAffectedRow() == FRONT_ROW2 || action.getAffectedRow() == BACK_ROW2)) {
+            if (heroPlayer2.verifyOffensive() == 1 && (affectedRow == FRONT_ROW2 || affectedRow == BACK_ROW2)) {
                 actionNode.put("error", "Selected row does not belong to the enemy.");
                 output.add(actionNode);
                 return;
             }
 
             // if defensive , affected row must be player's row
-            if (heroPlayer2.verifyDefensive() == 1 && (action.getAffectedRow() == FRONT_ROW1 || action.getAffectedRow() == BACK_ROW1)) {
+            if (heroPlayer2.verifyDefensive() == 1 && (affectedRow == FRONT_ROW1 || affectedRow == BACK_ROW1)) {
                 actionNode.put("error", "Selected row does not belong to the current player.");
                 output.add(actionNode);
                 return;
             }
 
-            Hero heroAbility = HeroFactory.createHero(heroPlayer2);
-            heroAbility.ability(table.getTable().get(action.getAffectedRow()));
 
             heroPlayer2.setHasAttacked(1);
 
             p2.decMana(heroPlayer2.getCard().getMana());
+
         }
     }
 
@@ -657,15 +676,15 @@ public class CommandHandler {
         output.add(actionNode);
     }
 
-    public static void getPlayerWins(ActionsInput action, ObjectNode actionNode, ArrayNode output, Player p){
+    public static void getPlayerWins(ActionsInput action, ObjectNode actionNode, ArrayNode output, int wins){
         actionNode.put("command", action.getCommand());
-        actionNode.put("output", p.getWinCnt());
+        actionNode.put("output", wins);
         output.add(actionNode);
     }
 
-    public static void getTotalGamesPlayed(ActionsInput action, ObjectNode actionNode, ArrayNode output, Input input){
+    public static void getTotalGamesPlayed(ActionsInput action, ObjectNode actionNode, ArrayNode output, int i){
         actionNode.put("command", action.getCommand());
-        actionNode.put("output", input.getGames().size());
+        actionNode.put("output", i);
         output.add(actionNode);
     }
 
