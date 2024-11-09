@@ -334,8 +334,6 @@ public class CommandHandler {
 
         attackedMinion.decHealth(damage);
 
-
-
         if(attackedMinion.getCard().getHealth() <= 0) {
             table.getTable().get(attackedX).remove(attackedY);
         }
@@ -640,6 +638,9 @@ public class CommandHandler {
                 output.add(actionNode);
                 return;
             }
+
+            Hero heroAbility = HeroFactory.createHero(heroPlayer2);
+            heroAbility.ability(table.getTable().get(affectedRow));
 
 
             heroPlayer2.setHasAttacked(1);

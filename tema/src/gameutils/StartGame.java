@@ -227,7 +227,6 @@ public class StartGame {
                     checkWins = true;
                 }
             }
-
         }
         return output;
     }
