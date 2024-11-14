@@ -15,14 +15,13 @@ import java.util.Random;
 
 public class StartGame {
 
-    protected Player[] player;
-    protected Hand[] hand;
-    protected ArrayList<ActionsInput> actionsinputs;
-    protected ObjectMapper mapper = new ObjectMapper();
-    protected ArrayNode output = mapper.createArrayNode();
-    protected ArrayNode deckNode = mapper.createArrayNode();
+    private Player[] player;
+    private Hand[] hand;
+    private ArrayList<ActionsInput> actionsinputs;
+    private ObjectMapper mapper = new ObjectMapper();
+    private ArrayNode output = mapper.createArrayNode();
+    private ArrayNode deckNode = mapper.createArrayNode();
     private int checkIfGameEnded;
-    private int roundCnt;
     private int winsP1;
     private int winsP2;
     private ArrayList<Cards> deckP1 = new ArrayList<>();
@@ -36,7 +35,6 @@ public class StartGame {
         winsP1 = 0;
         winsP2 = 0;
         for (int i = 0; i < input.getGames().size(); i++) {
-            this.roundCnt = 1;
             this.player = new Player[2];
             this.player[0] = new Player();
             this.player[1] = new Player();
@@ -44,8 +42,10 @@ public class StartGame {
             this.hand[0] = new Hand();
             this.hand[1] = new Hand();
 
-            int playerTurn = 0;
-            int turnCycle = 0;
+            // try to put those in table
+            int[] playerTurn = {0};
+            int[] turnCycle = {0};
+            int[] roundCnt = {1};
 
 
             ObjectMapper mapper = new ObjectMapper();
@@ -96,7 +96,7 @@ public class StartGame {
             Collections.shuffle(player[0].getDeck(), new Random(randSeed));
             Collections.shuffle(player[1].getDeck(), new Random(randSeed));
 
-            playerTurn = startGame.getStartingPlayer() - 1;
+            playerTurn[0] = startGame.getStartingPlayer() - 1;
 
             hand[0].addCard(player[0].getDeck().get(0));
             hand[1].addCard(player[1].getDeck().get(0));
@@ -125,7 +125,7 @@ public class StartGame {
                         commandHandler.getPlayerHero(actionNode, output, action, input, player[0], player[1]);
                         break;
                     case "getPlayerTurn":
-                        commandHandler.getPlayerTurn(actionNode, output, action, playerTurn);
+                        commandHandler.getPlayerTurn(actionNode, output, action, playerTurn[0]);
                         break;
                     case "getCardsInHand":
                         commandHandler.getCardsInHand(action, actionNode, output, hand[0], hand[1]);
@@ -137,71 +137,26 @@ public class StartGame {
                         commandHandler.getCardsOnTable(action, actionNode, output, table);
                         break;
                     case "endPlayerTurn":
-                        turnCycle++;
-
-                        if (playerTurn == 0) {
-                            for (int j = 2; j < 4; j++) {
-                                for (Minions minion : table.getTable().get(j))
-                                    minion.setIsFrozen(0);
-                            }
-                        } else {
-                            for (int j = 0; j < 2; j++) {
-                                for (Minions minion : table.getTable().get(j))
-                                    minion.setIsFrozen(0);
-                            }
-                        }
-
-                        if (playerTurn == 0)
-                            playerTurn = 1;
-                        else
-                            playerTurn = 0;
-                        if (turnCycle == 2) {
-                            roundCnt++;
-                            player[0].updateMana(roundCnt);
-                            player[1].updateMana(roundCnt);
-
-
-                            if (player[0].getDeck().size() > 0) {
-                                hand[0].addCard(player[0].getDeck().get(0));
-                                player[0].getDeck().remove(0);
-                            }
-
-                            if (player[1].getDeck().size() > 0) {
-                                hand[1].addCard(player[1].getDeck().get(0));
-                                player[1].getDeck().remove(0);
-                            }
-                            turnCycle = 0;
-                            for (int j = 0; j < 4; j++) {
-                                for (Minions minion : table.getTable().get(j)) {
-                                    minion.setHasAttacked(0);
-                                }
-                            }
-                            player[0].getHero().setHasAttacked(0);
-                            player[1].getHero().setHasAttacked(0);
-                        }
+                        commandHandler.endPlayerTurn(table, player, hand, playerTurn, turnCycle, roundCnt);
                         break;
                     case "placeCard":
                         boolean[] ok = {false};
                         commandHandler.placeCard(action, actionNode, output, player[0], player[1], hand, playerTurn, table, action.getHandIdx(), ok);
-                        if (action.getHandIdx() < hand[playerTurn].getHand().size() && ok[0]) {
-                            hand[playerTurn].removeCard(hand[playerTurn].getHand().get(action.getHandIdx()));
-                        }
                         break;
-
                     case "cardUsesAttack":
-                        commandHandler.cardUsesAttack(action, actionNode, output, playerTurn, table);
+                        commandHandler.cardUsesAttack(action, actionNode, output, playerTurn[0], table);
                         break;
                     case "getCardAtPosition":
                         commandHandler.getCardAtPosition(action, actionNode, output, table);
                         break;
                     case "cardUsesAbility":
-                        commandHandler.cardUsesAbility(action, actionNode, output, playerTurn, table);
+                        commandHandler.cardUsesAbility(action, actionNode, output, playerTurn[0], table);
                         break;
                     case "useAttackHero":
-                        commandHandler.useAttackHero(action, actionNode, output, player[0], player[1], playerTurn, table);
+                        commandHandler.useAttackHero(action, actionNode, output, player[0], player[1], playerTurn[0], table);
                         break;
                     case "useHeroAbility":
-                        commandHandler.useHeroAbility(action, actionNode, output, player[0], player[1], playerTurn, table);
+                        commandHandler.useHeroAbility(action, actionNode, output, player[0], player[1], playerTurn[0], table);
                         break;
                     case "getFrozenCardsOnTable":
                         commandHandler.getFrozenCardsOnTable(action, actionNode, output, table);

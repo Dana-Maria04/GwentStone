@@ -10,7 +10,6 @@ import static gameutils.GameConstants.*;
 public class Player {
     private int mana;
     private int winCnt=0;
-    protected int DeckIdx;
     private ArrayList<Cards> deck;
     private Hero hero;
 
@@ -54,14 +53,6 @@ public class Player {
 
     public void setWinCnt(int winCnt) {
         this.winCnt = winCnt;
-    }
-
-    public int getDeckIdx() {
-        return DeckIdx;
-    }
-
-    public void setDeckIdx(int deckIdx) {
-        DeckIdx = deckIdx;
     }
 
     public ArrayList<Cards> getDeck() {

@@ -18,6 +18,59 @@ import static gameutils.GameConstants.*;
 
 public class CommandHandler {
 
+
+    public void endPlayerTurn(Table table, Player[] player, Hand[] hand, int[] playerTurn, int[] turnCycle, int[] roundCnt) {
+        turnCycle[0]++;
+
+        if (playerTurn[0] == 0) {
+            for (int j = 2; j < 4; j++) {
+                for (Minions minion : table.getTable().get(j)) {
+                    minion.setIsFrozen(0);
+                }
+            }
+        } else {
+            for (int j = 0; j < 2; j++) {
+                for (Minions minion : table.getTable().get(j)) {
+                    minion.setIsFrozen(0);
+                }
+            }
+        }
+
+        playerTurn[0] = playerTurn[0] == 0 ? 1 : 0;
+
+        if (turnCycle[0] == 2) {
+            roundCnt[0]++;
+            player[0].updateMana(roundCnt[0]);
+            player[1].updateMana(roundCnt[0]);
+
+            if (!player[0].getDeck().isEmpty()) {
+                hand[0].addCard(player[0].getDeck().remove(0));
+            }
+            if (!player[1].getDeck().isEmpty()) {
+                hand[1].addCard(player[1].getDeck().remove(0));
+            }
+
+            turnCycle[0] = 0;
+            for (int j = 0; j < 4; j++) {
+                for (Minions minion : table.getTable().get(j)) {
+                    minion.setHasAttacked(0);
+                }
+            }
+            player[0].getHero().setHasAttacked(0);
+            player[1].getHero().setHasAttacked(0);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
     public void getPlayerDeck(ArrayList<Cards> deckP1, ArrayList<Cards> deckP2, ObjectNode actionNode, ActionsInput action, ArrayNode output) {
         actionNode.put("command", action.getCommand());
         actionNode.put("playerIdx", action.getPlayerIdx());
@@ -102,11 +155,14 @@ public class CommandHandler {
         output.add(actionNode);
     }
 
-    public void placeCard(ActionsInput action, ObjectNode actionNode, ArrayNode output, Player p1, Player p2, Hand[] hand, int playerTurn, Table table, int handIdx, boolean[] ok) {
-        if (playerTurn == 0) {
+    public void placeCard(ActionsInput action, ObjectNode actionNode, ArrayNode output, Player p1, Player p2, Hand[] hand, int[] playerTurn, Table table, int handIdx, boolean[] ok) {
+        if (playerTurn[0] == 0) {
             placeCardForPlayer(action, actionNode, output, p1, hand[0], BACK_ROW1, FRONT_ROW1, table, handIdx, ok);
         } else {
             placeCardForPlayer(action, actionNode, output, p2, hand[1], BACK_ROW2, FRONT_ROW2, table, handIdx, ok);
+        }
+        if (action.getHandIdx() < hand[playerTurn[0]].getHand().size() && ok[0]) {
+            hand[playerTurn[0]].removeCard(hand[playerTurn[0]].getHand().get(action.getHandIdx()));
         }
     }
 
@@ -490,14 +546,10 @@ public class CommandHandler {
 
         }
 
-
         Minions attackerWithAbility = MinionsFactory.createMinion(attackerMinion);
         attackerWithAbility.ability(attackedMinion);
 
-
         attackerMinion.setHasAttacked(1);
-
-
 
         if (attackedMinion.getCard().getHealth() <= 0) {
             table.getTable().get(attackedX).remove(attackedY);
