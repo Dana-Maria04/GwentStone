@@ -19,10 +19,11 @@ import static gameutils.GameConstants.*;
 public class CommandHandler {
 
 
-    public void endPlayerTurn(Table table, Player[] player, Hand[] hand, int[] playerTurn, int[] turnCycle, int[] roundCnt) {
-        turnCycle[0]++;
+    public void endPlayerTurn(Table table, Player[] player, Hand[] hand, GameStats gameStats) {
 
-        if (playerTurn[0] == 0) {
+        gameStats.setTurnCycle(gameStats.getTurnCycle() + 1);
+
+        if (gameStats.getPlayerTurn() == 0) {
             for (int j = 2; j < 4; j++) {
                 for (Minions minion : table.getTable().get(j)) {
                     minion.setIsFrozen(0);
@@ -36,12 +37,18 @@ public class CommandHandler {
             }
         }
 
-        playerTurn[0] = playerTurn[0] == 0 ? 1 : 0;
+        if(gameStats.getPlayerTurn() == 0) {
+            gameStats.setPlayerTurn(1);
+        } else {
+            gameStats.setPlayerTurn(0);
+        }
 
-        if (turnCycle[0] == 2) {
-            roundCnt[0]++;
-            player[0].updateMana(roundCnt[0]);
-            player[1].updateMana(roundCnt[0]);
+
+        if (gameStats.getTurnCycle() == 2) {
+            gameStats.setRoundCnt(gameStats.getRoundCnt() + 1);
+
+            player[0].updateMana(gameStats.getRoundCnt());
+            player[1].updateMana(gameStats.getRoundCnt());
 
             if (!player[0].getDeck().isEmpty()) {
                 hand[0].addCard(player[0].getDeck().remove(0));
@@ -50,7 +57,8 @@ public class CommandHandler {
                 hand[1].addCard(player[1].getDeck().remove(0));
             }
 
-            turnCycle[0] = 0;
+            gameStats.setTurnCycle(0);
+
             for (int j = 0; j < 4; j++) {
                 for (Minions minion : table.getTable().get(j)) {
                     minion.setHasAttacked(0);
@@ -155,14 +163,14 @@ public class CommandHandler {
         output.add(actionNode);
     }
 
-    public void placeCard(ActionsInput action, ObjectNode actionNode, ArrayNode output, Player p1, Player p2, Hand[] hand, int[] playerTurn, Table table, int handIdx, boolean[] ok) {
-        if (playerTurn[0] == 0) {
+    public void placeCard(ActionsInput action, ObjectNode actionNode, ArrayNode output, Player p1, Player p2, Hand[] hand, int playerTurn, Table table, int handIdx, boolean[] ok) {
+        if (playerTurn == 0) {
             placeCardForPlayer(action, actionNode, output, p1, hand[0], BACK_ROW1, FRONT_ROW1, table, handIdx, ok);
         } else {
             placeCardForPlayer(action, actionNode, output, p2, hand[1], BACK_ROW2, FRONT_ROW2, table, handIdx, ok);
         }
-        if (action.getHandIdx() < hand[playerTurn[0]].getHand().size() && ok[0]) {
-            hand[playerTurn[0]].removeCard(hand[playerTurn[0]].getHand().get(action.getHandIdx()));
+        if (action.getHandIdx() < hand[playerTurn].getHand().size() && ok[0]) {
+            hand[playerTurn].removeCard(hand[playerTurn].getHand().get(action.getHandIdx()));
         }
     }
 

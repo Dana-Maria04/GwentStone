@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.*;
 import gameutils.cardsinfo.Cards;
-import gameutils.cardsinfo.Minions;
 import gameutils.cardsinfo.heroes.Hero;
 
 import java.util.ArrayList;
@@ -42,10 +41,7 @@ public class StartGame {
             this.hand[0] = new Hand();
             this.hand[1] = new Hand();
 
-            // try to put those in table
-            int[] playerTurn = {0};
-            int[] turnCycle = {0};
-            int[] roundCnt = {1};
+            GameStats gameStats = new GameStats();
 
 
             ObjectMapper mapper = new ObjectMapper();
@@ -96,7 +92,8 @@ public class StartGame {
             Collections.shuffle(player[0].getDeck(), new Random(randSeed));
             Collections.shuffle(player[1].getDeck(), new Random(randSeed));
 
-            playerTurn[0] = startGame.getStartingPlayer() - 1;
+            gameStats.setPlayerTurn(startGame.getStartingPlayer() - 1);
+
 
             hand[0].addCard(player[0].getDeck().get(0));
             hand[1].addCard(player[1].getDeck().get(0));
@@ -125,7 +122,7 @@ public class StartGame {
                         commandHandler.getPlayerHero(actionNode, output, action, input, player[0], player[1]);
                         break;
                     case "getPlayerTurn":
-                        commandHandler.getPlayerTurn(actionNode, output, action, playerTurn[0]);
+                        commandHandler.getPlayerTurn(actionNode, output, action, gameStats.getPlayerTurn());
                         break;
                     case "getCardsInHand":
                         commandHandler.getCardsInHand(action, actionNode, output, hand[0], hand[1]);
@@ -137,26 +134,26 @@ public class StartGame {
                         commandHandler.getCardsOnTable(action, actionNode, output, table);
                         break;
                     case "endPlayerTurn":
-                        commandHandler.endPlayerTurn(table, player, hand, playerTurn, turnCycle, roundCnt);
+                        commandHandler.endPlayerTurn(table, player, hand, gameStats);
                         break;
                     case "placeCard":
                         boolean[] ok = {false};
-                        commandHandler.placeCard(action, actionNode, output, player[0], player[1], hand, playerTurn, table, action.getHandIdx(), ok);
+                        commandHandler.placeCard(action, actionNode, output, player[0], player[1], hand, gameStats.getPlayerTurn(), table, action.getHandIdx(), ok);
                         break;
                     case "cardUsesAttack":
-                        commandHandler.cardUsesAttack(action, actionNode, output, playerTurn[0], table);
+                        commandHandler.cardUsesAttack(action, actionNode, output, gameStats.getPlayerTurn(), table);
                         break;
                     case "getCardAtPosition":
                         commandHandler.getCardAtPosition(action, actionNode, output, table);
                         break;
                     case "cardUsesAbility":
-                        commandHandler.cardUsesAbility(action, actionNode, output, playerTurn[0], table);
+                        commandHandler.cardUsesAbility(action, actionNode, output, gameStats.getPlayerTurn(), table);
                         break;
                     case "useAttackHero":
-                        commandHandler.useAttackHero(action, actionNode, output, player[0], player[1], playerTurn[0], table);
+                        commandHandler.useAttackHero(action, actionNode, output, player[0], player[1], gameStats.getPlayerTurn(), table);
                         break;
                     case "useHeroAbility":
-                        commandHandler.useHeroAbility(action, actionNode, output, player[0], player[1], playerTurn[0], table);
+                        commandHandler.useHeroAbility(action, actionNode, output, player[0], player[1], gameStats.getPlayerTurn(), table);
                         break;
                     case "getFrozenCardsOnTable":
                         commandHandler.getFrozenCardsOnTable(action, actionNode, output, table);

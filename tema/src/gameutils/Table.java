@@ -1,11 +1,6 @@
 package gameutils;
 
-import fileio.CardInput;
-import gameutils.cardsinfo.Cards;
 import gameutils.cardsinfo.Minions;
-import gameutils.cardsinfo.heroes.Hero;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
 

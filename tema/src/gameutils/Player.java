@@ -9,7 +9,7 @@ import static gameutils.GameConstants.*;
 
 public class Player {
     private int mana;
-    private int winCnt=0;
+    private int winCnt = 0;
     private ArrayList<Cards> deck;
     private Hero hero;
 

@@ -1,12 +1,9 @@
 package gameutils;
 
-import fileio.CardInput;
 
 
 import gameutils.cardsinfo.Cards;
-import javax.smartcardio.Card;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Hand {
     // Hand class for ony one player
@@ -20,9 +17,6 @@ public class Hand {
         this.hand = new ArrayList<>();
     }
 
-    public void setHand(ArrayList<Cards> hand) {
-        this.hand = hand;
-    }
 
     public void addCard(Cards card){
         this.hand.add(card);
