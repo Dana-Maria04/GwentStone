@@ -26,12 +26,12 @@
   "x" : 0,
   "y" : 0,
   "output" : {
-    "name" : "Berserker",
     "mana" : 2,
-    "attackDamage" : 2,
     "health" : 2,
     "description" : "Standard card: A drink can always be served, with the blood of his enemies.",
-    "colors" : [ "Red", "Blue", "Pink" ]
+    "attackDamage" : 2,
+    "colors" : [ "Red", "Blue", "Pink" ],
+    "name" : "Berserker"
   }
 }, {
   "command" : "getPlayerTurn",
@@ -41,12 +41,12 @@
   "x" : 2,
   "y" : 0,
   "output" : {
-    "name" : "The Ripper",
     "mana" : 3,
-    "attackDamage" : 6,
     "health" : 1,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
-    "colors" : [ "Orange", "Red", "Black" ]
+    "attackDamage" : 6,
+    "colors" : [ "Orange", "Red", "Black" ],
+    "name" : "The Ripper"
   }
 }, {
   "command" : "useHeroAbility",
@@ -57,12 +57,12 @@
   "x" : 2,
   "y" : 0,
   "output" : {
-    "name" : "The Ripper",
     "mana" : 3,
-    "attackDamage" : 6,
     "health" : 1,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
-    "colors" : [ "Orange", "Red", "Black" ]
+    "attackDamage" : 6,
+    "colors" : [ "Orange", "Red", "Black" ],
+    "name" : "The Ripper"
   }
 }, {
   "command" : "getPlayerMana",
@@ -73,12 +73,12 @@
   "x" : 0,
   "y" : 0,
   "output" : {
-    "name" : "Berserker",
     "mana" : 2,
-    "attackDamage" : 2,
     "health" : 2,
     "description" : "Standard card: A drink can always be served, with the blood of his enemies.",
-    "colors" : [ "Red", "Blue", "Pink" ]
+    "attackDamage" : 2,
+    "colors" : [ "Red", "Blue", "Pink" ],
+    "name" : "Berserker"
   }
 }, {
   "command" : "getPlayerTurn",
@@ -116,12 +116,12 @@
   "x" : 0,
   "y" : 0,
   "output" : {
-    "name" : "Berserker",
     "mana" : 2,
-    "attackDamage" : 2,
     "health" : 3,
     "description" : "Standard card: A drink can always be served, with the blood of his enemies.",
-    "colors" : [ "Red", "Blue", "Pink" ]
+    "attackDamage" : 2,
+    "colors" : [ "Red", "Blue", "Pink" ],
+    "name" : "Berserker"
   }
 }, {
   "command" : "getFrozenCardsOnTable",
@@ -143,58 +143,58 @@
   "command" : "getCardsOnTable",
   "output" : [ [ {
     "mana" : 2,
-    "attackDamage" : 2,
     "health" : 3,
     "description" : "Standard card: A drink can always be served, with the blood of his enemies.",
+    "attackDamage" : 2,
     "colors" : [ "Red", "Blue", "Pink" ],
     "name" : "Berserker"
   } ], [ {
     "mana" : 3,
-    "attackDamage" : 5,
     "health" : 4,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
+    "attackDamage" : 5,
     "colors" : [ "Black", "Yellow" ],
     "name" : "The Ripper"
   } ], [ {
     "mana" : 3,
-    "attackDamage" : 6,
     "health" : 1,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
+    "attackDamage" : 6,
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper"
   }, {
     "mana" : 3,
-    "attackDamage" : 0,
     "health" : 2,
     "description" : "Premium card: You shall not pass, you shall not prevail, you shall perish.",
+    "attackDamage" : 0,
     "colors" : [ "Brown", "Blue" ],
     "name" : "Warden"
   }, {
     "mana" : 4,
-    "attackDamage" : 5,
     "health" : 4,
     "description" : "Premium card: Insanity is always an option, now it is an absolute.",
+    "attackDamage" : 5,
     "colors" : [ "Red", "Black" ],
     "name" : "Miraj"
   }, {
     "mana" : 4,
-    "attackDamage" : 6,
     "health" : 4,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
+    "attackDamage" : 6,
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper"
   }, {
     "mana" : 4,
-    "attackDamage" : 2,
     "health" : 7,
     "description" : "Standard card: A warrior who is never afraid of battle, no matter the costs",
+    "attackDamage" : 2,
     "colors" : [ "Brown", "Black", "Grey" ],
     "name" : "Goliath"
   } ], [ {
     "mana" : 2,
-    "attackDamage" : 0,
     "health" : 1,
     "description" : "Standard card: Thrown from the highest cliff, revenge will be his glory.",
+    "attackDamage" : 0,
     "colors" : [ "Pink", "Purple" ],
     "name" : "The Cursed One"
   } ] ]
@@ -207,16 +207,16 @@
   "playerIdx" : 2,
   "output" : [ {
     "mana" : 4,
-    "attackDamage" : 5,
     "health" : 3,
     "description" : "Premium card: Insanity is always an option, now it is an absolute.",
+    "attackDamage" : 5,
     "colors" : [ "Yellow", "Orange", "Red" ],
     "name" : "Miraj"
   }, {
     "mana" : 4,
-    "attackDamage" : 5,
     "health" : 3,
     "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
+    "attackDamage" : 5,
     "colors" : [ "Red", "Black" ],
     "name" : "Miraj"
   } ]

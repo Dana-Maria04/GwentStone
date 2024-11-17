@@ -13,12 +13,12 @@
   "x" : 1,
   "y" : 0,
   "output" : {
-    "name" : "Goliath",
     "mana" : 1,
-    "attackDamage" : 4,
     "health" : 3,
     "description" : "Premium card: No matter how many, his body will fight. Save your breath for the Mountain is strong.",
-    "colors" : [ "Brown", "Black", "Grey" ]
+    "attackDamage" : 4,
+    "colors" : [ "Brown", "Black", "Grey" ],
+    "name" : "Goliath"
   }
 }, {
   "command" : "getPlayerTurn",
@@ -43,12 +43,12 @@
   "x" : 0,
   "y" : 0,
   "output" : {
-    "name" : "Sentinel",
     "mana" : 1,
-    "attackDamage" : 6,
     "health" : 3,
     "description" : "Premium card: His presence is not known even by ghosts, success at all costs.",
-    "colors" : [ "Black", "White" ]
+    "attackDamage" : 6,
+    "colors" : [ "Black", "White" ],
+    "name" : "Sentinel"
   }
 }, {
   "command" : "useHeroAbility",
@@ -65,12 +65,12 @@
   "x" : 3,
   "y" : 0,
   "output" : {
-    "name" : "Sentinel",
     "mana" : 1,
-    "attackDamage" : 5,
     "health" : 2,
     "description" : "Premium card: His presence is not known even by ghosts, success at all costs.",
-    "colors" : [ "Black", "Grey", "Blue" ]
+    "attackDamage" : 5,
+    "colors" : [ "Black", "Grey", "Blue" ],
+    "name" : "Sentinel"
   }
 }, {
   "command" : "getFrozenCardsOnTable",
@@ -84,12 +84,12 @@
   "x" : 0,
   "y" : 0,
   "output" : {
-    "name" : "Sentinel",
     "mana" : 1,
-    "attackDamage" : 6,
     "health" : 3,
     "description" : "Premium card: His presence is not known even by ghosts, success at all costs.",
-    "colors" : [ "Black", "White" ]
+    "attackDamage" : 6,
+    "colors" : [ "Black", "White" ],
+    "name" : "Sentinel"
   }
 }, {
   "command" : "getPlayerMana",
@@ -106,39 +106,39 @@
   "x" : 3,
   "y" : 0,
   "output" : {
-    "name" : "Sentinel",
     "mana" : 1,
-    "attackDamage" : 5,
     "health" : 2,
     "description" : "Premium card: His presence is not known even by ghosts, success at all costs.",
-    "colors" : [ "Black", "Grey", "Blue" ]
+    "attackDamage" : 5,
+    "colors" : [ "Black", "Grey", "Blue" ],
+    "name" : "Sentinel"
   }
 }, {
   "command" : "getCardAtPosition",
   "x" : 0,
   "y" : 0,
   "output" : {
-    "name" : "Sentinel",
     "mana" : 1,
-    "attackDamage" : 6,
     "health" : 3,
     "description" : "Premium card: His presence is not known even by ghosts, success at all costs.",
-    "colors" : [ "Black", "White" ]
+    "attackDamage" : 6,
+    "colors" : [ "Black", "White" ],
+    "name" : "Sentinel"
   }
 }, {
   "command" : "getFrozenCardsOnTable",
   "output" : [ {
     "mana" : 1,
-    "attackDamage" : 6,
     "health" : 3,
     "description" : "Premium card: His presence is not known even by ghosts, success at all costs.",
+    "attackDamage" : 6,
     "colors" : [ "Black", "White" ],
     "name" : "Sentinel"
   }, {
     "mana" : 1,
-    "attackDamage" : 0,
     "health" : 3,
     "description" : "Standard card: Thrown from the highest cliff, revenge will be his glory.",
+    "attackDamage" : 0,
     "colors" : [ "Pink", "Purple" ],
     "name" : "The Cursed One"
   } ]
@@ -169,12 +169,12 @@
   "x" : 0,
   "y" : 0,
   "output" : {
-    "name" : "Sentinel",
     "mana" : 1,
-    "attackDamage" : 6,
     "health" : 3,
     "description" : "Premium card: His presence is not known even by ghosts, success at all costs.",
-    "colors" : [ "Black", "White" ]
+    "attackDamage" : 6,
+    "colors" : [ "Black", "White" ],
+    "name" : "Sentinel"
   }
 }, {
   "command" : "getFrozenCardsOnTable",
@@ -191,12 +191,12 @@
   "x" : 2,
   "y" : 0,
   "output" : {
-    "name" : "The Ripper",
     "mana" : 2,
-    "attackDamage" : 5,
     "health" : 4,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
-    "colors" : [ "Orange", "Red", "Black" ]
+    "attackDamage" : 5,
+    "colors" : [ "Orange", "Red", "Black" ],
+    "name" : "The Ripper"
   }
 }, {
   "gameEnded" : "Player one killed the enemy hero."
@@ -204,86 +204,86 @@
   "command" : "getCardsOnTable",
   "output" : [ [ {
     "mana" : 1,
-    "attackDamage" : 6,
     "health" : 3,
     "description" : "Premium card: His presence is not known even by ghosts, success at all costs.",
+    "attackDamage" : 6,
     "colors" : [ "Black", "White" ],
     "name" : "Sentinel"
   }, {
     "mana" : 1,
-    "attackDamage" : 0,
     "health" : 3,
     "description" : "Standard card: Thrown from the highest cliff, revenge will be his glory.",
+    "attackDamage" : 0,
     "colors" : [ "Pink", "Purple" ],
     "name" : "The Cursed One"
   }, {
     "mana" : 1,
-    "attackDamage" : 5,
     "health" : 2,
     "description" : "Standard card: Trained by the best, nothing will catch him off-guard.",
+    "attackDamage" : 5,
     "colors" : [ "Black", "White" ],
     "name" : "Sentinel"
   }, {
     "mana" : 1,
-    "attackDamage" : 0,
     "health" : 2,
     "description" : "Standard card: Everything is sacred to him, all is but a gift from the saints.",
+    "attackDamage" : 0,
     "colors" : [ "Green", "Yellow", "Blue" ],
     "name" : "Disciple"
   } ], [ {
     "mana" : 1,
-    "attackDamage" : 6,
     "health" : 1,
     "description" : "Premium card: Insanity is always an option, now it is an absolute.",
+    "attackDamage" : 6,
     "colors" : [ "Red", "Black" ],
     "name" : "Miraj"
   } ], [ {
     "mana" : 2,
-    "attackDamage" : 5,
     "health" : 4,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
+    "attackDamage" : 5,
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper"
   }, {
     "mana" : 2,
-    "attackDamage" : 6,
     "health" : 2,
     "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
+    "attackDamage" : 6,
     "colors" : [ "Yellow", "Orange", "Red" ],
     "name" : "Miraj"
   }, {
     "mana" : 1,
-    "attackDamage" : 8,
     "health" : 6,
     "description" : "Premium card: You shall not pass, you shall not prevail, you shall perish.",
+    "attackDamage" : 8,
     "colors" : [ "Brown", "Blue" ],
     "name" : "Warden"
   } ], [ {
     "mana" : 1,
-    "attackDamage" : 5,
     "health" : 2,
     "description" : "Premium card: His presence is not known even by ghosts, success at all costs.",
+    "attackDamage" : 5,
     "colors" : [ "Black", "Grey", "Blue" ],
     "name" : "Sentinel"
   }, {
     "mana" : 1,
-    "attackDamage" : 5,
     "health" : 2,
     "description" : "Premium card: Fear him. Your last breath is now.",
+    "attackDamage" : 5,
     "colors" : [ "Red", "Blue", "Pink" ],
     "name" : "Berserker"
   }, {
     "mana" : 2,
-    "attackDamage" : 0,
     "health" : 4,
     "description" : "Premium card: The will of Gods has been spoken, obey and you shall be saved...or not.",
+    "attackDamage" : 0,
     "colors" : [ "Green", "Yellow", "Blue" ],
     "name" : "Disciple"
   }, {
     "mana" : 2,
-    "attackDamage" : 0,
     "health" : 2,
     "description" : "Standard card: Everything is sacred to him, all is but a gift from the saints.",
+    "attackDamage" : 0,
     "colors" : [ "Green", "Yellow", "Blue" ],
     "name" : "Disciple"
   } ] ]
@@ -319,12 +319,12 @@
   "x" : 3,
   "y" : 0,
   "output" : {
-    "name" : "Disciple",
     "mana" : 1,
-    "attackDamage" : 0,
     "health" : 4,
     "description" : "Premium card: The will of Gods has been spoken, obey and you shall be saved...or not.",
-    "colors" : [ "Green", "Yellow", "Blue" ]
+    "attackDamage" : 0,
+    "colors" : [ "Green", "Yellow", "Blue" ],
+    "name" : "Disciple"
   }
 }, {
   "command" : "getPlayerTurn",
@@ -337,12 +337,12 @@
   "x" : 3,
   "y" : 0,
   "output" : {
-    "name" : "Disciple",
     "mana" : 1,
-    "attackDamage" : 0,
     "health" : 4,
     "description" : "Premium card: The will of Gods has been spoken, obey and you shall be saved...or not.",
-    "colors" : [ "Green", "Yellow", "Blue" ]
+    "attackDamage" : 0,
+    "colors" : [ "Green", "Yellow", "Blue" ],
+    "name" : "Disciple"
   }
 }, {
   "command" : "getPlayerTurn",
@@ -359,12 +359,12 @@
   "x" : 0,
   "y" : 0,
   "output" : {
-    "name" : "Disciple",
     "mana" : 1,
-    "attackDamage" : 0,
     "health" : 3,
     "description" : "Standard card: Everything is sacred to him, all is but a gift from the saints.",
-    "colors" : [ "Green", "Yellow", "Blue" ]
+    "attackDamage" : 0,
+    "colors" : [ "Green", "Yellow", "Blue" ],
+    "name" : "Disciple"
   }
 }, {
   "command" : "getPlayerMana",
@@ -381,12 +381,12 @@
   "x" : 0,
   "y" : 0,
   "output" : {
-    "name" : "Disciple",
     "mana" : 1,
-    "attackDamage" : 0,
     "health" : 3,
     "description" : "Standard card: Everything is sacred to him, all is but a gift from the saints.",
-    "colors" : [ "Green", "Yellow", "Blue" ]
+    "attackDamage" : 0,
+    "colors" : [ "Green", "Yellow", "Blue" ],
+    "name" : "Disciple"
   }
 }, {
   "command" : "getPlayerMana",
@@ -411,12 +411,12 @@
   "x" : 3,
   "y" : 0,
   "output" : {
-    "name" : "Disciple",
     "mana" : 1,
-    "attackDamage" : 0,
     "health" : 4,
     "description" : "Premium card: The will of Gods has been spoken, obey and you shall be saved...or not.",
-    "colors" : [ "Green", "Yellow", "Blue" ]
+    "attackDamage" : 0,
+    "colors" : [ "Green", "Yellow", "Blue" ],
+    "name" : "Disciple"
   }
 }, {
   "command" : "getFrozenCardsOnTable",
@@ -433,12 +433,12 @@
   "x" : 0,
   "y" : 0,
   "output" : {
-    "name" : "Disciple",
     "mana" : 1,
-    "attackDamage" : 0,
     "health" : 4,
     "description" : "Standard card: Everything is sacred to him, all is but a gift from the saints.",
-    "colors" : [ "Green", "Yellow", "Blue" ]
+    "attackDamage" : 0,
+    "colors" : [ "Green", "Yellow", "Blue" ],
+    "name" : "Disciple"
   }
 }, {
   "command" : "cardUsesAbility",
@@ -456,24 +456,24 @@
   "x" : 3,
   "y" : 0,
   "output" : {
-    "name" : "Disciple",
     "mana" : 1,
-    "attackDamage" : 0,
     "health" : 4,
     "description" : "Premium card: The will of Gods has been spoken, obey and you shall be saved...or not.",
-    "colors" : [ "Green", "Yellow", "Blue" ]
+    "attackDamage" : 0,
+    "colors" : [ "Green", "Yellow", "Blue" ],
+    "name" : "Disciple"
   }
 }, {
   "command" : "getCardAtPosition",
   "x" : 0,
   "y" : 0,
   "output" : {
-    "name" : "Disciple",
     "mana" : 1,
-    "attackDamage" : 0,
     "health" : 4,
     "description" : "Standard card: Everything is sacred to him, all is but a gift from the saints.",
-    "colors" : [ "Green", "Yellow", "Blue" ]
+    "attackDamage" : 0,
+    "colors" : [ "Green", "Yellow", "Blue" ],
+    "name" : "Disciple"
   }
 }, {
   "command" : "getFrozenCardsOnTable",
@@ -492,12 +492,12 @@
   "x" : 2,
   "y" : 0,
   "output" : {
-    "name" : "Warden",
     "mana" : 1,
-    "attackDamage" : 7,
     "health" : 5,
     "description" : "Premium card: You shall not pass, you shall not prevail, you shall perish.",
-    "colors" : [ "Brown", "Blue" ]
+    "attackDamage" : 7,
+    "colors" : [ "Brown", "Blue" ],
+    "name" : "Warden"
   }
 }, {
   "command" : "getPlayerTurn",
@@ -521,12 +521,12 @@
   "x" : 0,
   "y" : 0,
   "output" : {
-    "name" : "Disciple",
     "mana" : 1,
-    "attackDamage" : 0,
     "health" : 5,
     "description" : "Standard card: Everything is sacred to him, all is but a gift from the saints.",
-    "colors" : [ "Green", "Yellow", "Blue" ]
+    "attackDamage" : 0,
+    "colors" : [ "Green", "Yellow", "Blue" ],
+    "name" : "Disciple"
   }
 }, {
   "command" : "getPlayerMana",
@@ -550,12 +550,12 @@
   "x" : 0,
   "y" : 0,
   "output" : {
-    "name" : "Disciple",
     "mana" : 1,
-    "attackDamage" : 0,
     "health" : 5,
     "description" : "Standard card: Everything is sacred to him, all is but a gift from the saints.",
-    "colors" : [ "Green", "Yellow", "Blue" ]
+    "attackDamage" : 0,
+    "colors" : [ "Green", "Yellow", "Blue" ],
+    "name" : "Disciple"
   }
 }, {
   "command" : "cardUsesAbility",
@@ -573,12 +573,12 @@
   "x" : 2,
   "y" : 0,
   "output" : {
-    "name" : "Warden",
     "mana" : 1,
-    "attackDamage" : 7,
     "health" : 7,
     "description" : "Premium card: You shall not pass, you shall not prevail, you shall perish.",
-    "colors" : [ "Brown", "Blue" ]
+    "attackDamage" : 7,
+    "colors" : [ "Brown", "Blue" ],
+    "name" : "Warden"
   }
 }, {
   "command" : "getPlayerMana",
@@ -599,12 +599,12 @@
   "x" : 2,
   "y" : 0,
   "output" : {
-    "name" : "Warden",
     "mana" : 1,
-    "attackDamage" : 7,
     "health" : 9,
     "description" : "Premium card: You shall not pass, you shall not prevail, you shall perish.",
-    "colors" : [ "Brown", "Blue" ]
+    "attackDamage" : 7,
+    "colors" : [ "Brown", "Blue" ],
+    "name" : "Warden"
   }
 }, {
   "command" : "getPlayerMana",
@@ -629,12 +629,12 @@
   "x" : 0,
   "y" : 0,
   "output" : {
-    "name" : "The Cursed One",
     "mana" : 1,
-    "attackDamage" : 0,
     "health" : 5,
     "description" : "Standard card: Thrown from the highest cliff, revenge will be his glory.",
-    "colors" : [ "Pink", "Purple" ]
+    "attackDamage" : 0,
+    "colors" : [ "Pink", "Purple" ],
+    "name" : "The Cursed One"
   }
 }, {
   "command" : "getPlayerMana",
@@ -652,12 +652,12 @@
   "x" : 2,
   "y" : 0,
   "output" : {
-    "name" : "Warden",
     "mana" : 1,
-    "attackDamage" : 7,
     "health" : 3,
     "description" : "Premium card: You shall not pass, you shall not prevail, you shall perish.",
-    "colors" : [ "Brown", "Blue" ]
+    "attackDamage" : 7,
+    "colors" : [ "Brown", "Blue" ],
+    "name" : "Warden"
   }
 }, {
   "command" : "getPlayerTurn",
@@ -684,12 +684,12 @@
   "x" : 0,
   "y" : 0,
   "output" : {
-    "name" : "The Cursed One",
     "mana" : 1,
-    "attackDamage" : 0,
     "health" : 5,
     "description" : "Standard card: Thrown from the highest cliff, revenge will be his glory.",
-    "colors" : [ "Pink", "Purple" ]
+    "attackDamage" : 0,
+    "colors" : [ "Pink", "Purple" ],
+    "name" : "The Cursed One"
   }
 }, {
   "command" : "getFrozenCardsOnTable",
@@ -702,12 +702,12 @@
   "x" : 2,
   "y" : 0,
   "output" : {
-    "name" : "The Ripper",
     "mana" : 2,
-    "attackDamage" : 6,
     "health" : 3,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
-    "colors" : [ "Black", "Yellow" ]
+    "attackDamage" : 6,
+    "colors" : [ "Black", "Yellow" ],
+    "name" : "The Ripper"
   }
 }, {
   "command" : "getPlayerTurn",
@@ -717,12 +717,12 @@
   "x" : 0,
   "y" : 0,
   "output" : {
-    "name" : "The Cursed One",
     "mana" : 1,
-    "attackDamage" : 0,
     "health" : 6,
     "description" : "Standard card: Thrown from the highest cliff, revenge will be his glory.",
-    "colors" : [ "Pink", "Purple" ]
+    "attackDamage" : 0,
+    "colors" : [ "Pink", "Purple" ],
+    "name" : "The Cursed One"
   }
 }, {
   "gameEnded" : "Player two killed the enemy hero."
@@ -730,65 +730,65 @@
   "command" : "getCardsOnTable",
   "output" : [ [ {
     "mana" : 1,
-    "attackDamage" : 0,
     "health" : 6,
     "description" : "Standard card: Thrown from the highest cliff, revenge will be his glory.",
+    "attackDamage" : 0,
     "colors" : [ "Pink", "Purple" ],
     "name" : "The Cursed One"
   }, {
     "mana" : 1,
-    "attackDamage" : 6,
     "health" : 3,
     "description" : "Premium card: His presence is not known even by ghosts, success at all costs.",
+    "attackDamage" : 6,
     "colors" : [ "Black", "White" ],
     "name" : "Sentinel"
   } ], [ {
     "mana" : 2,
-    "attackDamage" : 6,
     "health" : 6,
     "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
+    "attackDamage" : 6,
     "colors" : [ "Yellow", "Orange", "Red" ],
     "name" : "Miraj"
   } ], [ {
     "mana" : 2,
-    "attackDamage" : 6,
     "health" : 3,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
+    "attackDamage" : 6,
     "colors" : [ "Black", "Yellow" ],
     "name" : "The Ripper"
   }, {
     "mana" : 1,
-    "attackDamage" : 6,
     "health" : 3,
     "description" : "Standard card: Death incarnate. No better time to die than now.",
+    "attackDamage" : 6,
     "colors" : [ "Black", "Yellow" ],
     "name" : "The Ripper"
   } ], [ {
     "mana" : 1,
-    "attackDamage" : 0,
     "health" : 4,
     "description" : "Premium card: The will of Gods has been spoken, obey and you shall be saved...or not.",
+    "attackDamage" : 0,
     "colors" : [ "Green", "Yellow", "Blue" ],
     "name" : "Disciple"
   }, {
     "mana" : 1,
-    "attackDamage" : 0,
     "health" : 4,
     "description" : "Premium card: The will of Gods has been spoken, obey and you shall be saved...or not.",
+    "attackDamage" : 0,
     "colors" : [ "Green", "Yellow", "Blue" ],
     "name" : "Disciple"
   }, {
     "mana" : 1,
-    "attackDamage" : 6,
     "health" : 2,
     "description" : "Standard card: Trained by the best, nothing will catch him off-guard.",
+    "attackDamage" : 6,
     "colors" : [ "Black", "Grey", "Blue" ],
     "name" : "Sentinel"
   }, {
     "mana" : 1,
-    "attackDamage" : 0,
     "health" : 3,
     "description" : "Premium card: Nobody suspects an outcast, not even the Gods.",
+    "attackDamage" : 0,
     "colors" : [ "Pink", "Purple" ],
     "name" : "The Cursed One"
   } ] ]

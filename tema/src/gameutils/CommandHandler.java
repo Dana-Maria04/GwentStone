@@ -43,7 +43,6 @@ public class CommandHandler {
             gameStats.setPlayerTurn(0);
         }
 
-
         if (gameStats.getTurnCycle() == 2) {
             gameStats.setRoundCnt(gameStats.getRoundCnt() + 1);
 
@@ -70,15 +69,6 @@ public class CommandHandler {
     }
 
 
-
-
-
-
-
-
-
-
-
     public void getPlayerDeck(ArrayList<Cards> deckP1, ArrayList<Cards> deckP2, ObjectNode actionNode, ActionsInput action, ArrayNode output) {
         actionNode.put("command", action.getCommand());
         actionNode.put("playerIdx", action.getPlayerIdx());
@@ -92,18 +82,8 @@ public class CommandHandler {
         else
             playerDeck = deckP2;
 
-
         for (Cards card : playerDeck) {
-            ObjectNode cardNode = actionNode.objectNode();
-            cardNode.put("mana", card.getCard().getMana());
-            cardNode.put("attackDamage", card.getCard().getAttackDamage());
-            cardNode.put("health", card.getCard().getHealth());
-            cardNode.put("description", card.getCard().getDescription());
-            ArrayNode colorsArray = cardNode.putArray("colors");
-            for (String color : card.getCard().getColors()) {
-                colorsArray.add(color);
-            }
-            cardNode.put("name", card.getCard().getName());
+            ObjectNode cardNode = createCardNode(actionNode, card.getCard(), false);
             deckArray.add(cardNode);
         }
         output.add(actionNode);
@@ -120,34 +100,18 @@ public class CommandHandler {
         actionNode.put("command", action.getCommand());
         actionNode.put("playerIdx", action.getPlayerIdx());
 
-        ObjectNode heroNode = actionNode.objectNode();
-
-        Hero hero;
+        Hero hero = null;
         if (action.getPlayerIdx() == 1) {
             hero = p1.getHero();
         } else if (action.getPlayerIdx() == 2) {
             hero = p2.getHero();
-        } else {
-            heroNode.put("error", "Invalid player index");
-            actionNode.set("output", heroNode);
-            output.add(actionNode);
-            return;
         }
 
-        heroNode.put("mana", hero.getCardInput().getMana());
-        heroNode.put("description", hero.getCardInput().getDescription());
-
-        ArrayNode colorsArray = heroNode.putArray("colors");
-        for (String color : hero.getCardInput().getColors()) {
-            colorsArray.add(color);
-        }
-
-        heroNode.put("name", hero.getCardInput().getName());
-        heroNode.put("health", hero.getCard().getHealth());
-
+        ObjectNode heroNode = createCardNode(actionNode, hero.getCardInput(), true);
         actionNode.set("output", heroNode);
         output.add(actionNode);
     }
+
 
     public void getPlayerMana(ObjectNode actionNode, ArrayNode output, ActionsInput action, Player p1, Player p2) {
         actionNode.put("command", action.getCommand());
@@ -240,28 +204,14 @@ public class CommandHandler {
         } else {
             selectedHand = h2;
         }
-        addCardsToArrayNode(selectedHand, cardsArray, actionNode);
+
+        for (int i = 0; i < selectedHand.getHand().size(); i++) {
+            ObjectNode handNode = createCardNode(actionNode, selectedHand.getHand().get(i).getCard(), false);
+            cardsArray.add(handNode);
+        }
 
         actionNode.set("output", cardsArray);
         output.add(actionNode);
-    }
-
-    private void addCardsToArrayNode(Hand hand, ArrayNode cardsArray, ObjectNode actionNode) {
-        for (int i = 0; i < hand.getHand().size(); i++) {
-            ObjectNode handNode = actionNode.objectNode();
-            handNode.put("mana", hand.getHand().get(i).getCard().getMana());
-            handNode.put("attackDamage", hand.getHand().get(i).getCard().getAttackDamage());
-            handNode.put("health", hand.getHand().get(i).getCard().getHealth());
-            handNode.put("description", hand.getHand().get(i).getCard().getDescription());
-
-            ArrayNode colorsArray = handNode.putArray("colors");
-            for (String color : hand.getHand().get(i).getCard().getColors()) {
-                colorsArray.add(color);
-            }
-
-            handNode.put("name", hand.getHand().get(i).getCard().getName());
-            cardsArray.add(handNode);
-        }
     }
 
 
@@ -270,19 +220,12 @@ public class CommandHandler {
         ArrayNode tableArray = actionNode.putArray("output");
         for (LinkedList<Minions> row : table.getTable()) {
             ArrayNode rowArray = actionNode.arrayNode();
+
             for (Minions card : row) {
-                ObjectNode cardNode = actionNode.objectNode();
-                cardNode.put("mana", card.getCard().getMana());
-                cardNode.put("attackDamage", card.getCard().getAttackDamage());
-                cardNode.put("health", card.getCard().getHealth());
-                cardNode.put("description", card.getCard().getDescription());
-                ArrayNode colorsArray = cardNode.putArray("colors");
-                for (String color : card.getCard().getColors()) {
-                    colorsArray.add(color);
-                }
-                cardNode.put("name", card.getCard().getName());
+                ObjectNode cardNode = createCardNode(actionNode, card.getCard(), false);
                 rowArray.add(cardNode);
             }
+
             tableArray.add(rowArray);
         }
         output.add(actionNode);
@@ -291,37 +234,13 @@ public class CommandHandler {
     public void cardUsesAttack(ActionsInput action, ObjectNode actionNode, ArrayNode output, int playerTurn, Table table) {
         actionNode.put("command", action.getCommand());
 
-        ObjectNode cardAttackerNode = actionNode.objectNode();
-        ObjectNode cardAttackedNode = actionNode.objectNode();
-
         if (playerTurn == 0 && (action.getCardAttacked().getX() == FRONT_ROW1 || action.getCardAttacked().getX() == BACK_ROW1)) {
-            cardAttackerNode.put("x", action.getCardAttacker().getX());
-            cardAttackerNode.put("y", action.getCardAttacker().getY());
-            actionNode.set("cardAttacker", cardAttackerNode);
-
-            cardAttackedNode.put("x", action.getCardAttacked().getX());
-            cardAttackedNode.put("y", action.getCardAttacked().getY());
-            actionNode.set("cardAttacked", cardAttackedNode);
-
-            actionNode.put("error", "Attacked card does not belong to the enemy.");
-            output.add(actionNode);
+            addCardActionError(actionNode, action, output, "Attacked card does not belong to the enemy.");
             return;
         }
 
         if (playerTurn == 1 && (action.getCardAttacked().getX() == FRONT_ROW2 || action.getCardAttacked().getX() == BACK_ROW2)) {
-
-            cardAttackerNode.put("x", action.getCardAttacker().getX());
-            cardAttackerNode.put("y", action.getCardAttacker().getY());
-            actionNode.set("cardAttacker", cardAttackerNode);
-
-            cardAttackedNode.put("x", action.getCardAttacked().getX());
-            cardAttackedNode.put("y", action.getCardAttacked().getY());
-            actionNode.set("cardAttacked", cardAttackedNode);
-
-
-            actionNode.put("command", "cardUsesAttack");
-            actionNode.put("error", "Attacked card does not belong to the enemy.");
-            output.add(actionNode);
+            addCardActionError(actionNode, action, output, "Attacked card does not belong to the enemy.");
             return;
         }
 
@@ -330,79 +249,33 @@ public class CommandHandler {
         int attackedX = action.getCardAttacked().getX();
         int attackedY = action.getCardAttacked().getY();
 
-
         if (table.getTable().get(attackerX).size() <= attackerY) {
-            actionNode.put("command", action.getCommand());
-            cardAttackerNode.put("x", action.getCardAttacker().getX());
-            cardAttackerNode.put("y", action.getCardAttacker().getY());
-            actionNode.set("cardAttacker", cardAttackerNode);
-
-            cardAttackedNode.put("x", action.getCardAttacked().getX());
-            cardAttackedNode.put("y", action.getCardAttacked().getY());
-            actionNode.set("cardAttacked", cardAttackedNode);
-            actionNode.put("error", "Attacker card is not on the table.");
-            output.add(actionNode);
+            addCardActionError(actionNode, action, output, "Attacker card is not on the table.");
             return;
         }
 
         if (table.getTable().get(attackedX).size() <= attackedY) {
-            actionNode.put("command", action.getCommand());
-            cardAttackerNode.put("x", action.getCardAttacker().getX());
-            cardAttackerNode.put("y", action.getCardAttacker().getY());
-            actionNode.set("cardAttacker", cardAttackerNode);
-
-            cardAttackedNode.put("x", action.getCardAttacked().getX());
-            cardAttackedNode.put("y", action.getCardAttacked().getY());
-            actionNode.set("cardAttacked", cardAttackedNode);
-            actionNode.put("error", "Attacked card is not on the table.");
-            output.add(actionNode);
+            addCardActionError(actionNode, action, output, "Attacked card is not on the table.");
             return;
         }
-
 
         Minions attackedMinion = table.getTable().get(attackedX).get(attackedY);
         Minions attackerMinion = table.getTable().get(attackerX).get(attackerY);
         if (table.verifyTankOnRow(playerTurn) == 1 && attackedMinion.verifyTank(attackedMinion) == 0) {
-
-            actionNode.put("command", action.getCommand());
-            cardAttackerNode.put("x", action.getCardAttacker().getX());
-            cardAttackerNode.put("y", action.getCardAttacker().getY());
-            actionNode.set("cardAttacker", cardAttackerNode);
-
-            cardAttackedNode.put("x", action.getCardAttacked().getX());
-            cardAttackedNode.put("y", action.getCardAttacked().getY());
-            actionNode.set("cardAttacked", cardAttackedNode);
-            actionNode.put("error", "Attacked card is not of type 'Tank'.");
-            output.add(actionNode);
+            addCardActionError(actionNode, action, output, "Attacked card is not of type 'Tank'.");
             return;
         }
 
         if (attackerMinion.getHasAttacked() == 1) {
-            actionNode.put("command", action.getCommand());
-            cardAttackerNode.put("x", action.getCardAttacker().getX());
-            cardAttackerNode.put("y", action.getCardAttacker().getY());
-            actionNode.set("cardAttacker", cardAttackerNode);
-
-            cardAttackedNode.put("x", action.getCardAttacked().getX());
-            cardAttackedNode.put("y", action.getCardAttacked().getY());
-            actionNode.set("cardAttacked", cardAttackedNode);
-            actionNode.put("error", "Attacker card has already attacked this turn.");
-            output.add(actionNode);
+            addCardActionError(actionNode, action, output, "Attacker card has already attacked this turn.");
             return;
         }
-
         attackerMinion.setHasAttacked(1);
-
-
         int damage = table.getTable().get(attackerX).get(attackerY).getCard().getAttackDamage();
-
         attackedMinion.decHealth(damage);
-
         if(attackedMinion.getCard().getHealth() <= 0) {
             table.getTable().get(attackedX).remove(attackedY);
         }
-
-
     }
 
     public void getCardAtPosition(ActionsInput action, ObjectNode actionNode, ArrayNode output, Table table) {
@@ -413,19 +286,8 @@ public class CommandHandler {
         if (table.getTable().get(action.getX()).size() <= action.getY()) {
             actionNode.put("output", "No card available at that position.");
         } else {
-            Minions card = new Minions(table.getTable().get(action.getX()).get(action.getY()));
-            ObjectNode cardNode = actionNode.objectNode();
-            cardNode.put("name", card.getCard().getName());
-            cardNode.put("mana", card.getCard().getMana());
-            cardNode.put("attackDamage", card.getCard().getAttackDamage());
-            cardNode.put("health", card.getCard().getHealth());
-            cardNode.put("description", card.getCard().getDescription());
-
-            ArrayNode colorsArray = cardNode.putArray("colors");
-            for (String color : card.getCard().getColors()) {
-                colorsArray.add(color);
-            }
-            cardNode.set("colors", colorsArray);
+            Minions card = table.getTable().get(action.getX()).get(action.getY());
+            ObjectNode cardNode = createCardNode(actionNode, card.getCard(), false);
             actionNode.set("output", cardNode);
         }
 
@@ -459,43 +321,16 @@ public class CommandHandler {
         }
 
         if (attackerMinion.getHasAttacked() == 1) {
-            actionNode.put("command", action.getCommand());
-            cardAttackerNode.put("x", action.getCardAttacker().getX());
-            cardAttackerNode.put("y", action.getCardAttacker().getY());
-            actionNode.set("cardAttacker", cardAttackerNode);
-
-            cardAttackedNode.put("x", action.getCardAttacked().getX());
-            cardAttackedNode.put("y", action.getCardAttacked().getY());
-            actionNode.set("cardAttacked", cardAttackedNode);
-            actionNode.put("error", "Attacker card has already attacked this turn.");
-            output.add(actionNode);
+            addCardActionError(actionNode, action, output, "Attacker card has already attacked this turn.");
             return;
         }
 
         if (attackerMinion.getCard().getName().equals("Disciple")) {
             if (playerTurn == 0 && (action.getCardAttacked().getX() == FRONT_ROW2 || action.getCardAttacked().getX() == BACK_ROW2)) {
-                cardAttackerNode.put("x", action.getCardAttacker().getX());
-                cardAttackerNode.put("y", action.getCardAttacker().getY());
-                actionNode.set("cardAttacker", cardAttackerNode);
-
-                cardAttackedNode.put("x", action.getCardAttacked().getX());
-                cardAttackedNode.put("y", action.getCardAttacked().getY());
-                actionNode.set("cardAttacked", cardAttackedNode);
-
-                actionNode.put("error", "Attacked card does not belong to the current player.");
-                output.add(actionNode);
+                addCardActionError(actionNode, action, output, "Attacked card does not belong to the current player.");
                 return;
             } else if (playerTurn == 1 && (action.getCardAttacked().getX() == FRONT_ROW1 || action.getCardAttacked().getX() == BACK_ROW1)) {
-                cardAttackerNode.put("x", action.getCardAttacker().getX());
-                cardAttackerNode.put("y", action.getCardAttacker().getY());
-                actionNode.set("cardAttacker", cardAttackerNode);
-
-                cardAttackedNode.put("x", action.getCardAttacked().getX());
-                cardAttackedNode.put("y", action.getCardAttacked().getY());
-                actionNode.set("cardAttacked", cardAttackedNode);
-
-                actionNode.put("error", "Attacked card does not belong to the current player.");
-                output.add(actionNode);
+                addCardActionError(actionNode, action, output, "Attacked card does not belong to the current player.");
                 return;
             }
         }
@@ -503,58 +338,25 @@ public class CommandHandler {
 
         if (playerTurn == 0 && (action.getCardAttacked().getX() == FRONT_ROW1 || action.getCardAttacked().getX() == BACK_ROW1)
                 && !attackerMinion.getCard().getName().equals("Disciple")) {
-
-            cardAttackerNode.put("x", action.getCardAttacker().getX());
-            cardAttackerNode.put("y", action.getCardAttacker().getY());
-            actionNode.set("cardAttacker", cardAttackerNode);
-
-            cardAttackedNode.put("x", action.getCardAttacked().getX());
-            cardAttackedNode.put("y", action.getCardAttacked().getY());
-            actionNode.set("cardAttacked", cardAttackedNode);
-
-            actionNode.put("error", "Attacked card does not belong to the enemy.");
-            output.add(actionNode);
+            addCardActionError(actionNode, action, output, "Attacked card does not belong to enemy.");
             return;
         }
 
         if (playerTurn == 1 && (action.getCardAttacked().getX() == FRONT_ROW2 || action.getCardAttacked().getX() == BACK_ROW2)
                 && !attackerMinion.getCard().getName().equals("Disciple")) {
-
-            cardAttackerNode.put("x", action.getCardAttacker().getX());
-            cardAttackerNode.put("y", action.getCardAttacker().getY());
-            actionNode.set("cardAttacker", cardAttackerNode);
-
-            cardAttackedNode.put("x", action.getCardAttacked().getX());
-            cardAttackedNode.put("y", action.getCardAttacked().getY());
-            actionNode.set("cardAttacked", cardAttackedNode);
-
-
-            actionNode.put("command", "cardUsesAbility");
-            actionNode.put("error", "Attacked card does not belong to the enemy.");
-            output.add(actionNode);
+            addCardActionError(actionNode, action, output, "Attacked card does not belong to the enemy.");
             return;
         }
 
 
         if (!attackerMinion.getCard().getName().equals("Disciple")) {
             if (table.verifyTankOnRow(playerTurn) == 1 && attackedMinion.verifyTank(attackedMinion) == 0) {
-
-                actionNode.put("command", action.getCommand());
-                cardAttackerNode.put("x", action.getCardAttacker().getX());
-                cardAttackerNode.put("y", action.getCardAttacker().getY());
-                actionNode.set("cardAttacker", cardAttackerNode);
-
-                cardAttackedNode.put("x", action.getCardAttacked().getX());
-                cardAttackedNode.put("y", action.getCardAttacked().getY());
-                actionNode.set("cardAttacked", cardAttackedNode);
-                actionNode.put("error", "Attacked card is not of type 'Tank'.");
-                output.add(actionNode);
+                addCardActionError(actionNode, action, output, "Attacked card is not of type 'Tank'.");
                 return;
             }
-
         }
 
-        Minions attackerWithAbility = MinionsFactory.createMinion(attackerMinion);
+        Minions attackerWithAbility = SpecialMinionsFactory.createMinion(attackerMinion);
         attackerWithAbility.ability(attackedMinion);
 
         attackerMinion.setHasAttacked(1);
@@ -574,7 +376,6 @@ public class CommandHandler {
 
         cardAttackerNode.put("x", attackerX);
         cardAttackerNode.put("y", attackerY);
-
         actionNode.set("cardAttacker", cardAttackerNode);
 
         if (attackerY >= table.getTable().get(attackerX).size())
@@ -603,7 +404,6 @@ public class CommandHandler {
         if (playerTurn == 0) {
             Hero heroPlayer2 = p2.getHero();
             heroPlayer2.decHealth(attackerMinion.getCard().getAttackDamage());
-
             if (heroPlayer2.getCard().getHealth() <= 0) {
                 gameEndNode.put("gameEnded", "Player one killed the enemy hero.");
                 output.add(gameEndNode);
@@ -612,7 +412,6 @@ public class CommandHandler {
         } else {
             Hero heroPlayer1 = p1.getHero();
             heroPlayer1.decHealth(attackerMinion.getCard().getAttackDamage());
-
             if (heroPlayer1.getCard().getHealth() <= 0) {
                 gameEndNode.put("gameEnded", "Player two killed the enemy hero.");
                 output.add(gameEndNode);
@@ -620,17 +419,12 @@ public class CommandHandler {
 
             }
         }
-
         attackerMinion.setHasAttacked(1);
-
-
-
     }
 
     public void useHeroAbility(ActionsInput action, ObjectNode actionNode, ArrayNode output, Player p1, Player p2, int playerTurn, Table table) {
         actionNode.put("command", action.getCommand());
         actionNode.put("affectedRow", action.getAffectedRow());
-
 
         int affectedRow  = action.getAffectedRow();
 
@@ -665,9 +459,7 @@ public class CommandHandler {
 
             Hero heroAbility = HeroFactory.createHero(heroPlayer1);
             heroAbility.ability(table.getTable().get(affectedRow));
-
             heroPlayer1.setHasAttacked(1);
-
             p1.decMana(heroPlayer1.getCard().getMana());
 
         } else {
@@ -701,10 +493,7 @@ public class CommandHandler {
 
             Hero heroAbility = HeroFactory.createHero(heroPlayer2);
             heroAbility.ability(table.getTable().get(affectedRow));
-
-
             heroPlayer2.setHasAttacked(1);
-
             p2.decMana(heroPlayer2.getCard().getMana());
 
         }
@@ -713,27 +502,14 @@ public class CommandHandler {
     public void getFrozenCardsOnTable(ActionsInput action, ObjectNode actionNode, ArrayNode output,Table table) {
         actionNode.put("command", action.getCommand());
         ArrayNode frozenArray = actionNode.putArray("output");
-
         for (LinkedList<Minions> row : table.getTable()) {
             for (Minions minion : row) {
                 if (minion.getIsFrozen() == 1) {
-                    ObjectNode frozenNode = actionNode.objectNode();
-                    frozenNode.put("mana", minion.getCard().getMana());
-                    frozenNode.put("attackDamage", minion.getCard().getAttackDamage());
-                    frozenNode.put("health", minion.getCard().getHealth());
-                    frozenNode.put("description", minion.getCard().getDescription());
-
-                    ArrayNode colorsArray = frozenNode.putArray("colors");
-                    for (String color : minion.getCard().getColors()) {
-                        colorsArray.add(color);
-                    }
-
-                    frozenNode.put("name", minion.getCard().getName());
+                    ObjectNode frozenNode = createCardNode(actionNode, minion.getCard(), false);
                     frozenArray.add(frozenNode);
                 }
             }
         }
-
         output.add(actionNode);
     }
 
@@ -749,4 +525,35 @@ public class CommandHandler {
         output.add(actionNode);
     }
 
+    private ObjectNode createCardNode(ObjectNode actionNode, CardInput card, boolean isHeroCard) {
+        ObjectNode cardNode = actionNode.objectNode();
+        cardNode.put("mana", card.getMana());
+        cardNode.put("health", card.getHealth());
+        cardNode.put("description", card.getDescription());
+        if (!isHeroCard) {
+            cardNode.put("attackDamage", card.getAttackDamage());
+        }
+        ArrayNode colorsArray = cardNode.putArray("colors");
+        for (String color : card.getColors()) {
+            colorsArray.add(color);
+        }
+        cardNode.put("name", card.getName());
+        return cardNode;
+    }
+
+    private void addCardActionError(ObjectNode actionNode, ActionsInput action, ArrayNode output, String errorMessage) {
+        ObjectNode cardAttackerNode = actionNode.objectNode();
+        cardAttackerNode.put("x", action.getCardAttacker().getX());
+        cardAttackerNode.put("y", action.getCardAttacker().getY());
+        actionNode.set("cardAttacker", cardAttackerNode);
+
+        ObjectNode cardAttackedNode = actionNode.objectNode();
+        cardAttackedNode.put("x", action.getCardAttacked().getX());
+        cardAttackedNode.put("y", action.getCardAttacked().getY());
+        actionNode.set("cardAttacked", cardAttackedNode);
+
+        actionNode.put("command", action.getCommand());
+        actionNode.put("error", errorMessage);
+        output.add(actionNode);
+    }
 }

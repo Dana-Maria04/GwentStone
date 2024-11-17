@@ -18,9 +18,6 @@ public class StartGame {
     private Hand[] hand;
     private ArrayList<ActionsInput> actionsinputs;
     private ObjectMapper mapper = new ObjectMapper();
-    private ArrayNode output = mapper.createArrayNode();
-    private ArrayNode deckNode = mapper.createArrayNode();
-    private int checkIfGameEnded;
     private int winsP1;
     private int winsP2;
     private ArrayList<Cards> deckP1 = new ArrayList<>();
@@ -42,15 +39,11 @@ public class StartGame {
             this.hand[1] = new Hand();
 
             GameStats gameStats = new GameStats();
-
-
             ObjectMapper mapper = new ObjectMapper();
 
             int randSeed = input.getGames().get(i).getStartGame().getShuffleSeed();
-
             int deckIdx1 = input.getGames().get(i).getStartGame().getPlayerOneDeckIdx();
             int deckIdx2 = input.getGames().get(i).getStartGame().getPlayerTwoDeckIdx();
-
 
             StartGameInput startGame = new StartGameInput();
             startGame = input.getGames().get(i).getStartGame();
@@ -58,46 +51,13 @@ public class StartGame {
             deckP1.clear();
             deckP2.clear();
 
-            for (int p1 = 0; p1 < input.getPlayerOneDecks().getNrCardsInDeck(); p1++) {
-                CardInput originalCardInput = input.getPlayerOneDecks().getDecks().get(deckIdx1).get(p1);
-                CardInput copiedCardInput = new CardInput(
-                        originalCardInput.getMana(),
-                        originalCardInput.getAttackDamage(),
-                        originalCardInput.getHealth(),
-                        originalCardInput.getDescription(),
-                        new ArrayList<>(originalCardInput.getColors()),
-                        originalCardInput.getName()
-                );
-                Cards card = new Cards(copiedCardInput);
-                deckP1.add(card);
-            }
-
-            for (int p2 = 0; p2 < input.getPlayerTwoDecks().getNrCardsInDeck(); p2++) {
-                CardInput originalCardInput = input.getPlayerTwoDecks().getDecks().get(deckIdx2).get(p2);
-                CardInput copiedCardInput = new CardInput(
-                        originalCardInput.getMana(),
-                        originalCardInput.getAttackDamage(),
-                        originalCardInput.getHealth(),
-                        originalCardInput.getDescription(),
-                        new ArrayList<>(originalCardInput.getColors()),
-                        originalCardInput.getName()
-                );
-                Cards card = new Cards(copiedCardInput);
-                deckP2.add(card);
-            }
-
-            player[0].setDeck(deckP1);
-            player[1].setDeck(deckP2);
-
-            Collections.shuffle(player[0].getDeck(), new Random(randSeed));
-            Collections.shuffle(player[1].getDeck(), new Random(randSeed));
+            makePlayerDecks(input, deckIdx1, deckP1, player[0], randSeed, true);
+            makePlayerDecks(input, deckIdx2, deckP2, player[1], randSeed, false);
 
             gameStats.setPlayerTurn(startGame.getStartingPlayer() - 1);
 
-
             hand[0].addCard(player[0].getDeck().get(0));
             hand[1].addCard(player[1].getDeck().get(0));
-
 
             player[0].getDeck().remove(0);
             player[1].getDeck().remove(0);
@@ -182,7 +142,31 @@ public class StartGame {
         }
         return output;
     }
+
+    private void makePlayerDecks(Input input, int deckIndex, ArrayList<Cards> playerDeck, Player player, int randSeed, boolean isPlayerOne) {
+        playerDeck.clear();
+        DecksInput decks;
+
+        if (isPlayerOne) {
+            decks = input.getPlayerOneDecks();
+        } else {
+            decks = input.getPlayerTwoDecks();
+        }
+
+        for (int i = 0; i < decks.getNrCardsInDeck(); i++) {
+            CardInput originalCardInput = decks.getDecks().get(deckIndex).get(i);
+            CardInput copiedCardInput = new CardInput(
+                    originalCardInput.getMana(),
+                    originalCardInput.getAttackDamage(),
+                    originalCardInput.getHealth(),
+                    originalCardInput.getDescription(),
+                    new ArrayList<>(originalCardInput.getColors()),
+                    originalCardInput.getName()
+            );
+            Cards card = new Cards(copiedCardInput);
+            playerDeck.add(card);
+        }
+        player.setDeck(playerDeck);
+        Collections.shuffle(player.getDeck(), new Random(randSeed));
+    }
 }
-
-
-

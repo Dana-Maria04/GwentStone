@@ -3,24 +3,24 @@
   "x" : 1,
   "y" : 0,
   "output" : {
-    "name" : "The Ripper",
     "mana" : 3,
-    "attackDamage" : 6,
     "health" : 4,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
-    "colors" : [ "Orange", "Red", "Black" ]
+    "attackDamage" : 6,
+    "colors" : [ "Orange", "Red", "Black" ],
+    "name" : "The Ripper"
   }
 }, {
   "command" : "getCardAtPosition",
   "x" : 3,
   "y" : 0,
   "output" : {
-    "name" : "Berserker",
     "mana" : 1,
-    "attackDamage" : 3,
     "health" : 1,
     "description" : "Premium card: Fear him. Your last breath is now.",
-    "colors" : [ "Red", "Blue", "Pink" ]
+    "attackDamage" : 3,
+    "colors" : [ "Red", "Blue", "Pink" ],
+    "name" : "Berserker"
   }
 }, {
   "command" : "getPlayerTurn",
@@ -30,24 +30,24 @@
   "x" : 3,
   "y" : 0,
   "output" : {
-    "name" : "Berserker",
     "mana" : 1,
-    "attackDamage" : 3,
     "health" : 1,
     "description" : "Premium card: Fear him. Your last breath is now.",
-    "colors" : [ "Red", "Blue", "Pink" ]
+    "attackDamage" : 3,
+    "colors" : [ "Red", "Blue", "Pink" ],
+    "name" : "Berserker"
   }
 }, {
   "command" : "getCardAtPosition",
   "x" : 1,
   "y" : 0,
   "output" : {
-    "name" : "The Ripper",
     "mana" : 3,
-    "attackDamage" : 6,
     "health" : 4,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
-    "colors" : [ "Orange", "Red", "Black" ]
+    "attackDamage" : 6,
+    "colors" : [ "Orange", "Red", "Black" ],
+    "name" : "The Ripper"
   }
 }, {
   "command" : "useHeroAbility",
@@ -68,9 +68,9 @@
   "command" : "getFrozenCardsOnTable",
   "output" : [ {
     "mana" : 1,
-    "attackDamage" : 3,
     "health" : 1,
     "description" : "Premium card: Fear him. Your last breath is now.",
+    "attackDamage" : 3,
     "colors" : [ "Red", "Blue", "Pink" ],
     "name" : "Berserker"
   } ]
@@ -81,37 +81,37 @@
   "command" : "getFrozenCardsOnTable",
   "output" : [ {
     "mana" : 3,
-    "attackDamage" : 6,
     "health" : 3,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
+    "attackDamage" : 6,
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper"
   }, {
     "mana" : 4,
-    "attackDamage" : 4,
     "health" : 4,
     "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
+    "attackDamage" : 4,
     "colors" : [ "Yellow", "Orange", "Red" ],
     "name" : "Miraj"
   }, {
     "mana" : 4,
-    "attackDamage" : 5,
     "health" : 4,
     "description" : "Standard card: Death incarnate. No better time to die than now.",
+    "attackDamage" : 5,
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper"
   }, {
     "mana" : 4,
-    "attackDamage" : 6,
     "health" : 4,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
+    "attackDamage" : 6,
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper"
   }, {
     "mana" : 4,
-    "attackDamage" : 5,
     "health" : 3,
     "description" : "Standard card: Death incarnate. No better time to die than now.",
+    "attackDamage" : 5,
     "colors" : [ "Black", "Yellow" ],
     "name" : "The Ripper"
   } ]
@@ -131,79 +131,79 @@
   "command" : "getCardsOnTable",
   "output" : [ [ {
     "mana" : 2,
-    "attackDamage" : 0,
     "health" : 2,
     "description" : "Standard card: Everything is sacred to him, all is but a gift from the saints.",
+    "attackDamage" : 0,
     "colors" : [ "Yellow", "White" ],
     "name" : "Disciple"
   }, {
     "mana" : 2,
-    "attackDamage" : 2,
     "health" : 2,
     "description" : "Standard card: A drink can always be served, with the blood of his enemies.",
+    "attackDamage" : 2,
     "colors" : [ "Red", "Blue", "Pink" ],
     "name" : "Berserker"
   } ], [ {
     "mana" : 3,
-    "attackDamage" : 6,
     "health" : 4,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
+    "attackDamage" : 6,
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper"
   }, {
     "mana" : 4,
-    "attackDamage" : 5,
     "health" : 4,
     "description" : "Standard card: Death incarnate. No better time to die than now.",
+    "attackDamage" : 5,
     "colors" : [ "Black", "Yellow" ],
     "name" : "The Ripper"
   } ], [ {
     "mana" : 3,
-    "attackDamage" : 6,
     "health" : 3,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
+    "attackDamage" : 6,
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper"
   }, {
     "mana" : 4,
-    "attackDamage" : 4,
     "health" : 4,
     "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
+    "attackDamage" : 4,
     "colors" : [ "Yellow", "Orange", "Red" ],
     "name" : "Miraj"
   }, {
     "mana" : 4,
-    "attackDamage" : 5,
     "health" : 4,
     "description" : "Standard card: Death incarnate. No better time to die than now.",
+    "attackDamage" : 5,
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper"
   }, {
     "mana" : 4,
-    "attackDamage" : 6,
     "health" : 4,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
+    "attackDamage" : 6,
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper"
   }, {
     "mana" : 4,
-    "attackDamage" : 5,
     "health" : 3,
     "description" : "Standard card: Death incarnate. No better time to die than now.",
+    "attackDamage" : 5,
     "colors" : [ "Black", "Yellow" ],
     "name" : "The Ripper"
   } ], [ {
     "mana" : 1,
-    "attackDamage" : 3,
     "health" : 1,
     "description" : "Premium card: Fear him. Your last breath is now.",
+    "attackDamage" : 3,
     "colors" : [ "Red", "Blue", "Pink" ],
     "name" : "Berserker"
   }, {
     "mana" : 2,
-    "attackDamage" : 3,
     "health" : 2,
     "description" : "Premium card: Fear him. Your last breath is now.",
+    "attackDamage" : 3,
     "colors" : [ "Red", "Blue", "Pink" ],
     "name" : "Berserker"
   } ] ]

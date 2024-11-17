@@ -2,9 +2,8 @@ package gameutils.cardsinfo.minions;
 
 import gameutils.cardsinfo.Cards;
 import gameutils.cardsinfo.Minions;
-import gameutils.cardsinfo.minions.*;
 
-public class MinionsFactory {
+public class SpecialMinionsFactory {
     public static Minions createMinion(Cards card) {
         String name = card.getCard().getName();
 
