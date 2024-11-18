@@ -1,30 +1,43 @@
 package gameutils.cardsinfo.heroes;
 
-import fileio.CardInput;
 import gameutils.cardsinfo.Cards;
 import gameutils.cardsinfo.Minions;
 
 import java.util.LinkedList;
 
+/**
+ * Represents the hero Empress Thorina with the special ability "Low Blow."
+ */
 public class EmpressThorina extends Hero {
-    public EmpressThorina(Cards card) {
+
+    /**
+     * Constructs a new Empress Thorina hero
+     *
+     * @param card the card containing the hero's details
+     */
+    public EmpressThorina(final Cards card) {
         super(card);
     }
 
+    /**
+     * Applies the hero's "Low Blow" ability to a specified row of minions.
+     * This ability removes the minion with the highest health from the row
+     *
+     * @param minionsRow the row of minions to which the ability will be applied
+     */
     @Override
-    public void ability(LinkedList<Minions> minionsRow) {
-        //LowBlow
-        Minions minionsMaxHealth = minionsRow.get(0); // get the first element
-        int copyIdx = 0;
-        int idx = 0;
+    public void ability(final LinkedList<Minions> minionsRow) {
+        Minions minionsMaxHealth = minionsRow.getFirst(); // Start with the first minion
+        int maxHealthIdx = 0;
+        int currentIdx = 0;
 
         for (Minions minions : minionsRow) {
             if (minions.getCard().getHealth() > minionsMaxHealth.getCard().getHealth()) {
-                minionsMaxHealth = minions; // compare health with the first element
-                copyIdx = idx; // update the max health index of the minion
+                minionsMaxHealth = minions; // Update max health minion
+                maxHealthIdx = currentIdx; // Update index of max health minion
             }
-            idx++;
+            currentIdx++;
         }
-        minionsRow.remove(copyIdx);
+        minionsRow.remove(maxHealthIdx); // Remove the minion with the highest health
     }
 }
