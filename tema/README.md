@@ -1,42 +1,90 @@
+#### Copyright © 2024 Caruntu Dana-Maria 321CAa
 
+### Overview:
+This project simulates a turn-based card game combining elements from
+HearthStone and Gwent. Two players compete using custom decks of cards,
+taking turns to play cards, attack, or use special abilities. The game
+ends when one player's hero is defeated.
 
-# Tema POO  - GwentStone
+### Project Structure:
+#### Packages:
 
-<div align="center"><img src="https://tenor.com/view/witcher3-gif-9340436.gif" width="500px"></div>
+The **gameutils** package contains core game classes, while related
+classes are grouped into sub-packages like **cardsinfo**:
 
-#### Assignment Link: [https://ocw.cs.pub.ro/courses/poo-ca-cd/teme/tema](https://ocw.cs.pub.ro/courses/poo-ca-cd/teme/tema)
+- **heroes package**: Implements the heroes (e.g., General Kocioraw,
+  Empress Thorina) using a Factory Design Pattern and Singleton for
+  unique hero instances.
 
+- **minions package**: Implements the minions (e.g. Disciple, The
+  Ripper). The Factory Pattern is used for special minions, while
+  others are handled by the **Minion** class.
 
-## Skel Structure
+#### Classes:
+- **StartGame**: Handles game initialization and game loop logic,
+  executing commands from **ActionsInput**.
 
-* src/
-  * checker/ - checker files
-  * fileio/ - contains classes used to read data from the json files
-  * main/
-      * Main - the Main class runs the checker on your implementation. Add the entry point to your implementation in it. Run Main to test your implementation from the IDE or from command line.
-      * Test - run the main method from Test class with the name of the input file from the command line and the result will be written
-        to the out.txt file. Thus, you can compare this result with ref.
-* input/ - contains the tests in JSON format
-* ref/ - contains all reference output for the tests in JSON format
+- **CommandHandler**: Processes commands and writes game output to JSON.
+  Handles methods like `getPlayerDeck`, `placeCard`, and `useHeroAbility`.
 
-## Tests
+- **GameStats**: Tracks game statistics, including player turns,
+  round count, and turn cycle, which are essential for multiple games.
 
-1. test01_game_start - 4p
-2. test02_place_card - 5p
-3. test03_place_card_invalid - 5p
-4. test06_attack_card - 5p
-5. test07_attack_card_invalid - 5p
-6. test08_use_card_ability - 5p
-7. test09_use_card_ability_invalid - 5p
-8. test10_attack_hero - 5p
-9. test11_attack_hero_invalid - 5p
-10. test12_use_hero_ability_1 - 4p
-11. test13_use_hero_ability_2 - 4p
-12. test14_use_hero_ability_invalid_1 - 4p
-13. test15_use_hero_ability_invalid_2 - 4p
-14. test16_multiple_games_valid - 5p
-15. test17_multiple_games_invalid - 5p
-16. test18_big_game - 10p
+- **GameConstants**: Defines constants like `MAX_HEALTH`, `START_MANA`,
+  `NUM_ROWS`, and `NUM_CARDS`.
 
+- **Hand**: Represents a player's hand, holding cards available to play.
+  It has methods like `addCard`, `removeCard`, and `getHand`. An
+  `ArrayList` is used to allow easy shifting of elements when cards
+  are added or removed.
 
-<div align="center"><img src="https://tenor.com/view/homework-time-gif-24854817.gif" width="500px"></div>
+- **Table**: Manages minions on the board using an `ArrayList` of
+  `LinkedLists` for easy card placement/removal. This structure
+  allows automatic shifting of elements when minions are added or
+  removed. Implements methods like `verifyTankOnRow` to ensure tanks
+  are attacked first.
+
+- **Player**: Represents a player, containing mana, deck, hero, and
+  wins. Includes methods like `updateMana` (limits mana to 10 max)
+  and `incWinCnt`.
+
+- **Minion**: Represents a minion card, with fields for health,
+  attack status, and frozen status. Includes `verifyIfTank` to
+  check for tank type and an `ability` method for special minions.
+
+  Special minions include:
+    - **Disciple**: Increases minion health.
+    - **Miraj**: Swaps its health with another minion.
+    - **The Cursed One**: Swaps attack and health of another minion.
+    - **The Ripper**: Decreases attack of other minions.
+
+- **Cards**: Represents a general card, using `CardInput` to store
+  attributes, inherited by **Minion** and **Hero** classes.
+
+- **Hero**: Represents a hero, extending **Cards**. It tracks whether
+  the hero has used its ability, and includes an overridden `ability`
+  method for special heroes.
+
+  Heroes include:
+    - **General Kocioraw**: Increases minion attack.
+    - **Empress Thorina**: Destroys the card with the highest health.
+    - **King Mudface**: Increases minion health.
+    - **Lord Royce**: Freezes opponent minions.
+
+### OOP Concepts Used:
+- Inheritance
+- Polymorphism
+- Encapsulation
+- Interfaces
+- Design Patterns: Factory, Singleton
+- Wrapper Classes (e.g., Integer)
+- Composition
+- Aggregation
+- Packages
+- Exception Handling
+- Method Overriding
+- Final Classes/Methods/Variables
+
+### Resources Used:
+- [Refactoring Guru](https://refactoring.guru/)
+- [OCW - POO-CA-CD](https://ocw.cs.pub.ro/courses/poo-ca-cd)
